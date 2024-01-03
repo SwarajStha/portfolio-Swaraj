@@ -2,7 +2,7 @@ import HtmlReactParser from "html-react-parser";
 
 const WorkItem = ({ year, title, company, duration, details }) => {
   return (
-    <ol className="flex flex-col relative md:flex-row border-1 border-stone-200">
+    <ol className="flex flex-col relative md:flex-row border-1 border-stone-200 pt-10">
       <li className="mb-10 ml-4">
         <div className="absolute w-3 h-3 bg-stone-200 rounded-full mt-1.5 -left-1.5 border-white" />
         <p className="flex flex-wrap gap-4 flex-row items-center justify-start text-xs md:text-sm">
