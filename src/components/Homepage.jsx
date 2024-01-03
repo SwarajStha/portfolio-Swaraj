@@ -1,6 +1,8 @@
 import { TypeAnimation } from "react-type-animation";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 
+import ResumeButton from "./ResumeButton";
+
 const Homepage = () => {
   return (
     <div id="homepage">
@@ -39,16 +41,24 @@ const Homepage = () => {
           <div className="flex justify-between pt-6 max-w-[100px] w-full">
             {/* LinkedIn */}
             <a
-              href="https://www.linkedin.com/in/swaraj-shrestha-0b7a5a1b0/"
+              href="https://www.linkedin.com/in/swaraj-shrestha/"
               target="_blank"
               rel="noreferrer"
             >
-              <FaLinkedinIn className = "cursor-pointer" size = {25}/>
+              <FaLinkedinIn className="cursor-pointer" size={25} />
             </a>
             {/* GitHub */}
-            <a href="">
-                <FaGithub className = "cursor-pointer" size = {25}/>
+            <a
+              href="https://github.com/SwarajStha"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaGithub className="cursor-pointer" size={25} />
             </a>
+          </div>
+          <div className = "flex pt-8">
+            {/* Resume */}
+            <ResumeButton />
           </div>
         </div>
       </div>

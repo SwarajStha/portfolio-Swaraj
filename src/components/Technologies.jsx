@@ -73,8 +73,8 @@ const Technologies = () => {
             <div className="flex sm:text-2xl text-l text-gray-800 justify-center">
               <h3 className="text-center">I have experience working with</h3>
             </div>
-            <div className="item-center">
-              <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8">
+            <div className="ml-5 item-center">
+              <div className="mr-5 pr-4 w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8">
                 <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                   <img className="w-15 mx-auto pt-2" src={SQL} alt="SQL icon" />
                   <p className="my-4">SQL</p>
@@ -96,10 +96,10 @@ const Technologies = () => {
           </div>
           <div className="flex flex-col mr-5 pl-5">
             <div className="pl-10 ml-5 flex sm:text-2xl text-l text-gray-800 justify-center">
-              <h3 className="text-center">Frameworks I have experience with</h3>
+              <h3 className="text-center pl-1">Frameworks I have experience with</h3>
             </div>
-            <div className="item-center">
-              <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8">
+            <div className="mr-10 item-center">
+              <div className="mr-10 pr-4 w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8">
                 <div>
                 </div>
                 <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
@@ -123,13 +123,13 @@ const Technologies = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 w-full py-8">
+        <div className="grid md:grid-cols-2 gap-4 w-full">
           <div className="flex flex-col mr-5 pl-5">
             <div className="flex sm:text-2xl text-l pt-4 text-gray-800 justify-center">
               <h3 className="text-center">Productivity Tools I use</h3>
             </div>
-            <div className="item-center">
-              <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8">
+            <div className="ml-5 item-center">
+              <div className="mr-5 pr-4 w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8">
                 <div className="pl-1 pr-1 shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                   <img
                     className="w-15 mx-auto pt-2"
@@ -162,8 +162,8 @@ const Technologies = () => {
             <div className="pl-10 ml-10 flex sm:text-2xl text-l pt-4 text-gray-800 justify-center">
               <h3 className="text-center">OS I have experience in</h3>
             </div>
-            <div className="item-center justify-center">
-              <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8 justify-center item-center">
+            <div className="mr-10 item-center justify-center">
+              <div className="mr-10 pr-4 w-full grid grid-cols-2 sm:grid-cols-3 gap-6 text-center py-8 justify-center item-center">
                 <div></div>
                 <div className="pl-1 pr-1 shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                   <img

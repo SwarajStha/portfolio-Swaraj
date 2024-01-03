@@ -18,12 +18,12 @@ const Education = () => {
               </span>
             </p>
             <p className="flex flex-wrap gap-4 flex-row items-center justify-start text-xs md:text-sm">
-              <span className="my-1 text-base font-normal leading-none text-stone-400">
+              <span className="my-1 text-base font-normal leading-none text-stone-500">
                 Saint Mary’s University, Halifax NS
               </span>
             </p>
             <p className="flex flex-wrap gap-4 flex-row items-center justify-start text-xs md:text-sm">
-              <span className="my-1 text-base font-normal leading-none text-stone-400">
+              <span className="my-1 text-base font-normal leading-none text-stone-500">
                 Co-operative Education Program
               </span>
             </p>
