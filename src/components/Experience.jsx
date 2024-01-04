@@ -83,12 +83,9 @@ const Experience = () => {
       className="bg-scroll"
       style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
     >
-      <div className="bg-white/50 pt-5">
-        <div
-          id="experience"
-          className="max-w-[1000px] m-auto md:pl-20 p-4 py-16 border bg-white"
-        >
-          <h1 className="bg-gray-300 py-4 text-4xl font-bold text-center text-black pt-12 justify-center item-center pb-10">
+      <div id="experience" className="bg-white/50 pt-5">
+        <div className="pt-5 bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
+          <h1 className="bg-gray-300 py-4 text-4xl font-bold text-center text-black pt-12 justify-center item-center pb-10 mb-5 item-center">
             EXPERIENCE
           </h1>
           {data.map((item, idx) => (

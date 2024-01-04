@@ -29,10 +29,10 @@ const Technologies = () => {
             TECHNOLOGIES
           </h1>
           <div className="flex sm:text-2xl text-l text-gray-800 justify-left pt-8">
-            <h3 className="text-center">I have proficiently worked with</h3>
+            <h3 className="text-center mx-3">I have proficiently worked with</h3>
           </div>
           <div className="item-center">
-            <div className="w-full grid grid-cols-2 sm:grid-cols-6 gap-3 text-center py-8">
+            <div className="mx-3 pr-6 w-full grid grid-cols-2 sm:grid-cols-6 gap-3 text-center py-8">
               <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                 <img
                   className="w-15 mx-auto pt-2"

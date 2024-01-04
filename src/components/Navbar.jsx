@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { AiOutlineHome, AiOutlineMenu, AiOutlineMail } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineMenu, AiOutlineProject } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { GrProjects } from "react-icons/gr";
-import { MdWorkOutline } from "react-icons/md";
 import { FaCode } from "react-icons/fa";
-import { TbSchool } from "react-icons/tb";
+import { PiGraduationCap } from "react-icons/pi";
+import { BsBriefcase } from "react-icons/bs";
 
 const Navbar = () => {
   // State to control the visibility of the navigation menu
@@ -49,7 +49,7 @@ const Navbar = () => {
                             bg-shadow-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
             onClick={() => setNav(false)}
           >
-            <TbSchool size={20} />
+            <PiGraduationCap size={20} />
             <span className="pl-4">Education</span>
           </a>
 
@@ -71,7 +71,7 @@ const Navbar = () => {
                             bg-shadow-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
             onClick={() => setNav(false)}
           >
-            <MdWorkOutline size={20} />
+            <BsBriefcase size={20} />
             <span className="pl-4">Experiential Learning</span>
           </a>
 
@@ -86,26 +86,26 @@ const Navbar = () => {
             <span className="pl-4">Projects</span>
           </a>
 
-          {/* Resume */}
+          {/* Volunteer */}
           <a
-            href="#resume"
+            href="#volunteer"
+            className="w-[75%] flex justify-center items-center rounded-full shadow-lg
+                            bg-shadow-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
+            onClick={() => setNav(false)}
+          >
+            <AiOutlineProject size={20} />
+            <span className="pl-4">Volunteer</span>
+          </a>
+
+          {/* About */}
+          <a
+            href="#about"
             className="w-[75%] flex justify-center items-center rounded-full shadow-lg
                             bg-shadow-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
             onClick={() => setNav(false)}
           >
             <BsPerson size={20} />
-            <span className="pl-4">Resume</span>
-          </a>
-
-          {/* Contact */}
-          <a
-            href="#contact"
-            className="w-[75%] flex justify-center items-center rounded-full shadow-lg
-                            bg-shadow-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
-            onClick={() => setNav(false)}
-          >
-            <AiOutlineMail size={20} />
-            <span className="pl-4">Contact</span>
+            <span className="pl-4">About</span>
           </a>
         </div>
       ) : null}
@@ -121,7 +121,7 @@ const Navbar = () => {
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <AiOutlineHome size={30} />
+            <AiOutlineHome size={40} />
           </a>
 
           {/* Education */}
@@ -131,7 +131,7 @@ const Navbar = () => {
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <TbSchool size={30} />
+            <PiGraduationCap size={40} />
           </a>
 
           {/* Technologies */}
@@ -141,7 +141,7 @@ const Navbar = () => {
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <FaCode size={30} />
+            <FaCode size={40} />
           </a>
 
           {/* Experience*/}
@@ -151,7 +151,7 @@ const Navbar = () => {
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <MdWorkOutline size={30} />
+            <BsBriefcase size={40} />
           </a>
 
           {/* Projects */}
@@ -161,27 +161,27 @@ const Navbar = () => {
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <GrProjects size={30} />
+            <GrProjects size={40} />
           </a>
 
-          {/* Resume */}
+          {/* Volunteer */}
           <a
-            href="#resume"
-            title="Resume"
+            href="#volunteer"
+            title="Volunteer"
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <BsPerson size={30} />
+            <AiOutlineProject size={40} />
           </a>
 
-          {/* Contact */}
+          {/* About */}
           <a
-            href="#contact"
-            title="Contact"
+            href="#about"
+            title="About"
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <AiOutlineMail size={30} />
+            <BsPerson size={40} />
           </a>
         </div>
       </div>
