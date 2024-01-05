@@ -1,30 +1,54 @@
+import ProfilePic from "../assets/Profile.jpg";
+
 const Contact = () => {
   return (
     <div
       className="bg-scroll"
-      style={{ backgroundImage: "url(/backgroundPPcropped.jpg)" }}
+      style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
     >
-      <div id="about" className="bg-white/50 pt-5 pb-5">
+      <div id="about" className="bg-white/40 pt-5 pb-10">
         <div className="bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
           <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pb-5">
             ABOUT
           </h1>
-          <div className="ml-10 pl-10 max-w-[850px] pt-4 text-justify item-center">
-            <p className="pt-5 my-2 text-base font-normal text-black text-justify leading-relaxed">
-              Dedicated, motivated, and diligent 4th year Bachelor of Computing
-              Science and Business Administration student with strong technical
-              and organizational skills polished through working in multiple
-              computer science and research projects. Highly focused while
-              ensuring all tasks are completed within short timelines,
-              guaranteeing delivery of accurate and high-quality work.
-            </p>
-            <p className="pt-3 my-2 text-base font-normal text-black text-justify leading-relaxed">
-              Passionate about contributing effectively to team projects. Proven
-              good written and oral communication skills based on multiple
-              essays and presentations given. Enhances the productivity of
-              organizations through designing of programs that increases
-              accessibility, effectiveness, and efficiencies for end users.
-            </p>
+          <div className="grid md:grid-cols-2 ml-10 pl-10 max-w-[850px] pt-4 text-justify item-center gap-4">
+            <div className="pt-9 flex flex-col mr-5">
+              {/* Profile Picture*/}
+              <img
+                src={ProfilePic}
+                alt="Profile"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div className="flex flex-col mr-5">
+              <p className="pt-5 my-2 text-base font-normal text-black text-justify leading-relaxed">
+                Dedicated, motivated, and diligent 4th year Bachelor of
+                Computing Science and Business Administration student with
+                strong technical and organizational skills polished through
+                working in multiple computer science and research projects.
+                Highly focused while ensuring all tasks are completed within
+                short timelines, guaranteeing delivery of accurate and
+                high-quality work.
+              </p>
+              <p className="pt-3 my-2 text-base font-normal text-black text-justify leading-relaxed">
+                Passionate about contributing effectively to team projects.
+                Proven good written and oral communication skills based on
+                multiple essays and presentations given. Enhances the
+                productivity of organizations through designing of programs that
+                increases accessibility, effectiveness, and efficiencies for end
+                users.
+              </p>
+              <p className="pt-3 my-2 text-base font-normal text-black text-justify leading-relaxed">
+                <strong>Highlighted Skills</strong>
+                <ol>
+                  <li>• Efficient Problem-solver</li>
+                  <li>• Interpersonal</li>
+                  <li>• Analytical</li>
+                  <li>• Time-management</li>
+                  <li>• Proven Work Ethics</li>
+                </ol>
+              </p>
+            </div>
           </div>
 
           <div className="mt-10 bg-white max-w-[850px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">

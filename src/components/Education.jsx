@@ -4,7 +4,7 @@ const Education = () => {
       className="bg-scroll"
       style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
     >
-      <div id="education" className="bg-white/50 pt-5">
+      <div id="education" className="bg-white/40 pt-5">
         <div className="bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center border">
           <div>
             <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pt-12 justify-center item-center pb-10">

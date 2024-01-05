@@ -9,9 +9,9 @@ const Projects = () => {
   return (
     <div
       className="bg-scroll"
-      style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
+      style={{ backgroundImage: "url(/backgroundPPcropped.jpg)" }}
     >
-      <div id="projects" className="bg-white/50 pt-5">
+      <div id="projects" className="bg-white/40 pt-5">
         <div className="pt-5 bg-white max-w-[1000px] m-auto p-4 py-16 justify-center item-center h-full w-full flex flex-col">
           <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pt-12 justify-center item-center pb-10 mb-5 item-center">
             PROJECTS
@@ -32,7 +32,7 @@ const Projects = () => {
             />
             <ProjectItem
               img={PortfolioImg}
-              title="Online Portfolio"
+              title="Online Portfolio (continuously developed)"
               link="https://github.com/SwarajStha/portfolio-Swaraj"
             />
           </div>

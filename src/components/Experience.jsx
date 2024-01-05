@@ -83,7 +83,7 @@ const Experience = () => {
       className="bg-scroll"
       style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
     >
-      <div id="experience" className="bg-white/50 pt-5">
+      <div id="experience" className="bg-white/40 pt-5">
         <div className="pt-5 bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
           <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pt-12 justify-center item-center pb-10 mb-5 item-center">
             EXPERIENCE
