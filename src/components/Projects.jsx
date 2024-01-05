@@ -1,9 +1,4 @@
 import ProjectItem from "./ProjectItem";
-import ConservationImg from "../assets/conservation-site.png";
-import FaceImg from "../assets/face(1).png";
-import ClassPhotoImg from "../assets/KotlinApp.jpg";
-import MiqmaqImg from "../assets/miqmaq(1).png";
-import PortfolioImg from "../assets/portfolio-Swaraj.png";
 
 const Projects = () => {
   return (
@@ -21,17 +16,17 @@ const Projects = () => {
           </div>
           <div className="ml-5 mr-5 grid sm:grid-cols-3 gap-9">
             <ProjectItem
-              img={ClassPhotoImg}
+              img="images/KotlinApp.jpg"
               title="Class Photo Scheduler (in progress)"
               link=""
             />
             <ProjectItem
-              img={FaceImg}
+              img="images/face(1).png"
               title="Online Class Face-Tracker"
               link="https://github.com/SwarajStha/faceTrack"
             />
             <ProjectItem
-              img={PortfolioImg}
+              img="images/portfolio-Swaraj.png"
               title="Online Portfolio (continuously developed)"
               link="https://github.com/SwarajStha/portfolio-Swaraj"
             />
@@ -41,12 +36,12 @@ const Projects = () => {
           </div>
           <div className="ml-10 mr-10 grid sm:grid-cols-2 gap-12">
             <ProjectItem
-              img={ConservationImg}
+              img="images/conservation-site.png"
               title="St. Margaret's Bay Area - Conservation Site"
               link="https://github.com/SwarajStha/conservation-site"
             />
             <ProjectItem
-              img={MiqmaqImg}
+              img="images/miqmaq(1).png"
               title="Mi'kmaq Language Game"
               link=""
             />

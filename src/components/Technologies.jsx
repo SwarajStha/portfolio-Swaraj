@@ -1,20 +1,3 @@
-import Python from "../assets/Python.png";
-import Java from "../assets/Java.png";
-import VB from "../assets/VB.png";
-import Kotlin from "../assets/KotlinV2.png";
-import JavaScript from "../assets/JavascriptV2.png";
-import ReactL from "../assets/reactL.png";
-import HTML from "../assets/html.png";
-import CSS from "../assets/css-3.png";
-import Tailwind from "../assets/TailwindV2.png";
-import Bootstrap from "../assets/bootstrap.png";
-import SQL from "../assets/database.png";
-import Windows from "../assets/windows.png";
-import Linux from "../assets/linux.png";
-import Git from "../assets/github.png";
-import Office from "../assets/office.png";
-import Google from "../assets/google.png";
-
 const Technologies = () => {
   // const techArray = [Python, Java, C, Cpp, VB, Kotlin, LISP, JavaScript, ReactL, HTML, CSS, Tailwind, Bootstrap, SQL, Windows, Linux, Git, Office, Google];
 
@@ -29,14 +12,16 @@ const Technologies = () => {
             TECHNOLOGIES
           </h1>
           <div className="flex sm:text-2xl text-l text-gray-800 justify-left pt-8">
-            <h3 className="text-center mx-3">I have proficiently worked with</h3>
+            <h3 className="text-center mx-3">
+              I have proficiently worked with
+            </h3>
           </div>
           <div className="item-center">
             <div className="mx-3 pr-6 w-full grid grid-cols-2 sm:grid-cols-6 gap-3 text-center py-8">
               <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                 <img
                   className="w-15 mx-auto pt-2"
-                  src={Python}
+                  src="images/Python.png"
                   alt="Python icon"
                 />
                 <p className="my-4">Python</p>
@@ -44,40 +29,40 @@ const Technologies = () => {
               <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                 <img
                   className="w-15 mx-auto pt-2"
-                  src={Java}
-                  alt="Python icon"
+                  src="images/java.png"
+                  alt="Java icon"
                 />
                 <p className="my-4">Java</p>
               </div>
               <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                 <img
                   className="w-15 mx-auto pt-2"
-                  src={JavaScript}
-                  alt="Python icon"
+                  src="images/JavascriptV2.png"
+                  alt="JavaScript icon"
                 />
                 <p className="my-4">JavaScript</p>
               </div>
               <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                 <img
                   className="w-15 mx-auto pt-2"
-                  src={HTML}
-                  alt="Python icon"
+                  src="images/html.png"
+                  alt="HTML icon"
                 />
                 <p className="my-4">HTML</p>
               </div>
               <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                 <img
                   className="w-15 mx-auto pt-2"
-                  src={CSS}
-                  alt="Python icon"
+                  src="images/css-3.png"
+                  alt="CSS icon"
                 />
                 <p className="my-4">CSS</p>
               </div>
               <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                 <img
                   className="w-15 mx-auto pt-2"
-                  src={ReactL}
-                  alt="Python icon"
+                  src="images/reactL.png"
+                  alt="React icon"
                 />
                 <p className="my-4">React.js</p>
               </div>
@@ -94,19 +79,23 @@ const Technologies = () => {
                   <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={SQL}
+                      src="images/database.png"
                       alt="SQL icon"
                     />
                     <p className="my-4">SQL</p>
                   </div>
                   <div className="pl-1 pr-1 shadow-md shadow-[#040c16] hover:scale-110 duration-500">
-                    <img className="w-15 mx-auto pt-2" src={VB} alt="VB icon" />
+                    <img
+                      className="w-15 mx-auto pt-2"
+                      src="images/VB.png"
+                      alt="VB icon"
+                    />
                     <p className="my-4 pt-2">VB.NET</p>
                   </div>
                   <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Kotlin}
+                      src="images/kotlinV2.png"
                       alt="Kotlin icon"
                     />
                     <p className="my-4">Kotlin</p>
@@ -126,7 +115,7 @@ const Technologies = () => {
                   <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Tailwind}
+                      src="images/TailwindV2.png"
                       alt="Tailwind icon"
                     />
                     <p className="my-4">Tailwind CSS</p>
@@ -134,7 +123,7 @@ const Technologies = () => {
                   <div className="pl-1 pr-1 shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Bootstrap}
+                      src="images/bootstrap.png"
                       alt="Bootstrap icon"
                     />
                     <p className="my-4 pt-2">Bootstrap</p>
@@ -154,7 +143,7 @@ const Technologies = () => {
                   <div className="pl-1 pr-1 shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Git}
+                      src="images/github.png"
                       alt="Github icon"
                     />
                     <p className="my-4 pt-2">Github</p>
@@ -162,7 +151,7 @@ const Technologies = () => {
                   <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Office}
+                      src="images/office.png"
                       alt="MS Office icon"
                     />
                     <p className="my-4">MS Office</p>
@@ -170,7 +159,7 @@ const Technologies = () => {
                   <div className="pl-1 pr-1 shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Google}
+                      src="images/google.png"
                       alt="Google Suite icon"
                     />
                     <p className="my-4 pt-2">Google Suite</p>
@@ -189,7 +178,7 @@ const Technologies = () => {
                   <div className="pl-1 pr-1 shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Windows}
+                      src="images/windows.png"
                       alt="Windows icon"
                     />
                     <p className="my-4 pt-2">Windows</p>
@@ -197,7 +186,7 @@ const Technologies = () => {
                   <div className="shadow-md shadow-[#040c16] hover:scale-110 duration-500">
                     <img
                       className="w-15 mx-auto pt-2"
-                      src={Linux}
+                      src="images/linux.png"
                       alt="Linux icon"
                     />
                     <p className="my-4">Linux</p>

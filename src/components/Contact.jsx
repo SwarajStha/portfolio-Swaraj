@@ -1,4 +1,3 @@
-import ProfilePic from "../assets/Profile.jpg";
 
 const Contact = () => {
   return (
@@ -15,7 +14,7 @@ const Contact = () => {
             <div className="pt-9 flex flex-col mr-5">
               {/* Profile Picture*/}
               <img
-                src={ProfilePic}
+                src="images/Profile.jpg"
                 alt="Profile"
                 className="w-full h-full object-cover rounded-lg"
               />
