@@ -7,7 +7,7 @@ const Education = () => {
       <div id="education" className="bg-white/50 pt-5">
         <div className="bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center border">
           <div>
-            <h1 className="bg-gray-300 py-4 text-4xl font-bold text-center text-black pt-12 justify-center item-center pb-10">
+            <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pt-12 justify-center item-center pb-10">
               EDUCATION
             </h1>
             <div className="pl-6 pt-4">
@@ -31,7 +31,7 @@ const Education = () => {
                   Co-operative Education Program
                 </span>
               </p>
-              <p className="my-2 text-base dont-normal text-black">
+              <p className="my-2 text-base font-normal text-black">
                 <ul className="list-disc list-inside text-black-500">
                   <li>CGPA - 4.25 / 4.30 (A+)</li>
                   <li>

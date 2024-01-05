@@ -21,7 +21,7 @@ const WorkItem = ({ year, title, company, duration, details }) => {
             {year}
           </span>
         </p>
-        <p className="my-2 text-base dont-normal text-black">
+        <p className="my-2 text-base font-normal text-black">
           {HtmlReactParser(details)}
         </p>
       </li>

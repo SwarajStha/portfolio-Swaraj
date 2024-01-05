@@ -61,7 +61,7 @@ const Navbar = () => {
             onClick={() => setNav(false)}
           >
             <FaCode size={20} />
-            <span className="pl-4">Experience</span>
+            <span className="pl-4">Technologies</span>
           </a>
 
           {/* Experience */}
@@ -72,7 +72,7 @@ const Navbar = () => {
             onClick={() => setNav(false)}
           >
             <BsBriefcase size={20} />
-            <span className="pl-4">Experiential Learning</span>
+            <span className="pl-4">Experience</span>
           </a>
 
           {/* Projects */}
