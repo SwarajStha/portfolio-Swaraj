@@ -5,10 +5,10 @@ const data = [
     year: "January 2024",
     title: "Database Developer",
     duration: "Present",
-    company: "Canadian Border Services Agency (CBSA)",
+    company: "Canada Border Services Agency (CBSA)",
     details:
-      "• Starting January 8 for second co-op term. <br>• Will work alongside the Division's Regional Business Planing Manager to design and develop database. " +
-      "<br>• Create input screens, user manuels, queries, reports and implement data visualization tools to facilitate data analysis and reporting. " +
+      "• Working alongside the Division's Regional Business Planing Manager to design and develop database. " +
+      "<br>• Create input screens, user manuals, queries, reports and implement data visualization tools to facilitate data analysis and reporting. " +
       "<br>• Details to be updated.",
   },
 
