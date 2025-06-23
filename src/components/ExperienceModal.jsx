@@ -1,7 +1,10 @@
-import Modal from "react-modal";
-import { FaTimes } from "react-icons/fa";
+// src/components/ExperienceModal.jsx
 
-// Styles for the modal
+import Modal from "react-modal";
+// We'll use FaTimes and FaExternalLinkAlt from react-icons
+import { FaTimes, FaExternalLinkAlt } from "react-icons/fa";
+
+// Styles for the modal (no changes here)
 const customStyles = {
   content: {
     top: '50%',
@@ -52,10 +55,28 @@ const ExperienceModal = ({ isOpen, onRequestClose, experience }) => {
         
         <div className="border-t border-gray-700 my-6"></div>
         
+        {/* THIS IS THE UPGRADED LOGIC */}
         <ul className="list-disc list-inside space-y-3 text-gray-400">
-          {experience.details.map((point, index) => (
-            <li key={index}>{point}</li>
-          ))}
+          {experience.details.map((point, index) => {
+            // Check if the point is an object with a link property
+            if (typeof point === 'object' && point.link) {
+              return (
+                <li key={index}>
+                  <a 
+                    href={point.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-2 text-cyan-400 hover:underline hover:text-cyan-300 transition-colors"
+                  >
+                    {point.text}
+                    <FaExternalLinkAlt size={12} />
+                  </a>
+                </li>
+              );
+            }
+            // Otherwise, render it as plain text
+            return <li key={index}>{point}</li>;
+          })}
         </ul>
       </div>
     </Modal>

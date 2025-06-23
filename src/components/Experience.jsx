@@ -10,6 +10,7 @@ const experienceData = [
     title: "Database Developer",
     duration: "4 month Co-op + transitioned to termed position post-graduation",
     company: "Canada Border Services Agency (CBSA)",
+    country: "Halifax, NS, Canada",
     details: [
       "Languages used: VBA and SQL",
       "Developed robust database that has demonstrated remarkable success in streamlining data input processes, enhancing user interfaces, fortifying data integrity, whilst decreasing the number of separate files required from 14 to 2.",
@@ -21,6 +22,7 @@ const experienceData = [
     title: "Teacher's Assistant - Programming & Problem Solving",
     duration: "3 Academic Semesters",
     company: "Saint Mary's University",
+    country: "Halifax, NS, Canada",
     details: [
       "Advanced Computer Programming and Problem-Solving (January 2024 – April 2024); Introduction to Computers and Programming	(September 2023 – December 2023, September 2022 – December 2022)",
       "Evaluated and debugged student-generated code in Java, enhancing my expertise in algorithms.",
@@ -33,6 +35,7 @@ const experienceData = [
     title: "SMUworks Program Administrator",
     duration: "Co-op + continued on part-time basis",
     company: "Saint Mary's University",
+    country: "Halifax, NS, Canada",
     details: [
       "Organized, examined, and analyzed data for the SMUworks program to draw conclusions regarding trends.",
       "Part of the SMUworks Steering Committee to advocate for the students’ side and based on past SMUworks records.",
@@ -45,6 +48,7 @@ const experienceData = [
     title: "Residence Assistant",
     duration: "2 Academic Years",
     company: "Saint Mary's University",
+    country: "Halifax, NS, Canada",
     details: [
       "Improved leadership skills by disseminating information by updating the residents (22-floor members (2022), 35-floor members (2023)) on the most current information regarding the university and the facilities available, organizing floor events to help the residents socialize better, bringing forth a feeling of togetherness among the floor members, and since most students are first years – nurturing growth both academically and mentally by becoming an example.",
       "Mentoring new student leaders.",
@@ -55,12 +59,53 @@ const experienceData = [
     title: "Teacher's Assistant - Discrete Mathematics",
     duration: "1 Academic Semester",
     company: "Saint Mary's University",
+    country: "Halifax, NS, Canada",
     details: [
+      "Social Sciences and Humanities Research Council COVID Partnership Engagement Grant NSIE Project",
       "Evaluated, corrected, and gave feedback to 59 students regarding their quizzes and submissions.",
       "Adapted communication strategies to ensure comprehensive understanding of complex concepts.",
       "Polished analytics skills by observing diverse student approaches to problem-solving.",
     ],
   },
+  {
+    year: "September 2021 - April 2022",
+    title: "Research Assistant (NSIE Project)",
+    duration: "1 Academic Year",
+    company: "Saint Mary's University",
+    country: "Halifax, NS, Canada",
+    details: [
+      "Creating a website to show the professor’s works, current projects, and the teams working on the projects utilizing skills in layout design and understanding of web design practices using the WIX platform.",
+      "Collected and analyzed raw data of interviews to organize the qualitative data gathered which allowed visualization of the amount of usable data and recognize the category in need of data.",
+    ],
+  },
+  {
+    year: "May 2021 - August 2021",
+    title: "Research Intern (NSIS Project)",
+    duration: "Summer Break term",
+    company: "Saint Mary's University",
+    country: "Halifax, NS, Canada",
+    details: [
+      "Nova Scotia International Student (NSIS) Project",
+      "Analyzed and categorized relevant research articles and summarized finding for each theme.",
+      "Collected information on the research topic and edited a book chapter for a Sociology textbook.",
+      "Aided in creating a training manual for a general Scoping Review process of research to help students conduct their own research.",
+    ],
+  },
+  {
+    year: "April 2017 - June 2017",
+    title: "Intern Photojournalist",
+    duration: "3 Months",
+    company: "MyRepública (New York Times Partner)",
+    country: "Kathmandu, Nepal",
+    details: [
+      "Wrote and published three articles about photography in the newspaper's segment ‘My City.’",
+      "Shot and provided photographs that supplemented other features and news stories in addition to publishing 5 photo stories in the ‘My City’ segment.",
+      "Contributed to articles including the ones linked here:",
+      // This is now an object with text and a link
+      { text: "Published articles:", link: "https://myrepublica.nagariknetwork.com/author/2138/swaraj-shrestha" },
+      { text: "Additional article:", link: "https://myrepublica.nagariknetwork.com/news/the-hands-that-feed-photo-feature" },
+    ],
+  }
 ];
 
 const Experience = () => {

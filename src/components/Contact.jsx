@@ -6,8 +6,8 @@ const Contact = () => {
       style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
     >
       <div id="about" className="bg-white/40 pt-5 pb-10">
-        <div className="bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
-          <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pb-5">
+        <div className="rounded-xl bg-white/60 max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
+          <h1 className="rounded bg-gray-300 py-4 text-5xl font-bold text-center text-white pb-5">
             ABOUT
           </h1>
           <div className="grid md:grid-cols-2 ml-10 pl-10 max-w-[850px] pt-4 text-justify item-center gap-4">
@@ -21,21 +21,11 @@ const Contact = () => {
             </div>
             <div className="flex flex-col mr-5">
               <p className="pt-5 my-2 text-base font-normal text-black text-justify leading-relaxed">
-                Dedicated, motivated, and diligent 4th year Bachelor of
-                Computing Science and Business Administration student with
-                strong technical and organizational skills polished through
-                working in multiple computer science and research projects.
-                Highly focused while ensuring all tasks are completed within
-                short timelines, guaranteeing delivery of accurate and
-                high-quality work.
-              </p>
-              <p className="pt-3 my-2 text-base font-normal text-black text-justify leading-relaxed">
-                Passionate about contributing effectively to team projects.
-                Proven good written and oral communication skills based on
-                multiple essays and presentations given. Enhances the
-                productivity of organizations through designing of programs that
-                increases accessibility, effectiveness, and efficiencies for end
-                users.
+                Computing Science and Business Administration degree holder with proven ability to troubleshoot 
+                and debug code, develop a database, and manage projects, honed while serving as a Database Developer 
+                at Canada Border Services Agency. Demonstrated programming skills through hands-on projects, 
+                including creating web applications while completing my degree and working as a TA for computer science 
+                courses. Continually seeking to improve and streamline processes for efficiency and effectiveness.
               </p>
               <p className="pt-3 my-2 text-base font-normal text-black text-justify leading-relaxed">
                 <strong>Highlighted Skills</strong>
@@ -43,6 +33,7 @@ const Contact = () => {
                   <li>• Efficient Problem-solver</li>
                   <li>• Interpersonal</li>
                   <li>• Analytical</li>
+                  <li>• Adaptability</li>
                   <li>• Time-management</li>
                   <li>• Proven Work Ethics</li>
                 </ol>
@@ -50,8 +41,8 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="mt-10 bg-white max-w-[850px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
-            <h2 className="bg-gray-100 py-4 text-2xl font-normal text-center text-black pb-5">
+          <div className="rounded mt-10 bg-white max-w-[850px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
+            <h2 className="rounded bg-gray-100 py-4 text-2xl font-normal text-center text-black pb-5">
               Contact Me About Collaborations and Opportunities
             </h2>
           </div>

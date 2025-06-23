@@ -45,45 +45,38 @@ const EducationModal = ({ isOpen, onRequestClose, data }) => {
         >
           <FaTimes size={24} />
         </button>
-
+        
         <div className="overflow-y-auto p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">
-            Details & Accomplishments
-          </h2>
-
-          <div className="mb-8">
-            <h3 className="text-xl font-semibold text-cyan-400 mb-3">Awards & Scholarships</h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-400">
-
-              {data.detailedAchievements.map((item, index) => {
-                // If the item is just an empty string for spacing, we handle it specially
-                if (item === "") {
-                  // 'list-none' hides the bullet point for this spacer item
-                  return <li key={index} className="list-none">&nbsp;</li>;
-                }
-                // Otherwise, we render the normal list item
-                return (
-                  <li key={index}>{item}</li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold text-cyan-400 mb-3">
-              Relevant Coursework
-            </h3>
-            <div className="flex flex-wrap gap-3">
-              {data.relevantCourses.map((course) => (
-                <span
-                  key={course}
-                  className="bg-gray-700 text-gray-300 text-sm font-medium px-3 py-1.5 rounded-md"
-                >
-                  {course}
-                </span>
-              ))}
+          <h2 className="text-2xl font-bold text-white mb-6">Details & Accomplishments</h2>
+          
+          {data.detailedAchievements && data.detailedAchievements.length > 0 && (
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold text-cyan-400 mb-3">Awards & Scholarships</h3>
+              <ul className="list-disc list-inside space-y-2 text-gray-400">
+                {data.detailedAchievements.map((item, index) => {
+                  if (item === "") {
+                    return <li key={index} className="list-none">&nbsp;</li>;
+                  }
+                  return <li key={index}>{item}</li>;
+                })}
+              </ul>
             </div>
-          </div>
+          )}
+
+          {/* MODIFIED: This section is now dynamic */}
+          {data.courses && data.courses.length > 0 && (
+            <div>
+              {/* The heading comes from the data, e.g., "Relevant Coursework" or "Key Subjects" */}
+              <h3 className="text-xl font-semibold text-cyan-400 mb-3">{data.coursesTitle}</h3>
+              <div className="flex flex-wrap gap-3">
+                {data.courses.map((course) => (
+                  <span key={course} className="bg-gray-700 text-gray-300 text-sm font-medium px-3 py-1.5 rounded-md">
+                    {course}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Modal>
