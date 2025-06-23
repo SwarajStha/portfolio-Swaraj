@@ -1,64 +1,82 @@
+import { useState } from "react";
+
+import EducationCard from "./EducationCard";
+import EducationModal from "./EducationModal";
+
+// A single, organized object for all your education data
+const educationData = {
+  degree: "Bachelor of Computing Science & Business Administration",
+  university: "Saint Mary’s University, Halifax NS",
+  logo: "/images/SMU.png",
+  dates: "September 2020 - May 2024",
+  coop: "Co-operative Education Program",
+  // Summary for the main card view
+  summaryAchievements: [
+    { icon: "gpa", text: "High-Achievement GPA: 4.25 / 4.30" },
+    { icon: "scholarship", text: "Recipient of 4 Major Scholarships" },
+    { icon: "deansList", text: "Award of Academic Excellence" },
+  ],
+  // Details for the pop-up modal
+  detailedAchievements: [
+    "Renewable International Entrance Scholarship – 2020, 2021, 2022, 2023",
+    "Academic Achievement Scholarship Award – 2021-2022, 2022-2023",
+    "MT&T Computing Science & Business Administration Scholarship Award – 2020-2021, 2022–2023, 2023-2024",
+    "Faculty Union Scholarship for Academic Excellence – 2022-2023",
+    "",
+    "Dean’s List – 2020-2021, 2021-2022, 2022-2023",
+  ],
+  relevantCourses: [
+    "Software Engineering",
+    "Data Structures & Algorithms",
+    "Mobile App Development",
+    "Internet Technologies & Web Programming",
+    "Artificial Intelligence",
+    "Digital Logic & Computer Architecture",
+    "Principles of Programming Languages",
+    "Applied Linear Algebra",
+    "Management Information Systems",
+    "Strategic Management",
+    "Business Finance",
+    "Planning & Control"
+  ],
+};
+
 const Education = () => {
-  return (
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+return (
+  <>
     <div
       className="bg-scroll"
       style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
     >
       <div id="education" className="bg-white/40 pt-5">
-        <div className="bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center border">
-          <div>
-            <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pt-12 justify-center item-center pb-10">
+        <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-[#112240] via-orange-900/40 to-orange-600/80 py-12 text-white rounded-xl">
+          
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
               EDUCATION
             </h1>
-            <div className="pl-6 pt-4">
-              <div className="absolute w-3 h-3 bg-stone-200 rounded-full mt-1.5 -left-1.5 border-white" />
-              <p className="flex flex-wrap gap-4 flex-row items-center justify-start text-xs md:text-sm">
-                <span className="text-lg font-semibold text-black">
-                  Bachelor of Computing Science & Business Administration
-                </span>
-                <span className="flex-grow"></span>
-                <span className="item-right inline-block px-2 py-1 font-semibold text-white bg-[#001b5e] rounded-md">
-                  September 2020 - May 2024 (Expected)
-                </span>
-              </p>
-              <p className="flex flex-wrap gap-4 flex-row items-center justify-start text-xs md:text-sm">
-                <span className="my-1 text-base font-normal leading-none text-stone-500">
-                  Saint Mary’s University, Halifax NS
-                </span>
-              </p>
-              <p className="flex flex-wrap gap-4 flex-row items-center justify-start text-xs md:text-sm">
-                <span className="my-1 text-base font-normal leading-none text-stone-500">
-                  Co-operative Education Program
-                </span>
-              </p>
-              <p className="my-2 text-base font-normal text-black">
-                <ul className="list-disc list-inside text-black-500">
-                  <li>CGPA - 4.25 / 4.30 (A+)</li>
-                  <li>
-                    Renewable International Entrance Scholarship – 2020, 2021,
-                    2022, 2023
-                  </li>
-                  <li>
-                    Academic Achievement Scholarship Award – 2021 - 2022, 2022 -
-                    2023
-                  </li>
-                  <li>
-                    MT&T Computing Science & Business Administration Scholarship
-                    Award – 2020 - 2021, 2022 – 2023, 2023 - 2024
-                  </li>
-                  <li>
-                    Faculty Union Scholarship for Academic Excellence – 2022 -
-                    2023
-                  </li>
-                  <li>Dean’s List – 2020-2021, 2021-2022, 2022-2023</li>
-                </ul>
-              </p>
-            </div>
           </div>
+
+          <div className="px-4">
+            <EducationCard
+              data={educationData}
+              onOpenModal={() => setModalIsOpen(true)}
+            />
+          </div>
+
         </div>
+
+        <EducationModal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          data={educationData}
+        />
       </div>
     </div>
-  );
+  </>
+);
 };
 
 export default Education;

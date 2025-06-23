@@ -1,106 +1,164 @@
-import WorkItem from "./WorkItem";
+// src/components/Experience.jsx
 
-const data = [
+import { useState } from "react";
+import ExperienceCard from "./ExperienceCard";
+import ExperienceModal from "./ExperienceModal";
+
+const experienceData = [
   {
-    year: "January 2024",
+    year: "January 2024 - December 2024",
     title: "Database Developer",
-    duration: "Present",
+    duration: "4 month Co-op + transitioned to termed position post-graduation",
     company: "Canada Border Services Agency (CBSA)",
-    details:
-      "• Working alongside the Division's Regional Business Planing Manager to design and develop database. " +
-      "<br>• Create input screens, user manuals, queries, reports and implement data visualization tools to facilitate data analysis and reporting. " +
-      "<br>• Details to be updated.",
+    details: [
+      "Languages used: VBA and SQL",
+      "Developed robust database that has demonstrated remarkable success in streamlining data input processes, enhancing user interfaces, fortifying data integrity, whilst decreasing the number of separate files required from 14 to 2.",
+      "Created input screens, user manuals, queries, and reports and implementing data visualization tools to facilitate data analysis and reporting.",
+    ],
   },
-
   {
-    year: "September - December 2022, September - December 2023",
-    title: "Teacher's Assistant - Introduction to Computers and Programming",
-    duration: "2 terms",
+    year: "September 2022 - April 2024",
+    title: "Teacher's Assistant - Programming & Problem Solving",
+    duration: "3 Academic Semesters",
     company: "Saint Mary's University",
-    details:
-      "• Evaluating and debugging student-generated code in Java, enhancing my expertise in algorithms. " +
-      "<br>• Checking submissions by 56 students (2022) and 36 students (2023) and giving practical feedback accordingly. " +
-      "<br>• Refined problem-solving skills by analyzing students’ diverse methodologies to computational problems, focusing on their use of logic, algorithms, and software design principles. ",
+    details: [
+      "Advanced Computer Programming and Problem-Solving (January 2024 – April 2024); Introduction to Computers and Programming	(September 2023 – December 2023, September 2022 – December 2022)",
+      "Evaluated and debugged student-generated code in Java, enhancing my expertise in algorithms.",
+      "Checking submissions by 27 students (2024), 36 students (2023), and 56 students (2022) and marking them.",
+      "Refined problem-solving skills while deciphering a student’s approach to the problem presented.",
+    ],
   },
-
   {
     year: "May 2022 - December 2023",
     title: "SMUworks Program Administrator",
-    duration: "Co-op 4 months + continued in part-time basis",
-    company: "Saint Mary's University - Career & Experential Learning",
-    details:
-      "•	Organizing, examining, and analyzing data for SMUworks to draw conclusions regarding the trends.<br>•	Part of the SMUworks Steering Committee to advocate for the students’ side and based on past SMUworks records. " +
-      "<br>•	Oversee all tasks related to the program ensuring that the 40+ positions we fund each term runs smoothly. " +
-      "<br>•	Conducted comprehensive mid-term assessments of SMUworks grant recipients and student employees funded by these grants, ensuring adherence to grant objectives and performance standards.",
+    duration: "Co-op + continued on part-time basis",
+    company: "Saint Mary's University",
+    details: [
+      "Organized, examined, and analyzed data for the SMUworks program to draw conclusions regarding trends.",
+      "Part of the SMUworks Steering Committee to advocate for the students’ side and based on past SMUworks records.",
+      "Oversaw all tasks related to the program ensuring that the 40+ positions we funded each term ran smoothly.",
+      "Conducted comprehensive mid-term assessments of SMUworks grant recipients and student employees funded by these grants, ensuring adherence to grant objectives and performance standards.",
+    ],
   },
-
   {
-    year: "September 2022",
+    year: "August 2022 - April 2024",
     title: "Residence Assistant",
-    duration: "Present",
-    company: "Saint Mary's University - Residence Life",
-    details:
-      "•    Polished leadership skills by disseminating information by updating the residents (22-floor members (2022), 35-floor members (2023)) on the most current information regarding the university and the facilities available," +
-      " organizing floor events to help the residents socialize better, bringing forth a feeling of togetherness among the floor members, and since most students are first years – nurturing growth both academically and mentally by becoming an example. " +
-      "<br>•	Mentoring new student leaders.<br>•	Received 50+ hours of training.",
+    duration: "2 Academic Years",
+    company: "Saint Mary's University",
+    details: [
+      "Improved leadership skills by disseminating information by updating the residents (22-floor members (2022), 35-floor members (2023)) on the most current information regarding the university and the facilities available, organizing floor events to help the residents socialize better, bringing forth a feeling of togetherness among the floor members, and since most students are first years – nurturing growth both academically and mentally by becoming an example.",
+      "Mentoring new student leaders.",
+    ],
   },
-
   {
     year: "January 2023 - April 2023",
     title: "Teacher's Assistant - Discrete Mathematics",
+    duration: "1 Academic Semester",
     company: "Saint Mary's University",
-    details:
-      "•    Evaluated, corrected, and gave feedback to 59 students regarding their quizzes and submissions. " +
-      "<br>•  Radapted my communication strategies to ensure comprehensive understanding of complex concepts among all students. This involved thoughtful reflection on teaching methodologies and tailoring explanations to meet diverse learning styles." +
-      "<br>•  Polished analytics skills as students took different approaches to solve the same problem.",
-  },
-
-  {
-    year: "September 2021 - April 2022",
-    title: "Research Assistant",
-    company: "Saint Mary's University",
-    details:
-      "<i>Social Sciences and Humanities Research Council COVID Partnership Engagement Grant NSIE Project</i>" +
-      "<br>•	Creating a website to show the professor’s current projects, and the teams working on the projects utilizing skills in layout design and understanding of web design practices using the WIX platform." +
-      "<br>•	Set up a means for the team members to communicate so progress of each task started could be tracked more accurately via the use of Trello." +
-      "<br>•	Collected and analyzed raw data of interviews to organize the qualitative data gathered which allowed visualization of the amount of usable data and recognize the category in need of data.",
-  },
-
-  {
-    year: "September 2021 - April 2022",
-    title: "Teaching Assistant - Sociology",
-    company: "Saint Mary's University",
-    details:
-      "•	Coached students with their projects by arranging one-on-one office hours during which time guided them through their specific issues with using the suggested software to get the outcome they wanted. " +
-      "<br>•	Created a presentable guide for students to direct them on how to conduct Scoping Reviews- aiding students and other research assistants to use the guide to conduct effective reviews online. " +
-      "<br>•	Created an aiding explainer video to instruct students on how to use the video editing software “VideoPad Video Editor” and alternative software, giving the students the skills and technology they needed to complete their course project.",
+    details: [
+      "Evaluated, corrected, and gave feedback to 59 students regarding their quizzes and submissions.",
+      "Adapted communication strategies to ensure comprehensive understanding of complex concepts.",
+      "Polished analytics skills by observing diverse student approaches to problem-solving.",
+    ],
   },
 ];
 
 const Experience = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState(null);
+
+  const handleOpenModal = (experience) => {
+    setSelectedExperience(experience);
+    setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+    setSelectedExperience(null);
+  };
+
   return (
-    <div
-      className="bg-scroll"
-      style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
-    >
-      <div id="experience" className="bg-white/40 pt-5">
-        <div className="pt-5 bg-white max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center item-center">
-          <h1 className="bg-gray-300 py-4 text-5xl font-bold text-center text-white pt-12 justify-center item-center pb-10 mb-5 item-center">
-            EXPERIENCE
-          </h1>
-          {data.map((item, idx) => (
-            <WorkItem
-              key={idx}
-              year={item.year}
-              title={item.title}
-              duration={item.duration}
-              company={item.company}
-              details={item.details}
-            />
-          ))}
+    <>
+      {/* Outer container with the background image */}
+      <div
+        className="bg-scroll"
+        style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
+      >
+        {/* Semi-transparent white layer */}
+        <div id="experience" className="bg-white/40 pt-5 pb-5">
+          {/* Main content box with the gradient */}
+          <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-[#112240] via-orange-900/40 to-orange-600/80 py-20 text-white rounded-xl">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-20">
+                <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
+                  EXPERIENCE
+                </h1>
+              </div>
+
+              <div className="relative">
+                {/* The central timeline line */}
+                <div className="hidden md:block absolute top-0 left-1/2 w-0.5 h-full bg-white/75 -translate-x-1/2"></div>
+
+                {experienceData.map((item, index) => {
+                  const position = index % 2 === 0 ? "right" : "left";
+                  return (
+                    <div
+                      key={index}
+                      className="relative md:flex md:justify-center md:items-start w-full mb-12"
+                    >
+                      {/* LEFT SIDE: Render card here if position is 'left' */}
+                      {position === "left" ? (
+                        <div className="w-full md:w-5/12 md:pr-12">
+                          <ExperienceCard
+                            experience={item}
+                            onSelect={() => handleOpenModal(item)}
+                          />
+                        </div>
+                      ) : (
+                        <div className="hidden md:block w-5/12"></div> // Empty spacer
+                      )}
+
+                      {/* Middle Dot and Connector Line */}
+                      {/* This container sits on top of the layout. pointer-events-none makes it "click-through" */}
+                      <div className="hidden md:block absolute top-8 left-0 w-full h-full pointer-events-none">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-cyan-400 rounded-full border-4 border-slate-700"></div>
+                        {/* The new horizontal line */}
+                        <div
+                          className={`absolute top-1.5 h-0.5 bg-white/75 w-6 
+                          ${
+                            position === "left"
+                              ? "right-1/2 mr-3"
+                              : "left-1/2 ml-3"
+                          }`}
+                        ></div>
+                      </div>
+
+                      {/* RIGHT SIDE: Render card here if position is 'right' */}
+                      {position === "right" ? (
+                        <div className="w-full md:w-5/12 md:pl-12">
+                          <ExperienceCard
+                            experience={item}
+                            onSelect={() => handleOpenModal(item)}
+                          />
+                        </div>
+                      ) : (
+                        <div className="hidden md:block w-5/12"></div> // Empty spacer
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <ExperienceModal
+        isOpen={modalIsOpen}
+        onRequestClose={handleCloseModal}
+        experience={selectedExperience}
+      />
+    </>
   );
 };
 
