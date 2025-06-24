@@ -23,7 +23,7 @@ const EducationCard = ({ data, onOpenModal }) => {
   const hasDetails = (data.detailedAchievements && data.detailedAchievements.length > 0) || (data.courses && data.courses.length > 0);
 
   return (
-    <div className="bg-slate-700/50 border border-slate-600 rounded-2xl p-4 shadow-lg backdrop-blur-sm flex flex-col">
+    <div className="bg-gray-400/40 border border-slate-600 rounded-2xl p-4 shadow-lg backdrop-blur-sm flex flex-col">
       <div className="flex flex-col md:flex-row gap-8">
         
         {/* Left Column */}
@@ -34,7 +34,7 @@ const EducationCard = ({ data, onOpenModal }) => {
             className="h-20 w-auto mx-auto md:mx-0 mb-4"
           />
           <h3 className="pt-5 text-2xl font-bold text-white">{data.degree}</h3>
-          <p className="text-lg text-gray-300 mt-1">{data.university}</p>
+          <p className="text-lg text-gray-200 mt-1">{data.university}</p>
           <p className="pt-5 text-md text-cyan-400 font-semibold mt-2">{data.dates}</p>
         </div>
 

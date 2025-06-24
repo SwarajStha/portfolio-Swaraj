@@ -7,14 +7,14 @@ import EducationModal from "./EducationModal";
 // MODIFICATION 1: Converted your single object into an array of objects.
 // I've used your exact university data and added the new high school data.
 const educationData = [
-    {
-    id: 'masters',
+  {
+    id: "masters",
     degree: "M.Sc. in Management & Digital Technology",
     university: "Technical University of Munich (Heilbronn Campus), Germany",
     logo: "/images/TUM.png",
     dates: "Starting October 2025",
     summaryAchievements: [
-      { icon: 'status', text: "Upcoming Student (2-Year Program)" }
+      { icon: "status", text: "Upcoming Student (2-Year Program)" },
     ],
     // No detailedAchievements or courses, so the "View Details" button will not appear
   },
@@ -99,7 +99,13 @@ const Education = () => {
       >
         <div id="education" className="bg-white/40 pt-5 pb-5">
           {/* I've updated this line to use the more subtle gradient we decided on */}
-          <div className="max-w-[1000px] mx-auto bg-white/40 py-12 text-white rounded-xl">
+          <div
+            className="max-w-[1000px] mx-auto py-12 text-white rounded-xl"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at bottom right, rgb(87, 63, 65) 10%, rgba(76, 83, 96, 0.6), rgba(255, 255, 255, 0.6))",
+            }}
+          >
             <div className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
                 EDUCATION

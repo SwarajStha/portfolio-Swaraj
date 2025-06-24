@@ -7,13 +7,17 @@ const Contact = () => {
       style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
     >
       <div id="about" className="bg-white/40 pt-5 pb-10">
-
-        <div className="rounded-xl bg-white/60 max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center items-center">
+        <div
+          className="rounded-xl max-w-[1000px] m-auto h-full w-full flex flex-col p-4 justify-center items-center"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at top right, rgb(76, 83, 96) 5%, rgba(201, 201, 201, 0.6), rgba(255, 255, 255, 0.6))",
+          }}
+        >
           <h1 className="pt-10 text-white text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
             ABOUT
           </h1>
 
-          {/* THE RESPONSIVE FIX: ml-10 and pl-10 are now md:ml-10 and md:pl-10 */}
           <div className="grid md:grid-cols-2 md:ml-10 md:pl-10 max-w-[850px] pt-4 text-justify items-center gap-4">
             <div className="pt-9 flex flex-col mr-5">
               <img
@@ -23,7 +27,7 @@ const Contact = () => {
               />
             </div>
             <div className="flex flex-col mr-5">
-              <p className="pt-5 my-2 text-base font-normal text-black text-justify leading-relaxed">
+              <p className="pt-5 my-2 text-base font-normal text-gray-100 text-justify leading-relaxed">
                 Computing Science and Business Administration degree holder with
                 proven ability to troubleshoot and debug code, develop a
                 database, and manage projects, honed while serving as a Database
@@ -35,7 +39,7 @@ const Contact = () => {
               </p>
 
               {/* This is a <div> for valid HTML, but keeps your original styles */}
-              <div className="pt-3 my-2 text-base font-normal text-black text-justify leading-relaxed">
+              <div className="pt-3 my-2 text-base font-normal text-gray-200 text-justify leading-relaxed">
                 <strong>Highlighted Skills</strong>
                 <ul className="list-disc list-inside mt-1">
                   <li>Efficient Problem-solver</li>

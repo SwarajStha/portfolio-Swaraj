@@ -5,6 +5,7 @@ import Experience from './components/Experience'
 import Education from './components/Education'
 import Contact from './components/Contact'
 import Projects from './components/Projects'
+import Photography from './components/Photography'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Technologies />
           <Experience />
           <Projects />
+          <Photography />
           <Contact />
       </div>
   )

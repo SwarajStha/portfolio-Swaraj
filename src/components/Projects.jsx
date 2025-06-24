@@ -77,31 +77,37 @@ const Projects = () => {
         style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
       >
         <div id="projects" className="bg-white/40 pt-5">
-          <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-white/40 to-orange-700/40 py-12 text-white rounded-xl border">
-              <div className="text-center mb-16">
-                <h1 className="text-white text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
-                  PROJECTS
-                </h1>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-                {projectData.map((project) => (
-                  <ProjectItem
-                    key={project.id}
-                    title={project.title}
-                    img={project.img}
-                    onSelect={() => handleOpenModal(project)}
-                  />
-                ))}
-              </div>
+          <div
+            className="max-w-[1000px] mx-auto py-12 text-white rounded-xl"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at top right, #f9731699, #7c2d1299, #112240CC)",
+            }}
+          >
+            <div className="text-center mb-16">
+              <h1 className="text-white text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
+                PROJECTS
+              </h1>
             </div>
-
-            <ProjectModal
-              project={selectedProject}
-              isOpen={modalIsOpen}
-              onRequestClose={handleCloseModal}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+              {projectData.map((project) => (
+                <ProjectItem
+                  key={project.id}
+                  title={project.title}
+                  img={project.img}
+                  onSelect={() => handleOpenModal(project)}
+                />
+              ))}
+            </div>
           </div>
+
+          <ProjectModal
+            project={selectedProject}
+            isOpen={modalIsOpen}
+            onRequestClose={handleCloseModal}
+          />
         </div>
+      </div>
     </>
   );
 };

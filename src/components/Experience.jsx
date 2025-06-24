@@ -102,10 +102,16 @@ const experienceData = [
       "Shot and provided photographs that supplemented other features and news stories in addition to publishing 5 photo stories in the ‘My City’ segment.",
       "Contributed to articles including the ones linked here:",
       // This is now an object with text and a link
-      { text: "Published articles:", link: "https://myrepublica.nagariknetwork.com/author/2138/swaraj-shrestha" },
-      { text: "Additional article:", link: "https://myrepublica.nagariknetwork.com/news/the-hands-that-feed-photo-feature" },
+      {
+        text: "Published articles:",
+        link: "https://myrepublica.nagariknetwork.com/author/2138/swaraj-shrestha",
+      },
+      {
+        text: "Additional article:",
+        link: "https://myrepublica.nagariknetwork.com/news/the-hands-that-feed-photo-feature",
+      },
     ],
-  }
+  },
 ];
 
 const Experience = () => {
@@ -132,7 +138,7 @@ const Experience = () => {
         {/* Semi-transparent white layer */}
         <div id="experience" className="bg-white/40 pt-5 pb-5">
           {/* Main content box with the gradient */}
-          <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-[#112240] via-orange-900/40 to-orange-600/80 py-20 text-white rounded-xl">
+          <div className="max-w-[1000px] mx-auto bg-gradient-to-l from-[#f9731699] from-30% via-[#7c2d1280] via-85% to-[#11224080] py-12 text-white rounded-xl">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-20">
                 <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">

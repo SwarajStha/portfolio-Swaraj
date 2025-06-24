@@ -10,9 +10,9 @@ const ExperienceCard = ({ experience, onSelect }) => {
       {/* The triangle pointer is no longer needed here */}
       <p className="absolute top-2 right-3 text-xs font-semibold text-cyan-400">{experience.year}</p>
       <h3 className="text-xl font-bold text-white mb-1">{experience.title}</h3>
-      <p className="text-md text-gray-400 mb-3">{experience.company}</p>
-      <p className="text-sm text-gray-400 mb-3">{experience.country}</p>
-      <p className="text-sm text-gray-400 italic">{experience.duration}</p>
+      <p className="text-md text-gray-200 mb-3">{experience.company}</p>
+      <p className="text-sm text-gray-200 mb-3">{experience.country}</p>
+      <p className="text-sm text-gray-200 italic">{experience.duration}</p>
     </div>
   );
 };

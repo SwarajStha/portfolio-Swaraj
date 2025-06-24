@@ -6,6 +6,7 @@ import { GrProjects } from "react-icons/gr";
 import { FaCode } from "react-icons/fa";
 import { PiGraduationCap } from "react-icons/pi";
 import { BsBriefcase } from "react-icons/bs";
+import { ImCamera } from "react-icons/im";
 
 const Navbar = () => {
   // State to control the visibility of the navigation menu
@@ -21,6 +22,8 @@ const Navbar = () => {
     <div>
       {/* Menu icon that opens the navigation when clicked */}
       <AiOutlineMenu
+        size={40}
+        color="rgba(255,255,255,0.6)"
         onClick={handleNav}
         className="fixed top-4 right-4 z-[99] md:hidden pointer-events-auto"
       />
@@ -86,15 +89,15 @@ const Navbar = () => {
             <span className="pl-4">Projects</span>
           </a>
 
-          {/* Volunteer */}
+          {/* Photography */}
           <a
-            href="#volunteer"
+            href="#photography"
             className="w-[75%] flex justify-center items-center rounded-full shadow-lg
                             bg-shadow-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
             onClick={() => setNav(false)}
           >
-            <AiOutlineProject size={20} />
-            <span className="pl-4">Volunteer</span>
+            <ImCamera size={20} />
+            <span className="pl-4">Photography</span>
           </a>
 
           {/* About */}
@@ -164,14 +167,14 @@ const Navbar = () => {
             <GrProjects size={40} />
           </a>
 
-          {/* Volunteer */}
+          {/* Photography */}
           <a
-            href="#volunteer"
-            title="Volunteer"
+            href="#photography"
+            title="Photography"
             className="rounded-full shadow-lg 
                         bg-gray-100 shadow-gray-400 m-2 p-2 cursor-pointer hover:scale-110 ease-in duration-300"
           >
-            <AiOutlineProject size={40} />
+            <ImCamera size={40} />
           </a>
 
           {/* About */}
