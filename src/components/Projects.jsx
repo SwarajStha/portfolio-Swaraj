@@ -77,7 +77,7 @@ const Projects = () => {
         style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
       >
         <div id="projects" className="bg-white/40 pt-5">
-          <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-[#112240] via-orange-900/40 to-orange-600/80 py-12 text-white rounded-xl border">
+          <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-white/40 to-orange-700/40 py-12 text-white rounded-xl border">
               <div className="text-center mb-16">
                 <h1 className="text-white text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
                   PROJECTS

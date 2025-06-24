@@ -33,16 +33,16 @@ const EducationCard = ({ data, onOpenModal }) => {
             alt={`${data.university} Logo`}
             className="h-20 w-auto mx-auto md:mx-0 mb-4"
           />
-          <h3 className="text-2xl font-bold text-white">{data.degree}</h3>
-          <p className="text-lg text-gray-400 mt-1">{data.university}</p>
-          <p className="text-md text-cyan-400 font-semibold mt-2">{data.dates}</p>
+          <h3 className="pt-5 text-2xl font-bold text-white">{data.degree}</h3>
+          <p className="text-lg text-gray-300 mt-1">{data.university}</p>
+          <p className="pt-5 text-md text-cyan-400 font-semibold mt-2">{data.dates}</p>
         </div>
 
         {/* Right Column - MODIFIED: Removed the 'Key Subjects' logic */}
         <div className="md:w-2/3 md:border-l md:border-slate-600 md:pl-8">
           {data.summaryAchievements && data.summaryAchievements.length > 0 && (
             <>
-              <h4 className="text-xl font-semibold text-white mb-4">Key Achievements</h4>
+              <h4 className="pb-5 text-xl font-semibold text-white mb-4">Key Achievements</h4>
               <div className="space-y-4">
                 {data.summaryAchievements.map((item, index) => (
                   <div key={index} className="flex items-center gap-4">

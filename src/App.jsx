@@ -8,7 +8,7 @@ import Projects from './components/Projects'
 
 function App() {
   return (
-      <div>
+      <div className="overflow-x-hidden">
           <Navbar />
           <Homepage />
           <Education />

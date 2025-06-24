@@ -1,163 +1,7 @@
-// --- Reusable Hexagon Component (No changes needed here) ---
-// This component displays the icon and handles the hover effects.
-const TechHexagon = ({ icon, name, description, glowColor }) => {
-  return (
-    <div
-      className="group relative flex items-center justify-center w-[120px] h-[138px] bg-gray-500/60 transition-transform duration-300 hover:!bg-gray-700/80 group-hover:z-20"
-      style={{
-        clipPath:
-          "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-      }}
-    >
-      {/* Tooltip that appears on hover */}
-      <div
-        className="absolute bottom-full mb-4 w-48 p-2 text-center text-sm text-white bg-slate-900 rounded-lg opacity-0 invisible 
-                   group-hover:opacity-100 group-hover:visible transition-opacity duration-300 pointer-events-none z-10"
-      >
-        <h4 className="font-bold">{name}</h4>
-        <p className="text-xs text-gray-300">{description}</p>
-        <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-[8px] border-t-slate-900"></div>
-      </div>
+import TechSection from './TechSection'; // For the simple rows
+import HoneycombSection from './HoneycombSection';
 
-      {/* Icon with glow effect */}
-      <img
-        src={icon}
-        alt={`${name} icon`}
-        className={`w-16 h-16 object-contain transition-all duration-300 group-hover:scale-110 ${glowColor}`}
-      />
-    </div>
-  );
-};
-
-// --- Honeycomb Section Component (with corrected honeycomb alignment) ---
-const HoneycombSectionProg = ({ title, technologies }) => {
-  // We split the technologies array into two rows
-  const topRow = technologies.slice(0, 5);
-  const bottomRow = technologies.slice(5, 9);
-
-  return (
-    <section className="mb-16">
-      <h2 className="text-2xl font-semibold text-gray-300 mb-8 text-center">
-        {title}
-      </h2>
-      {/*
-        MODIFICATION: The parent div now has a negative left margin `-ml-[34px]`.
-        This shifts the entire honeycomb structure to the left by half of the stagger amount,
-        making the whole block appear perfectly centered on the page.
-      */}
-      <div className="flex flex-col items-center">
-        {/* Top Row: No changes needed here */}
-        <div className="flex justify-center gap-4">
-          {topRow.map((tech) => (
-            <TechHexagon
-              key={tech.name}
-              name={tech.name}
-              icon={tech.icon}
-              description={tech.description}
-              glowColor={tech.glowColor}
-            />
-          ))}
-        </div>
-
-        {/*
-          Bottom Row: MODIFIED with precise values.
-          -mt-[35px] provides the perfect vertical interlock.
-          ml-[68px] provides the perfect horizontal stagger.
-        */}
-        <div className="flex justify-center gap-4 -mt-[35px]">
-          {bottomRow.map((tech) => (
-            <TechHexagon
-              key={tech.name}
-              name={tech.name}
-              icon={tech.icon}
-              description={tech.description}
-              glowColor={tech.glowColor}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// --- Reusable Section Component ---
-// This component renders a title and a horizontal row of hexagons.
-const TechSection = ({ title, technologies }) => {
-  return (
-    <section className="mb-16">
-      <h2 className="text-2xl font-semibold text-gray-300 mb-8 text-center">
-        {title}
-      </h2>
-      <div className="flex flex-wrap justify-center gap-4">
-        {technologies.map((tech) => (
-          <TechHexagon
-            key={tech.name}
-            name={tech.name}
-            icon={tech.icon}
-            description={tech.description}
-            glowColor={tech.glowColor}
-          />
-        ))}
-      </div>
-    </section>
-  );
-};
-
-// --- Honeycomb Section Component (with corrected honeycomb alignment) ---
-const HoneycombSection = ({ title, technologies }) => {
-  // We split the technologies array into two rows
-  const topRow = technologies.slice(0, 4);
-  const bottomRow = technologies.slice(4, 8);
-
-  return (
-    <section className="mb-16">
-      <h2 className="text-2xl font-semibold text-gray-300 mb-8 text-center">
-        {title}
-      </h2>
-      {/*
-        MODIFICATION: The parent div now has a negative left margin `-ml-[34px]`.
-        This shifts the entire honeycomb structure to the left by half of the stagger amount,
-        making the whole block appear perfectly centered on the page.
-      */}
-      <div className="flex flex-col items-center -ml-[34px]">
-        {/* Top Row: No changes needed here */}
-        <div className="flex justify-center gap-4">
-          {topRow.map((tech) => (
-            <TechHexagon
-              key={tech.name}
-              name={tech.name}
-              icon={tech.icon}
-              description={tech.description}
-              glowColor={tech.glowColor}
-            />
-          ))}
-        </div>
-
-        {/*
-          Bottom Row: MODIFIED with precise values.
-          -mt-[35px] provides the perfect vertical interlock.
-          ml-[68px] provides the perfect horizontal stagger.
-        */}
-        <div className="flex justify-center gap-4 -mt-[35px] ml-[136px]">
-          {bottomRow.map((tech) => (
-            <TechHexagon
-              key={tech.name}
-              name={tech.name}
-              icon={tech.icon}
-              description={tech.description}
-              glowColor={tech.glowColor}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// --- Main Technologies Component ---
-const Technologies = () => {
-  // Data is now organized by section to match your layout
-  const techSections = [
+const techSections = [
     {
       title: "Technologies I am proficient with",
       technologies: [
@@ -346,58 +190,50 @@ const Technologies = () => {
     },
   ];
 
-  // We find the data for each section to build our custom layout
-  const proficientData = techSections.find(
-    (s) => s.title === "Technologies I am proficient with"
-  );
-  const experienceData = techSections.find(
-    (s) => s.title === "I have experience with"
-  );
-  const frameworksData = techSections.find(
-    (s) => s.title === "Frameworks I have worked with"
-  );
-  const toolsData = techSections.find(
-    (s) => s.title === "Productivity tools I use"
-  );
+const Technologies = () => {
+  // We find the data for each section to build the custom layout
+  const proficientData = techSections.find((s) => s.title === "Technologies I am proficient with");
+  const experienceData = techSections.find((s) => s.title === "I have experience with");
+  const frameworksData = techSections.find((s) => s.title === "Frameworks I have worked with");
+  const toolsData = techSections.find((s) => s.title === "Productivity tools I use");
   const OSData = techSections.find((s) => s.title === "OS I have worked with");
-  const cloudData = techSections.find(
-    (s) => s.title === "Cloud Platform (Fundamentals)"
-  );
+  const cloudData = techSections.find((s) => s.title === "Cloud Platform (Fundamentals)");
 
   return (
     <div
       className="bg-scroll"
       style={{ backgroundImage: "url(/backgroundPPcropped.jpg)" }}
     >
-      <div id="technologies" className="bg-white/40 pt-5">
-        <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-[#112240] via-orange-900/40 to-orange-600/80 py-12 text-white rounded-xl border">
-            <div className="text-center mb-16">
-              <h1 className="text-white text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
-                TECHNOLOGIES
-              </h1>
-            </div>
+      <div id="technologies" className="bg-white/40 pt-5 pb-5">
+        <div className="max-w-[1000px] mx-auto bg-gradient-to-r from-white/40 to-orange-700/40 py-12 text-white rounded-xl">
+          <div className="text-center mb-16 px-4">
+            <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
+              TECHNOLOGIES
+            </h1>
+          </div>
 
+          <div className="px-4">
             {/* Render the first honeycomb section */}
-            {proficientData && <HoneycombSectionProg {...proficientData} />}
+            {proficientData && <HoneycombSection {...proficientData} rowCounts={[5, 4]} />}
 
             {/* Side-by-side container for the next two sections */}
-            <div className="flex flex-col md:flex-row justify-center items-start gap-x-24 gap-y-10 mb-16">
+            <div className="flex flex-col md:flex-row justify-center items-start gap-x-24 gap-y-10 my-16">
               {experienceData && <TechSection {...experienceData} />}
               {frameworksData && <TechSection {...frameworksData} />}
             </div>
 
             {/* Render the second honeycomb section */}
-            {toolsData && <HoneycombSection {...toolsData} topRowCount={4} />}
+            {toolsData && <HoneycombSection {...toolsData} rowCounts={[4, 4]} />}
 
-            {/* Side-by-side container for the next two sections */}
-            <div className="flex flex-col md:flex-row justify-center items-start gap-x-24 gap-y-10 mb-16">
+            {/* Side-by-side container for the last two sections */}
+            <div className="flex flex-col md:flex-row justify-center items-start gap-x-24 gap-y-10 mt-16">
               {OSData && <TechSection {...OSData} />}
               {cloudData && <TechSection {...cloudData} />}
             </div>
           </div>
         </div>
       </div>
-
+    </div>
   );
 };
 
