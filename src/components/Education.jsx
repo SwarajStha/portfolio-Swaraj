@@ -7,17 +7,17 @@ import EducationModal from "./EducationModal";
 // MODIFICATION 1: Converted your single object into an array of objects.
 // I've used your exact university data and added the new high school data.
 const educationData = [
-  // {
-  //   id: "masters",
-  //   degree: "M.Sc. in Management & Digital Technology",
-  //   university: "Technical University of Munich (Heilbronn Campus), Germany",
-  //   logo: "/images/TUM.png",
-  //   dates: "Starting October 2025",
-  //   summaryAchievements: [
-  //     { icon: "status", text: "Upcoming Student (2-Year Program)" },
-  //   ],
-  //   // No detailedAchievements or courses, so the "View Details" button will not appear
-  // },
+  {
+    id: "masters",
+    degree: "M.Sc. in Management & Digital Technology",
+    university: "Technical University of Munich (Heilbronn Campus), Germany",
+    logo: "/images/TUM.png",
+    dates: "Starting October 2025",
+    summaryAchievements: [
+      { icon: "status", text: "Upcoming Student (2-Year Program)" },
+    ],
+     // No detailedAchievements or courses, so the "View Details" button will not appear
+   },
   {
     id: "uni",
     degree: "Bachelor of Computing Science & Business Administration",
