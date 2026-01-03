@@ -279,11 +279,24 @@ The core functionality follows a real-time computer vision pipeline:
       "/images/portfolio-Swaraj(2).png",
       "/images/portfolio-Swaraj(3).png",
     ],
-    description:
-      "My personal portfolio website (the one you're on right now!) built from scratch to showcase my skills and projects. It is designed to be fully responsive and is continuously updated with new features and content.",
-    tech: ["React", "Tailwind CSS", "JavaScript", "Vite"],
+    description: `This interactive developer portfolio serves as a central hub for my professional identity, uniquely designed to mimic a sophisticated command-line interface while maintaining modern web standards. It balances a distinct "hacker" aesthetic with intuitive UX patterns.
+
+## Project Overview
+More than just a static resume, this application demonstrates my frontend engineering capabilities through complex, custom-built components. It provides an immersive "Operating System" feel, complete with window management, terminal commands, and responsive layouts that adapt the terminal metaphor to mobile devices.
+
+## Key Features
+- **Terminal-Core Design:** Custom styled components featuring "drwxr-xr-x" file permissions, git branch status indicators, and commit hash metadata to create an authentic developer environment.
+- **Interactive Workspace:** Features a draggable "About Me" window and an interactive "Technologies" terminal that visualizes skill proficiency through animated progress bars.
+- **Dynamic Content Engine:** Utilizes a custom Bento-grid layout for project showcases and photography, integrated with a deep-dive modal system for detailed content presentation.
+- **Responsive Architecture:** Fully fluid design that seamlessly translates the desktop terminal experience to touch interfaces without losing the core aesthetic identity.
+
+## Technical Architecture
+- **Component-Driven:** Built with a modular React architecture, separating concerns between layout engines (Grids, Modals) and presentation layers (Cards, Terminals).
+- **Utility-First Styling:** Heavily leverages Tailwind CSS for rapid, consistent styling, utilizing custom utility classes for glassmorphism effects and complex 3D shadows.
+- **Performance Optimized:** Uses Vite for lightning-fast HMR and optimized production builds, ensuring the animation-heavy interface remains performant on all devices.`,
+    tech: ["React", "Tailwind CSS", "Vite", "React Icons", "React Modal"],
     githubLink: "https://github.com/SwarajStha/portfolio-Swaraj",
-    liveLink: "#", // Link to the current site
+    liveLink: "https://swarajstha.com",
   },
   {
     id: "proj4",
