@@ -18,52 +18,55 @@ const AchievementIcon = ({ icon }) => {
   }
 };
 
-const EducationCard = ({ data, onOpenModal }) => {
+const EducationCard = ({ data, onOpenModal, isFirst, isLast }) => {
   // The 'View Details' button will now show if either detailed achievements OR courses exist.
   const hasDetails = (data.detailedAchievements && data.detailedAchievements.length > 0) || (data.courses && data.courses.length > 0);
 
-  return (
-    <div className="bg-gray-400/40 border border-slate-600 rounded-2xl p-4 shadow-lg backdrop-blur-sm flex flex-col">
-      <div className="flex flex-col md:flex-row gap-8">
-        
-        {/* Left Column */}
-        <div className="flex-shrink-0 md:w-1/3 text-center md:text-left">
-          <img
-            src={data.logo}
-            alt={`${data.university} Logo`}
-            className="h-20 w-auto mx-auto md:mx-0 mb-4"
-          />
-          <h3 className="pt-5 text-2xl font-bold text-white">{data.degree}</h3>
-          <p className="text-lg text-gray-200 mt-1">{data.university}</p>
-          <p className="pt-5 text-md text-cyan-400 font-semibold mt-2">{data.dates}</p>
-        </div>
+  // Dynamic classes for seamless joining
+  const borderClasses = `border border-slate-600 ${!isFirst ? 'lg:-ml-[1px] -mt-[1px] lg:mt-0' : ''}`;
+  const roundedClasses = `rounded-none ${isFirst ? 'rounded-t-2xl lg:rounded-tr-none lg:rounded-l-2xl' : ''} ${isLast ? 'rounded-b-2xl lg:rounded-bl-none lg:rounded-r-2xl' : ''}`;
 
-        {/* Right Column - MODIFIED: Removed the 'Key Subjects' logic */}
-        <div className="md:w-2/3 md:border-l md:border-slate-600 md:pl-8">
-          {data.summaryAchievements && data.summaryAchievements.length > 0 && (
-            <>
-              <h4 className="pb-5 text-xl font-semibold text-white mb-4">Key Achievements</h4>
-              <div className="space-y-4">
-                {data.summaryAchievements.map((item, index) => (
-                  <div key={index} className="flex items-center gap-4">
-                    <div className="bg-gray-700 p-3 rounded-full">
-                      <AchievementIcon icon={item.icon} />
-                    </div>
-                    <span className="text-lg text-gray-300">{item.text}</span>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+  return (
+    <div className={`bg-gray-400/40 ${borderClasses} ${roundedClasses} p-8 shadow-lg backdrop-blur-sm flex flex-col h-full hover:-translate-y-2 hover:z-10 transition-all duration-300 relative group`}>
+      {/* Header Section */}
+      <div className="flex flex-col items-start text-left">
+        <img
+          src={data.logo}
+          alt={`${data.university} Logo`}
+          className="h-16 w-auto mb-6 object-contain filter drop-shadow-md"
+        />
+        <h3 className="text-2xl font-bold text-white leading-tight min-h-[64px] flex items-end">{data.degree}</h3>
+        <p className="text-base text-gray-200 mt-3 font-medium">{data.university}</p>
+        <p className="text-sm text-cyan-400 font-bold mt-4 tracking-wide flex items-center gap-2">
+          <FaRegClock /> {data.dates}
+        </p>
       </div>
-      
-      {/* "View Details" button is now controlled by the new 'hasDetails' check */}
+
+      {/* Divider */}
+      <hr className="border-t border-black/60 my-6 w-full" />
+
+      {/* Achievements Section */}
+      <div className="flex-1">
+        {data.summaryAchievements && data.summaryAchievements.length > 0 && (
+          <div className="space-y-4">
+            {data.summaryAchievements.map((item, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <div className="bg-black/20 p-2 rounded-lg mt-0.5 flex-shrink-0">
+                  <AchievementIcon icon={item.icon} />
+                </div>
+                <span className="text-base text-gray-100 font-medium leading-relaxed">{item.text}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Footer / Button Section */}
       {hasDetails && (
-        <div className="mt-6 text-right">
+        <div className="mt-8 pt-4">
           <button
             onClick={onOpenModal}
-            className="bg-gray-700 text-white font-bold py-2 px-5 rounded-lg hover:bg-cyan-500 transition-colors"
+            className="border border-cyan-400 text-cyan-400 px-6 py-2 rounded hover:bg-cyan-400 hover:text-black transition-colors duration-300 font-bold text-sm tracking-wide uppercase"
           >
             View Details
           </button>

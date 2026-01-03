@@ -12,12 +12,20 @@ const educationData = [
     degree: "M.Sc. in Management & Digital Technology",
     university: "Technical University of Munich (Heilbronn Campus), Germany",
     logo: "/images/TUM.png",
-    dates: "Starting October 2025",
+    dates: "October 2025",
     summaryAchievements: [
-      { icon: "status", text: "Upcoming Student (2-Year Program)" },
+      { icon: "status", text: "2-Year Program" },
     ],
-     // No detailedAchievements or courses, so the "View Details" button will not appear
-   },
+    coursesTitle: "Current Coursework",
+    courses: [
+      "Advanced Seminar Operations & Technology: Machine Learning",
+      "Digital Finance",
+      "Methods and Databases in Empirical Finance",
+      "Campus Challenge: Successful Investing with AI and Large Language Models",
+      "Marketing Research",
+      "CEO Strategy Series",
+    ],
+  },
   {
     id: "uni",
     degree: "Bachelor of Computing Science & Business Administration",
@@ -93,19 +101,16 @@ const Education = () => {
 
   return (
     <>
-      <div
-        className="bg-scroll"
-        style={{ backgroundImage: "url(/backgroundPPcroppedR.jpg)" }}
-      >
-        <div id="education" className="bg-white/40 pt-5 pb-5">
-          {/* I've updated this line to use the more subtle gradient we decided on */}
-          <div
-            className="max-w-[1000px] mx-auto py-12 text-white rounded-xl"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at bottom right, rgb(87, 63, 65) 10%, rgba(76, 83, 96, 0.6), rgba(255, 255, 255, 0.6))",
-            }}
-          >
+      <div id="education" className="bg-white/40 pt-5 pb-0">
+        {/* I've updated this line to use the more subtle gradient we decided on */}
+        <div
+          className="w-full py-12 text-white"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at bottom right, rgb(113, 72, 61), #11224080 75%, rgba(201, 201, 201, 0.6))",
+          }}
+        >
+          <div className="max-w-[1240px] mx-auto">
             <div className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
                 EDUCATION
@@ -113,12 +118,14 @@ const Education = () => {
             </div>
 
             {/* MODIFICATION 3: Looping over the data array to render multiple cards */}
-            <div className="px-4 space-y-8">
-              {educationData.map((eduItem) => (
+            <div className="px-4 grid grid-cols-1 lg:grid-cols-3 gap-0">
+              {educationData.map((eduItem, index) => (
                 <EducationCard
                   key={eduItem.id}
                   data={eduItem}
                   onOpenModal={() => handleOpenModal(eduItem)}
+                  isFirst={index === 0}
+                  isLast={index === educationData.length - 1}
                 />
               ))}
             </div>
@@ -126,7 +133,6 @@ const Education = () => {
         </div>
       </div>
 
-      {/* MODIFICATION 4: The modal now receives the 'selectedEducation' state */}
       <EducationModal
         isOpen={modalIsOpen}
         onRequestClose={handleCloseModal}
