@@ -104,7 +104,7 @@ The project aims to integrate Reinforcement Learning (RL) models to optimize nod
       "/images/CampusChallenge_LLM(1).png",
     ],
     description: `
-This project, developed for the Campus Challenge - Investing with AI, investigates whether sentiment extracted from financial headlines has predictive power for stock price movements through rigorous statistical analysis of time-lagged correlations.
+This project, developed for the Campus Challenge - Successful investing with AI and Large Language Models, investigates (via Prompt Engineering)whether sentiment extracted from financial headlines has predictive power for stock price movements through rigorous statistical analysis of time-lagged correlations.
 
 ## Project Overview
 The Sentiment-Return Analysis Framework implements a comprehensive pipeline that transforms qualitative financial news into quantitative sentiment scores, then tests if these scores can predict future stock returns across different investment horizons.
