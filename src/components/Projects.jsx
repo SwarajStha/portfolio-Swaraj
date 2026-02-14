@@ -233,6 +233,82 @@ The framework provides a foundation for more sophisticated financial NLP researc
     liveLink: "",
   },
   {
+    id: "proj5",
+    title: "PROMPTIST Reproduction",
+    category: "desktop",
+    img: "/images/PROMPTIST(1).png",
+    images: [
+      "/images/PROMPTIST(1).png",
+      "/images/PROMPTIST(2).png",
+    ],
+    description: `The Promptist Reproduction project is a machine learning application that successfully replicates Microsoft Research's **Promptist** model—a reinforcement learning-based prompt optimizer—on consumer-grade hardware with significant VRAM constraints. This project demonstrates advanced optimization techniques for running large language models and diffusion models sequentially on limited GPU memory.
+
+  ## Project Overview
+
+  Developed as a comprehensive reproduction study for a Machine Learning course, this application tackles the challenge of running state-of-the-art AI models (GPT-2 based text optimizer + Stable Diffusion image generator) on a laptop GPU with only 6GB VRAM. The original Microsoft implementation required high-end server hardware and outdated dependencies incompatible with modern Windows systems and RTX 40-series GPUs. This reproduction modernizes the entire stack while implementing aggressive memory management strategies to enable local, offline inference.
+
+  ## What the Program Does
+
+  **Prompt Optimization**: Takes simple, user-provided text prompts and transforms them into aesthetically-enhanced, detailed prompts optimized for text-to-image generation. The Promptist model (fine-tuned GPT-2) uses reinforcement learning to append artistic modifiers, technical specifications, and style descriptors.
+
+  **Image Generation Pipeline**: Generates side-by-side comparison images using Stable Diffusion v1.5, showing the visual difference between baseline (original prompt) and optimized prompt outputs. This provides empirical validation of the prompt optimization quality.
+
+  **Memory-Constrained Execution**: Implements a sophisticated two-phase pipeline with explicit VRAM management. Phase 1 loads the 8-bit quantized Promptist model for text optimization, then completely unloads it. Phase 2 loads Stable Diffusion in float16 precision for image generation—all within a 6GB memory budget.
+
+  **Batch Processing**: Supports batch evaluation across diverse prompt categories (Fantasy, Cyberpunk, Nature, etc.) with automated prompt extraction to JSON and reproducible image generation from saved prompt pairs.
+
+  **Offline Operation**: All model weights are stored locally in checkpoints, eliminating runtime downloads and ensuring reproducibility without internet dependency.
+
+  ## Main Algorithm & Logic
+
+  The core innovation lies in the memory management strategy and dependency modernization:
+
+  **8-bit Quantization (BitsAndBytes)**: The Promptist GPT-2 model (originally ~500MB in float32) is loaded using 'BitsAndBytesConfig' with 8-bit precision, reducing memory footprint by ~75% while maintaining generation quality. This was critical for fitting the model on Windows with CUDA 12.4 support.
+
+  **Sequential Model Loading with Aggressive Cleanup**: 
+  - **Phase 1**: Load Promptist → Generate optimized text → Explicitly delete model object → Run Python garbage collection ('gc.collect()') → Clear CUDA cache ('torch.cuda.empty_cache()')
+  - **Phase 2**: Load Stable Diffusion (float16) → Generate images → Cleanup
+  - This pattern prevents out-of-memory (OOM) errors that would occur if both models were loaded simultaneously.
+
+  **Dependency Patching**:
+  - **TRLX Library**: Modified 'setup.cfg' to remove the hard dependency on DeepSpeed (incompatible with Windows build tools), allowing the inference modules to load without the full RL training stack.
+  - **Diffusers Library**: Patched 'dynamic_modules_utils.py' to remove deprecated 'huggingface_hub.cached_download' imports that caused runtime errors with modern Transformers versions.
+
+  **Prompt Engineering Pipeline**:
+  - Input: Simple prompt (e.g., "A cat in the rain")
+  - Promptist Processing: Appends aesthetic modifiers using learned RL policy
+  - Output: Enhanced prompt (e.g., "cat in the rain, heavy rain, tears in rain, cinematic lighting, sharp focus, intricate, 8k, detailed, art by artgerm and greg rutkowski and alphonse mucha")
+
+  ## Technical Components & Technologies
+
+  **Core Language**: Python 3.11 — Required for compatibility with PyTorch 2.6 and modern CUDA toolkits.
+
+  **Deep Learning Framework**: PyTorch 2.6.0+cu124 — Upgraded from the original PyTorch 1.x to support NVIDIA RTX 40-series GPUs and CUDA 12.4.
+
+  **Model Optimization**: BitsAndBytes 0.49.1 — Enables 8-bit quantization on Windows, a feature previously limited to Linux systems.
+
+  **NLP & Generation**: 
+  - Hugging Face Transformers — For loading and running the GPT-2 based Promptist model
+  - TRLX (Patched) — Reinforcement learning library for prompt optimization inference
+
+  **Image Generation**: 
+  - Hugging Face Diffusers (Patched) — For Stable Diffusion v1.5 pipeline
+  - Stable Diffusion v1.5 — Text-to-image generation model
+
+  **Environment**: Windows 10/11 with NVIDIA CUDA 12.4, developed using PowerShell automation scripts for reproducible setup.
+
+  **Custom Scripts**:
+  - reproduce_results_v2.py — Inference verification with 8-bit loading
+  - generate_report_images.py — End-to-end pipeline with VRAM management
+  - batch_test_v2.py — Batch image generation from JSON prompt pairs
+  - setup_env.ps1 — Automated environment installation
+  - export_report.py — Report conversion to PDF/HTML formats`,
+    tech: ["Python", "PyTorch (CUDA 12.4)", "Hugging Face Transformers & Diffusers", "BitsAndBytes (8-bit Quantization)", "Stable Diffusion v1.5", "GPT-2 (Microsoft Promptist)", "TRLX (Reinforcement Learning)"],
+    githubLink: ['https://github.com/SwarajStha/PROMPTIST_reproduction', 'https://github.com/microsoft/LMOps/tree/main/promptist'],
+    liveLink: '',
+
+  },
+  {
     id: "proj2",
     title: "Online Class Face-Tracker",
     category: "data",
@@ -325,34 +401,6 @@ Rather than a single mathematical algorithm, the project follows the Agile devel
 - **Development Tools**: Built using a modern stack that includes Git for version control and Figma for initial design mockups.`,
     tech: ["React", "Tailwind CSS", "React Helmet"],
     githubLink: "https://github.com/SwarajStha/conservation-site",
-    liveLink: "",
-  },
-  {
-    id: "proj5",
-    title: "Mi'kmaq Language Game",
-    category: "web",
-    img: "/images/miqmaq(1).png",
-    description: `The Mi’kmaq Language Game is a web-based educational application developed as a service-learning project for the Eskasoni Immersion School. It is designed to preserve and revitalize the Mi’kmaq language by teaching basic vocabulary to children through an interactive digital environment.
-
-## Project Overview
-This project was part of a suite of educational games aimed at supporting indigenous language immersion. As the project lead for a team of five, you collaborated directly with community clients to ensure the software met the specific pedagogical needs of the school.
-
-## What the Program Does
-- **Vocabulary Building**: Introduces children to foundational Mi’kmaq words and phrases through gamified lessons.
-- **Interactive Learning**: Provides an engaging web interface that simplifies complex language concepts for younger users.
-- **Cultural Preservation**: Serves as a digital resource to support the Eskasoni Immersion School’s curriculum and help protect a low-resource indigenous language.
-
-## Main Process & Methodology
-- **Agile Project Management**: The development followed an iterative lifecycle involving direct client meetings to gather requirements and refine the user experience.
-- **Educational Software Design**: The team focused on creating intuitive navigation and age-appropriate interaction patterns to maximize learning retention for children.
-
-## Technical Components & Technologies
-- **Frontend Framework**: React.js — Used to build the dynamic, responsive user interface.
-- **Styling**: Tailwind CSS or Bootstrap — Utilized for a clean, child-friendly visual design.
-- **Development Tools**: Managed through GitHub for version control and teamwork coordination.
-- **Programming Core**: Built using JavaScript, HTML, and CSS to ensure broad compatibility across web browsers.`,
-    tech: ["React", "JavaScript", "CSS"],
-    githubLink: "https://github.com/SwarajStha/Mi-kmaq-Language-Game",
     liveLink: "",
   },
 ];
