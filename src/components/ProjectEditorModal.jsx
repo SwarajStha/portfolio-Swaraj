@@ -209,17 +209,26 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                                 {/* Links Block (Moved Up & Cleaned) */}
                                 <div>
                                     <h2 className="text-xl font-bold text-yellow-400 mb-3">## Links</h2>
-                                    <div className="flex gap-4">
+                                    <div className="flex flex-wrap gap-4">
                                         {project.liveLink && (
                                             <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:underline">
                                                 [<FaExternalLinkAlt size={12} /> Live Demo]
                                             </a>
                                         )}
-                                        {project.githubLink ? (
+                                        {Array.isArray(project.githubLink) ? (
+                                            // Multiple GitHub links
+                                            project.githubLink.map((link, idx) => (
+                                                <a key={idx} href={link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:underline">
+                                                    [<FaGithub size={12} /> {idx === 0 ? 'My Repository' : 'Original Repository'}]
+                                                </a>
+                                            ))
+                                        ) : project.githubLink ? (
+                                            // Single GitHub link
                                             <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:underline">
                                                 [<FaGithub size={12} /> Source Code]
                                             </a>
                                         ) : (
+                                            // No GitHub link
                                             <span className="text-gray-500 italic flex items-center gap-2">
                                                 [<FaGithub size={12} /> Private Repository]
                                             </span>
@@ -243,7 +252,7 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
 
                                         // Header H2
                                         if (line.startsWith('## ')) {
-                                            return <h2 key={index} className="text-xl font-bold text-blue-400 mt-6 mb-2">{line.replace('## ', '')}</h2>;
+                                            return <h2 key={index} className="text-xl font-bold text-blue-400 mt-4 mb-1">{line.replace('## ', '')}</h2>;
                                         }
 
                                         // Bold Sub-Header (starts with **) - New distinct formatting

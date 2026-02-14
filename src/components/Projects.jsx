@@ -99,137 +99,168 @@ The project aims to integrate Reinforcement Learning (RL) models to optimize nod
     category: "data",
     img: "/images/CampusChallenge_LLM(0).png",
     images: [
-      "/images/CampusChallenge_LLM(2).png",
       "/images/CampusChallenge_LLM(0).png",
-      "/images/CampusChallenge_LLM(1).png",
+      "/images/CampusChallenge_LLM(2).png",
+      "/images/CampusChallenge_LLM(3).png",
     ],
     description: `
-This project, developed for the Campus Challenge - Successful investing with AI and Large Language Models, investigates (via Prompt Engineering)whether sentiment extracted from financial headlines has predictive power for stock price movements through rigorous statistical analysis of time-lagged correlations.
+This project, developed for the Campus Challenge - Successful Investing with AI and Large Language Models, evaluates whether LLM-generated sentiment scores from financial news can predict stock returns and generate statistically significant alpha after controlling for established risk factors.
 
 ## Project Overview
-The Sentiment-Return Analysis Framework implements a comprehensive pipeline that transforms qualitative financial news into quantitative sentiment scores, then tests if these scores can predict future stock returns across different investment horizons.
+The Sentiment-Based Trading Strategy Framework implements a comprehensive quantitative finance pipeline that transforms financial news headlines into actionable trading signals. Using a novel multi-persona prompting approach, the system constructs long-short portfolios and validates performance through rigorous factor model analysis (CAPM, Fama-French 3/5-Factor), cross-sectional regressions (Fama-MacBeth), and transaction cost sensitivity analysis. The framework achieved **+14.95% cumulative return over 6 months (32.73% annualized)** with **+35.48% gross alpha** and **t=3.50*** cross-sectional significance, demonstrating economically viable outperformance beyond traditional risk factors.
+
+## Performance Metrics:
+- **+14.95% cumulative return** over 6 months (weekly value-weighted long-short)
+- **+32.73% annualized return** (July-December 2024)
+- **+35.48% gross alpha** (Fama-French 5-Factor model, t=1.16)
+**t=3.50*** Cross-Sectional Significance (Fama-MacBeth monthly, p<0.01)
+- **+27.27% net alpha** after 20 bps transaction costs (survives at 50 bps with +14.94%)
 
 ## What the Program Does
-The program processes thousands of financial headlines through a multi-stage analytical pipeline:
+The program processes thousands of financial headlines through a multi-stage quantitative pipeline:
 
 **Sentiment Scoring Engine:**
-Uses Large Language Models (LLMs) via the Groq API to convert raw headlines into numerical sentiment scores on a continuous [-1, +1] scale, where -1 represents strong bearish sentiment and +1 represents strong bullish optimism.
+Uses Large Language Models (Qwen via Groq API) to extract nuanced sentiment through a **multi-persona framework** modeling four investor archetypes: retail novice, conviction fanatic, day/swing trader, and long-term fundamentalist. Features **regime-adaptive weighting** that dynamically adjusts to meme-stock (40/20/30/10%) vs. normal market (20/10/30/40%) conditions, producing continuous [-1, +1] sentiment scores.
 
-**Time-Lagged Data Alignment:**
-Implements critical temporal offset logic by adding +1 day (daily analysis) or +1 month (monthly analysis) to sentiment timestamps before merging with return data. This ensures the framework tests predictive relationships rather than concurrent correlations—measuring whether today's sentiment forecasts tomorrow's returns.
+**Portfolio Construction:**
+Ranks stocks by sentiment scores within rebalancing periods. Top quintile (20% highest sentiment) forms long positions, bottom quintile forms short positions, creating **market-neutral long-short portfolios**. Tests four configurations: weekly/monthly rebalancing × equal/value weighting to identify optimal implementation.
 
-**Multi-Scale Aggregation:**
-Supports both daily (high-frequency) and monthly (noise-reduced) analysis pipelines. The monthly workflow aggregates daily sentiment scores by ticker and month, reducing noise while preserving longer-term trends.
+**Factor Model Analysis:**
+Performs time-series regressions against Fama-French factors (Market, Size, Value, Profitability, Investment) using **Newey-West HAC standard errors** (10 lags) to isolate genuine alpha from known risk exposures. Runs 36 regressions across 3 models (CAPM/FF3/FF5) × 4 configurations × 3 portfolio types.
 
-**Statistical Visualization:**
-Generates comprehensive 4-panel plots per ticker (raw time series, z-score normalized comparison, scatter with regression, rolling correlation) plus aggregate cross-ticker analysis showing sentiment-return relationships across the entire dataset.
+**Transaction Cost Validation:**
+Evaluates economic viability under realistic implementation costs (10/20/50 basis points), calculating net alpha after turnover and rebalancing costs. Weekly value-weighted strategy survives with **+27.27% net alpha** after 20 bps costs.
 
-## Core Methodology: Flexible Prompt Engineering & Statistical Correlation
+**Cross-Sectional Testing:**
+Implements Fama-MacBeth methodology running monthly/weekly cross-sectional regressions to test if sentiment predicts returns across stocks, not just within portfolios. Computes time-series averages of slopes with Newey-West standard errors for significance testing.
 
-The sentiment scoring system employs a **flexible parsing architecture** that supports multiple prompt strategies without code changes:
+**Comprehensive Visualization:**
+Generates 24 publication-quality charts (300 DPI): cumulative returns, drawdown analysis, rolling Sharpe ratios, alpha comparisons, factor exposures, gross vs net alpha, Fama-MacBeth slopes, and integrated dashboards.
 
-**Multi-Format Parser:**
-The sentiment analysis module dynamically detects response format and applies appropriate extraction logic:
-- **Persona-based format**: Parses multiple investor perspective scores, detects regime classification, calculates weighted averages in Python
-- **Simple format**: Extracts direct numerical scores with fallback handling for malformed responses
-- **Tag-enhanced scoring**: Incorporates article keywords (e.g., "earnings," "FDA," "bankruptcy") to provide additional context beyond headlines
+## Core Methodology: Multi-Persona Prompting & Factor Decomposition
 
-**Regime-Adaptive Weighting:**
-Automatically adjusts scoring weights based on detected market conditions (meme stock characteristics vs. normal fundamentals-driven stocks), reflecting different investor compositions across stock categories.
+The sentiment system employs **regime-aware persona ensemble** architecture:
+
+**Multi-Perspective Aggregation:**
+Each headline evaluated by four investor types with distinct risk horizons and information processing: NOVICE (momentum-driven, short-term), FANATIC (conviction-based, narrative-focused), DAY/SWING (technical patterns, volatility), LONG-TERM (fundamental value, sustainability). Weighted ensemble produces final sentiment with automatic regime detection.
+
+**Flexible Parsing Architecture:**
+Parser dynamically handles multiple LLM response formats without code changes: persona-based (extracts individual scores + regime + calculates weights in Python), simple format (direct score extraction), tag-enhanced (incorporates article keywords), enabling prompt experimentation across 8 versions (v1-v8) without pipeline refactoring.
 
 **Bias Mitigation:**
-Addresses inherent LLM positivity bias through balanced example calibration, explicit negative anchoring, and multi-perspective analysis to generate more symmetric score distributions.
+Addresses LLM positivity bias through balanced example calibration (3 positive: -0.93 bankruptcy, -0.72 FDA rejection, -0.81 meme collapse; 3 neutral), explicit negative anchoring in instructions, and multi-perspective analysis to generate more symmetric score distributions.
+
+**Statistical Validation Framework:**
+Four-phase validation ensures robustness:
+
+1. **Factor Models** - Time-series regressions isolate alpha from market beta, size, value, profitability, investment factors
+2. **Cost Analysis** - Tests survival under 10/20/50 bps transaction costs with turnover calculations
+3. **Fama-MacBeth** - Cross-sectional validation confirms predictive power across stocks (t=3.50*** monthly, t=2.87*** weekly)
+4. **Factor Exposure Decomposition** - Negative market beta (-0.82) validates market-neutral design; low R² (28%) confirms alpha independence from known factors
 
 ## Technical Components & Technologies
 
-The project evolved from basic sentiment extraction to a robust statistical framework addressing real-world financial analysis challenges:
+The project implements institutional-grade quantitative finance methodology:
 
 **Core Language:**
-Python with extensive use of Pandas for time-series manipulation, datetime arithmetic, and grouped aggregations.
+Python with extensive Pandas for panel data manipulation, datetime arithmetic, grouped aggregations, and multi-index operations for ticker-date hierarchies.
 
-**Statistical Methods:**
-- **Z-Score Normalization**: Standardizes returns and scores to enable fair comparison across tickers with different volatility profiles
-- **Pearson Correlation**: Quantifies linear relationship strength between sentiment and returns
-- **Rolling Correlation**: Captures time-varying dynamics with adaptive windows (5-day for daily, 3-month for monthly)
-- **Linear Regression (OLS)**: Models predictive relationship magnitude via least-squares fitting
-- **Quantile Analysis**: Divides returns into deciles to examine sentiment distribution across performance tiers
+**Statistical Infrastructure:**
+- **Newey-West HAC Standard Errors**: 10-lag correction for autocorrelation/heteroskedasticity in time-series regressions
+- **Linear Regression (OLS)**: Factor model decomposition with statsmodels for coefficient estimation
+- **Cross-Sectional Regressions**: Period-by-period regressions across stocks testing predictive power
+- **Z-Score Normalization**: Standardizes metrics across tickers with different volatility profiles
+- **Rolling Window Analysis**: Adaptive 5-day (daily) / 3-month (monthly) correlation windows capturing time-varying dynamics
 
-**Data Flow Engineering:**
-Implements a three-stage pipeline per time scale:
-- **Scoring**: Headlines → LLM API → Sentiment scores with reasoning
-- **Merging**: Sentiment[t] + Returns[t+1] → Time-lagged dataset via \`timedelta\` (daily) or \`DateOffset\` (monthly)
-- **Analysis**: Statistical computation + multi-panel visualization + CSV export
+**LLM Integration:**
+- **API Client** (api_client.py): Groq API communication with retry logic and error handling
+- **Prompt Engine** (prompt_engine.py): Template management supporting tag-enhanced context injection, modular prompt versioning
+- **Sentiment Parser** (sentiment_analysis.py): Format-agnostic regex extraction supporting persona scores, regime detection, simple formats, fallback parsing
 
-**Robust Error Handling:**
-- NaN and infinite value filtering to prevent numerical instabilities
-- Variance checks before polynomial fitting to avoid singular matrices
-- Try-catch blocks around trend line calculations with graceful degradation
-- Minimum observation thresholds for rolling window computations
+**Data Processing Pipeline:**
+Three-stage workflow per time scale:
+- **Extraction** (Extract_Data.py): Regex parsing of unstructured LLM outputs, weighted score calculation, ticker validation (removes ~7.5% mismatches), 6-decimal standardization
+- **Merging** (merge_data*.py): Time-lagged joins (Sentiment[t] → Returns[t+1]) via timedelta (daily) or DateOffset (monthly) ensuring causal precedence
+- **Validation** (clean/validate_signal_return_panel.py): Panel structure verification, missing data handling, sorting by ticker+date
 
-**Aggregate Analysis Tools:**
-Beyond per-ticker analysis, the framework provides cross-sectional insights:
-- **Binned scatter plots**: Show average sentiment for each 2.5% return bin with standard error bars
-- **2D density heatmaps**: Reveal joint distribution clustering patterns
-- **Sorted movement patterns**: Display co-movement via moving averages on sorted data
-- **Joint distributions with marginals**: Combined scatter and histogram views
-- **Quantile comparisons**: Bar charts showing sentiment across return performance tiers
+**Portfolio Analytics:**
+- **Backtesting Engine** (portfolio_backtest.py): Quintile-based construction, 4 configuration testing (weekly/monthly × equal/value), long/short/long-short returns, Sharpe/drawdown/volatility metrics
+- **Factor Analysis** (factor_alpha.py): 36-regression suite with comprehensive 8-section interpretations (α magnitude, model comparison, stability, factor exposures, leg breakdown, strategy insights, assessment)
+- **Cost Analysis** (transaction_cost_analysis.py): Turnover-based cost modeling under 3 scenarios with net alpha calculation
+- **Cross-Sectional** (fama_macbeth.py): Period assignment, slope extraction, mean testing with detailed interpretations
+
+**Visualization Suite:**
+- **Matplotlib/Seaborn**: 24-chart comprehensive visualization (cumulative returns, drawdowns, rolling Sharpe, alpha comparisons, R², factor betas, gross vs net, FM slopes, dashboards)
+- **4-Panel Diagnostic Plots**: Raw time-series, z-score normalized, scatter with regression, rolling correlation per ticker
+- **Professional Styling**: Color-coded strategies (green/red/blue for long/short/long-short), 300 DPI publication quality, UTF-8 Unicode support for mathematical symbols
 
 ## Architectural Highlights
 
 **Separation of Concerns:**
-Modular design with distinct responsibilities:
-- \`api_client.py\`: LLM communication layer with retry logic
-- \`prompt_engine.py\`: Template management and message construction
-- \`sentiment_analysis.py\`: Format-agnostic response parsing
-- \`run_analysis.py\`: Orchestration and CSV I/O
-- \`merge_data*.py\`: Time-lagged join operations
-- \`plot_data*.py\`: Visualization generation
-- \`aggregate_analysis.py\`: Cross-ticker statistical analysis
+Modular design with 15+ specialized scripts:
+- Sentiment layer: api_client, prompt_engine, sentiment_analysis, run_analysis
+- Data layer: Extract_Data, data_cleanup_returns, prepare/clean/validate_panel, merge_data*
+- Analytics layer: portfolio_backtest, factor_alpha, transaction_cost_analysis, fama_macbeth
+- Visualization layer: plot_data*, create_visualizations, aggregate_analysis
 
 **Dual Time-Scale Support:**
-Parallel pipelines for daily and monthly analysis with appropriate parameter adjustments:
-- Rolling windows scaled to data frequency
-- Date formatting adapted to granularity
-- Visual marker sizes adjusted for data density
-- Column naming conventions to distinguish aggregation levels
+Parallel pipelines for daily (event-driven) and monthly (trend-focused) with adaptive parameters: rolling windows scaled to frequency, date formatting (YYYY-MM-DD vs YYYY-MM), visual marker density, aggregation functions (mean for monthly, alignment for daily).
 
-**Flexible Configuration:**
-File paths, prompt versions, and analysis parameters configurable via constants at module tops, enabling rapid experimentation with different datasets and prompt strategies.
+**Prompt Evolution Framework:**
+8 prompt versions (v1-v8) with structured progression: v1-v3 (initial experiments) → v4 (persona breakthrough) → v5 (balanced examples, regime variants) → v6 (tag-enhanced) → v7 (refined) → v8 (FINAL optimized). Flexible parser supports all versions without code changes, enabling systematic A/B testing.
 
-## Documentation & Reproducibility
+**Comprehensive Documentation:**
+- **README.md**: 800-line comprehensive guide with directory structure, component descriptions, workflow instructions
+- **Executive_Summary.md**: 50+ page analytical report with methodology, results, discussion, limitations
+- **Criticisms.md**: 18 major limitations including LLM bias, data quality, statistical concerns, market dynamics
+- **Data_Cleaning_Methodology.md**: Detailed extraction logic, validation stages, quality metrics
+- **Used_Statistics.md**: Mathematical formulas, interpretations, statistical relevance for all metrics
+- **Walkthrough.md**: Step-by-step execution guide for reproduction
 
-The project includes comprehensive documentation files:
-- **README.md**: Complete directory structure, component descriptions, and step-by-step workflow instructions
-- **Used_Statistics.md**: Mathematical formulas, statistical interpretations, and relevance explanations for all metrics
-- **Criticisms.md**: Honest assessment of 18 major limitations including LLM bias, correlation vs. causation, and market efficiency concerns
+## Key Results
 
-## Key Engineering Challenges Solved
+**Statistical Validation:**
+- **Fama-MacBeth t=3.50*** (monthly), **t=2.87*** (weekly) - highly significant cross-sectional predictability
+- **Alpha stability**: <2% change across CAPM/FF3/FF5 - genuine alpha, not factor disguise
+- **Low R² (28%)**: Strategy independent of known risk factors
+- **Negative market beta (-0.82)**: Validates market-neutral design
+
+**Asymmetric Signal Power:**
+- **Short leg: -38.70% alpha** (t=-2.20**) - excels at identifying overvalued stocks
+- **Long leg: +1.82% alpha** (t=0.15) - neutral long performance
+- **Implication**: Signal strength in losers identification rather than winners prediction
+
+## Engineering Challenges Solved
 
 **LLM Positivity Bias:**
-Developed balanced prompt calibration with explicit negative examples to counteract models' tendency toward optimistic scores.
+Developed balanced prompt calibration with explicit negative examples (-0.93, -0.72, -0.81), regime-adaptive weighting, and multi-persona ensemble to counteract models' optimistic tendencies.
 
 **Flexible Parsing:**
-Created adaptive parser supporting multiple response formats to enable prompt experimentation without code refactoring.
+Created adaptive regex parser supporting persona-based, simple, and tag-enhanced response formats, enabling prompt experimentation without pipeline refactoring across 8 prompt versions.
 
-**Temporal Causality:**
-Implemented time-offset logic ensuring sentiment precedes returns measurement, addressing look-ahead bias.
+**Temporal Causality Enforcement:**
+Implemented time-offset logic (+1 day/month via timedelta/DateOffset) ensuring sentiment precedes returns measurement, eliminating look-ahead bias in predictive testing.
 
-**Numerical Stability:**
-Added data cleaning, variance validation, and error handling to prevent SVD convergence failures and division-by-zero errors.
+**Robust Statistical Inference:**
+Applied Newey-West HAC standard errors (10 lags) to account for autocorrelation/heteroskedasticity in daily financial returns, preventing inflated t-statistics and false significance.
 
-**Multi-Scale Analysis:**
-Designed parallel workflows for daily (event-driven) and monthly (trend-focused) time horizons with appropriate statistical adaptations.
+**Data Validation Pipeline:**
+Built two-stage validation: Stage 1 filters missing fields, Stage 2 cross-validates ticker consistency, removing ~1,272 mismatches (~7.5%) with detailed diagnostics for quality assurance.
+
+**Economic Viability Testing:**
+Designed transaction cost framework with turnover-based calculations under 3 scenarios (10/20/50 bps), demonstrating strategy survives real-world implementation costs.
 
 ## Future Outlook
 
-The framework provides a foundation for more sophisticated financial NLP research:
-- Integration of transformer-based embeddings for semantic similarity clustering
-- Implementation of Granger causality tests for formal temporal precedence validation
-- Incorporation of options market data (implied volatility) to enhance sentiment signals
-- Development of trading simulators with transaction cost modeling for practical strategy evaluation
-- Exploration of alternative LLM architectures (domain-specific financial models, ensemble approaches) to further reduce bias`,
+The framework establishes foundation for advanced quantitative finance research:
+- **Regime-specific analysis**: Test strategy performance across bull/bear/volatile market conditions to validate robustness
+- **Granger causality tests**: Formal temporal precedence validation beyond time-lagged correlation
+- **Alternative data integration**: Incorporate options implied volatility, social media sentiment, insider trading for signal enhancement
+- **Machine learning meta-models**: Train ML models on factor exposures and regime features to predict when sentiment signals are strongest
+- **Domain-specific LLMs**: Explore financial-specialized models (BloombergGPT-style) to reduce bias and improve sentiment accuracy
+- **Multi-asset expansion**: Extend framework to bonds, commodities, cryptocurrencies for diversified signal generation`,
     tech: ["Python", "Pandas", "Groq API (Qwen3-32B)", "NumPy", "Matplotlib", "Scipy", "Jupyter"],
-    githubLink: "",
+    githubLink: "https://github.com/SwarajStha/CampusChallenge-Group-15",
     liveLink: "",
   },
   {
@@ -303,7 +334,7 @@ The framework provides a foundation for more sophisticated financial NLP researc
   - batch_test_v2.py — Batch image generation from JSON prompt pairs
   - setup_env.ps1 — Automated environment installation
   - export_report.py — Report conversion to PDF/HTML formats`,
-    tech: ["Python", "PyTorch (CUDA 12.4)", "Hugging Face Transformers & Diffusers", "BitsAndBytes (8-bit Quantization)", "Stable Diffusion v1.5", "GPT-2 (Microsoft Promptist)", "TRLX (Reinforcement Learning)"],
+    tech: ["Python", "PyTorch (CUDA 12.4)", "BitsAndBytes (8-bit Quantization)", "Hugging Face Transformers & Diffusers", "Stable Diffusion v1.5", "GPT-2 (Microsoft Promptist)", "TRLX (Reinforcement Learning)"],
     githubLink: ['https://github.com/SwarajStha/PROMPTIST_reproduction', 'https://github.com/microsoft/LMOps/tree/main/promptist'],
     liveLink: '',
 
