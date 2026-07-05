@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ProjectItem from "./ProjectItem";
 import ProjectEditorModal from "./ProjectEditorModal";
 import ProjectWorkstation from "./ProjectWorkstation";
+import SectionHeading from "./ui/SectionHeading";
+import Reveal from "./ui/Reveal";
 
 // Organize all project data in one place
 const projectData = [
@@ -436,6 +439,13 @@ Rather than a single mathematical algorithm, the project follows the Agile devel
   },
 ];
 
+const categoryLabels = {
+  all: "All",
+  web: "Web Development",
+  data: "Data & AI",
+  desktop: "Machine Learning",
+};
+
 const Projects = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -451,83 +461,98 @@ const Projects = () => {
     setSelectedProject(null);
   };
 
-  // Separate the featured project (Class Photo Scheduler) from the rest
+  // The featured project gets the phone panel; the rest go to the grid
   const featuredProject = projectData[0];
+  const gridProjects = projectData.slice(1);
 
-  // Filter other projects based on active category
-  const otherProjects = projectData.slice(1).filter(project => {
-    if (activeCategory === 'all') return true;
+  const otherProjects = gridProjects.filter((project) => {
+    if (activeCategory === "all") return true;
     return project.category === activeCategory;
   });
 
-  const categories = ['all', 'web', 'data', 'desktop'];
+  const categories = ["all", "web", "data", "desktop"];
+  const countFor = (cat) =>
+    cat === "all"
+      ? gridProjects.length
+      : gridProjects.filter((p) => p.category === cat).length;
 
   return (
     <>
-      <div id="projects" className="bg-white/40 pt-5 pb-0">
-        <div
-          className="w-full py-12 text-white bg-gradient-to-l from-[#f9731699] from-20% via-[#7c2d1280] via-75% to-[#6b463c]"
-        >
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8">
-              <h1 className="text-white text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
-                PROJECTS
-              </h1>
-              <div className="mt-4 font-mono text-cyan-400 text-sm">
-                swaraj@portfolio:~/projects$ ls -l
-              </div>
-            </div>
+      <section id="projects" className="w-full py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeading
+            index="04"
+            title="My Work"
+            subtitle="swaraj@portfolio:~/projects$ ls -l"
+          />
 
-            {/* Featured Project: Mobile Workstation Theme */}
-            <div className="mb-24">
-              <ProjectWorkstation
-                project={featuredProject}
-                onExpand={() => handleOpenModal(featuredProject)}
-              />
-            </div>
+          {/* Featured Project: floating phone panel */}
+          <Reveal className="mb-24 md:mb-36">
+            <ProjectWorkstation
+              project={featuredProject}
+              onExpand={() => handleOpenModal(featuredProject)}
+            />
+          </Reveal>
 
-            {/* CLI Navigation & Grid */}
-            <div className="max-w-[1240px] mx-auto">
-              {/* Custom CLI Navigation Tabs */}
-              <div className="flex flex-wrap items-center gap-4 mb-8 font-mono text-sm md:text-base border-b border-gray-700 pb-4">
-                <span className="text-green-400 font-bold">swaraj@portfolio:~/projects$</span>
-                <span className="text-gray-300">ls</span>
-
-                {categories.map(cat => (
+          {/* Filter bar (tamalsen-style, with counts) */}
+          <Reveal>
+            <div className="mb-10 flex flex-wrap items-center gap-x-1 gap-y-3 font-mono text-sm">
+              <span className="mr-3 text-slate-500">Filter by</span>
+              {categories.map((cat, i) => (
+                <span key={cat} className="flex items-center">
+                  {i > 0 && <span className="mx-2 text-slate-600">/</span>}
                   <button
-                    key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`px-3 py-1 rounded transition-all duration-200 ${activeCategory === cat
-                      ? "bg-blue-500/20 text-cyan-400 border border-cyan-500/50 shadow-[0_0_10px_rgba(34,211,238,0.3)]"
-                      : "text-gray-300 hover:text-white hover:bg-white/5"
+                    className={`relative transition-colors duration-200 ${activeCategory === cat
+                      ? "text-accent"
+                      : "text-slate-400 hover:text-white"
                       }`}
                   >
-                    --{cat}
+                    {categoryLabels[cat]}
+                    <sup className="ml-0.5 text-[10px] text-slate-500">
+                      {String(countFor(cat)).padStart(2, "0")}
+                    </sup>
+                    {activeCategory === cat && (
+                      <motion.span
+                        layoutId="filter-underline"
+                        className="absolute -bottom-1 left-0 right-0 h-px bg-accent"
+                      />
+                    )}
                   </button>
-                ))}
-              </div>
+                </span>
+              ))}
+            </div>
+          </Reveal>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4">
-                {otherProjects.map((project) => (
+          {/* Animated project grid */}
+          <motion.div layout className="grid grid-cols-1 gap-7 md:grid-cols-2">
+            <AnimatePresence mode="popLayout">
+              {otherProjects.map((project) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                >
                   <ProjectItem
-                    key={project.id}
                     title={project.title}
                     img={project.img}
-                    tech={project.tech} // Pass tech for metadata
-                    category={project.category}
+                    tech={project.tech}
+                    category={categoryLabels[project.category] || project.category}
                     onSelect={() => handleOpenModal(project)}
                   />
-                ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
 
-                {otherProjects.length === 0 && (
-                  <div className="col-span-full text-center py-20 text-gray-500 font-mono">
-                    Directory is empty. No projects found for this category.
-                  </div>
-                )}
+            {otherProjects.length === 0 && (
+              <div className="col-span-full py-20 text-center font-mono text-slate-500">
+                Directory is empty. No projects found for this category.
               </div>
-            </div>
-
-          </div>
+            )}
+          </motion.div>
         </div>
 
         <ProjectEditorModal
@@ -535,7 +560,7 @@ const Projects = () => {
           isOpen={modalIsOpen}
           onRequestClose={handleCloseModal}
         />
-      </div>
+      </section>
     </>
   );
 };

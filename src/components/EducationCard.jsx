@@ -1,75 +1,68 @@
-// src/components/EducationCard.jsx
+import { FaAward, FaGraduationCap, FaStar, FaRegClock, FaArrowRight } from "react-icons/fa";
 
-import { FaAward, FaGraduationCap, FaStar, FaRegClock } from "react-icons/fa";
-
-// A small helper to render the correct icon
 const AchievementIcon = ({ icon }) => {
   switch (icon) {
     case 'gpa':
-      return <FaGraduationCap className="text-cyan-400" size={20} />;
+      return <FaGraduationCap className="text-accent" size={16} />;
     case 'scholarship':
-      return <FaAward className="text-cyan-400" size={20} />;
+      return <FaAward className="text-accent" size={16} />;
     case 'deansList':
-      return <FaStar className="text-cyan-400" size={20} />;
+      return <FaStar className="text-accent" size={16} />;
     case 'status':
-      return <FaRegClock className="text-cyan-400" size={20} />;
+      return <FaRegClock className="text-accent" size={16} />;
     default:
       return null;
   }
 };
 
-const EducationCard = ({ data, onOpenModal, isFirst, isLast }) => {
-  // The 'View Details' button will now show if either detailed achievements OR courses exist.
-  const hasDetails = (data.detailedAchievements && data.detailedAchievements.length > 0) || (data.courses && data.courses.length > 0);
-
-  // Dynamic classes for seamless joining
-  const borderClasses = `border border-slate-600 ${!isFirst ? 'lg:-ml-[1px] -mt-[1px] lg:mt-0' : ''}`;
-  const roundedClasses = `rounded-none ${isFirst ? 'rounded-t-2xl lg:rounded-tr-none lg:rounded-l-2xl' : ''} ${isLast ? 'rounded-b-2xl lg:rounded-bl-none lg:rounded-r-2xl' : ''}`;
+const EducationCard = ({ data, onOpenModal }) => {
+  const hasDetails =
+    (data.detailedAchievements && data.detailedAchievements.length > 0) ||
+    (data.courses && data.courses.length > 0);
 
   return (
-    <div className={`bg-gray-400/40 ${borderClasses} ${roundedClasses} p-8 shadow-lg backdrop-blur-sm flex flex-col h-full hover:-translate-y-2 hover:z-10 transition-all duration-300 relative group`}>
-      {/* Header Section */}
-      <div className="flex flex-col items-start text-left">
-        <img
-          src={data.logo}
-          alt={`${data.university} Logo`}
-          className="h-16 w-auto mb-6 object-contain filter drop-shadow-md"
-        />
-        <h3 className="text-2xl font-bold text-white leading-tight min-h-[64px] flex items-end">{data.degree}</h3>
-        <p className="text-base text-gray-200 mt-3 font-medium">{data.university}</p>
-        <p className="text-sm text-cyan-400 font-bold mt-4 tracking-wide flex items-center gap-2">
-          <FaRegClock /> {data.dates}
-        </p>
+    <div
+      onClick={hasDetails ? onOpenModal : undefined}
+      className={`group relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-accent/40 hover:bg-white/[0.05] hover:shadow-[0_20px_50px_-20px_rgba(34,211,238,0.15)] ${hasDetails ? "cursor-pointer" : ""}`}
+    >
+      {/* Logo + dates */}
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div className="rounded-xl bg-white/90 p-2.5 shadow-lg">
+          <img
+            src={data.logo}
+            alt={`${data.university} logo`}
+            className="h-10 w-auto object-contain"
+          />
+        </div>
+        <span className="flex items-center gap-2 whitespace-nowrap font-mono text-xs text-accent">
+          <FaRegClock size={11} /> {data.dates}
+        </span>
       </div>
 
-      {/* Divider */}
-      <hr className="border-t border-black/60 my-6 w-full" />
+      <h3 className="font-display text-xl font-bold leading-snug text-white transition-colors group-hover:text-accent-soft">
+        {data.degree}
+      </h3>
+      <p className="mt-2 text-sm text-slate-400">{data.university}</p>
+      {data.coop && (
+        <p className="mt-1 font-mono text-xs text-accent-violet">{data.coop}</p>
+      )}
 
-      {/* Achievements Section */}
-      <div className="flex-1">
-        {data.summaryAchievements && data.summaryAchievements.length > 0 && (
-          <div className="space-y-4">
-            {data.summaryAchievements.map((item, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <div className="bg-black/20 p-2 rounded-lg mt-0.5 flex-shrink-0">
-                  <AchievementIcon icon={item.icon} />
-                </div>
-                <span className="text-base text-gray-100 font-medium leading-relaxed">{item.text}</span>
-              </div>
-            ))}
+      {/* Achievements */}
+      <div className="mt-6 flex-1 space-y-3 border-t border-white/5 pt-5">
+        {data.summaryAchievements?.map((item, index) => (
+          <div key={index} className="flex items-start gap-3">
+            <div className="mt-0.5 shrink-0 rounded-md bg-accent/10 p-1.5">
+              <AchievementIcon icon={item.icon} />
+            </div>
+            <span className="text-sm leading-relaxed text-slate-300">{item.text}</span>
           </div>
-        )}
+        ))}
       </div>
 
-      {/* Footer / Button Section */}
       {hasDetails && (
-        <div className="mt-8 pt-4">
-          <button
-            onClick={onOpenModal}
-            className="border border-cyan-400 text-cyan-400 px-6 py-2 rounded hover:bg-cyan-400 hover:text-black transition-colors duration-300 font-bold text-sm tracking-wide uppercase"
-          >
-            View Details
-          </button>
+        <div className="mt-6 flex items-center gap-2 font-mono text-xs text-accent opacity-70 transition-opacity group-hover:opacity-100">
+          view details
+          <FaArrowRight size={10} className="transition-transform group-hover:translate-x-1" />
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
-import TechSection from "./TechSection"; // For the simple rows
-import HoneycombSection from "./HoneycombSection";
 import TerminalProficiency from "./TerminalProficiency";
+import SectionHeading from "./ui/SectionHeading";
+import Reveal from "./ui/Reveal";
 
 const techSections = [
   {
@@ -264,27 +264,16 @@ const Technologies = () => {
 
   return (
     <>
-      <div id="technologies" className="bg-white/40 pt-5 pb-0">
-        <div
-          className="w-full py-12 text-white"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at top right, #f9731699, #7c2d1299, #112240CC)",
-          }}
-        >
-          <div className="max-w-[1240px] mx-auto">
-            <div className="text-center mb-16 px-4">
-              <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
-                TECHNOLOGIES
-              </h1>
-            </div>
+      <section id="technologies" className="w-full py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeading
+            index="05"
+            title="Skills"
+            subtitle="swaraj@portfolio:~/skills$ ls -l"
+          />
 
-            <div className="px-4">
-              {/* Render the first honeycomb section - REPLACED WITH TERMINAL SIMULATOR */}
-              {/* {proficientData && (
-              <HoneycombSection {...proficientData} rowCounts={[5, 4]} />
-            )} */}
-
+          <Reveal>
+            <div className="px-0">
               {/* TERMINAL SIMULATOR for ALL Sections */}
               <div className="relative max-w-[900px] mx-auto">
                 {/* Drag Indicator */}
@@ -375,9 +364,9 @@ const Technologies = () => {
               </div> */}
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
-      </div>
+      </section>
     </>
   );
 };

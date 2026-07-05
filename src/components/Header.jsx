@@ -1,109 +1,116 @@
-import React, { useState, useEffect } from "react";
-import { AiOutlineHome } from "react-icons/ai";
-import { PiGraduationCap } from "react-icons/pi";
-import { FaCode } from "react-icons/fa";
-import { BsBriefcase, BsPerson } from "react-icons/bs";
-import { GrProjects } from "react-icons/gr";
-import { ImCamera } from "react-icons/im";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const navLinks = [
+    { id: "homepage", name: "home", index: "01" },
+    { id: "education", name: "education", index: "02" },
+    { id: "experience", name: "experience", index: "03" },
+    { id: "projects", name: "work", index: "04" },
+    { id: "technologies", name: "skills", index: "05" },
+    { id: "photography", name: "photos", index: "06" },
+    { id: "about", name: "contact", index: "07" },
+];
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [nav, setNav] = useState(false);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
+        const handleScroll = () => setIsScrolled(window.scrollY > 40);
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const handleNav = () => {
-        setNav(!nav);
-    };
-
-    const navLinks = [
-        { id: "homepage", name: "Home", icon: AiOutlineHome },
-        { id: "education", name: "Education", icon: PiGraduationCap },
-        { id: "experience", name: "Experience", icon: BsBriefcase },
-        { id: "projects", name: "Projects", icon: GrProjects },
-        { id: "technologies", name: "Technologies", icon: FaCode },
-        { id: "photography", name: "Photography", icon: ImCamera },
-        { id: "about", name: "About", icon: BsPerson },
-    ];
+    // Lock body scroll while the mobile drawer is open
+    useEffect(() => {
+        document.body.style.overflow = open ? "hidden" : "";
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [open]);
 
     return (
-        <nav
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${isScrolled || nav
-                ? "bg-black/80 backdrop-blur-md py-4 shadow-lg"
-                : "bg-transparent py-6"
+        <header
+            className={`fixed top-0 z-50 w-full transition-all duration-300 ${isScrolled
+                ? "bg-ink-900/80 backdrop-blur-md border-b border-white/5 py-3"
+                : "bg-transparent py-5"
                 }`}
         >
-            <div className="flex justify-between min-[850px]:justify-center items-center px-4 w-full">
-                {/* Mobile Hamburger Menu Icon */}
-                <div
-                    onClick={handleNav}
-                    className="min-[850px]:hidden cursor-pointer z-[60] ml-auto p-2"
+            <div className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
+                {/* Wordmark */}
+                <a
+                    href="#homepage"
+                    className="font-mono text-sm text-slate-400 transition-colors hover:text-accent"
+                >
+                    <span className="text-accent">~/</span>swaraj
+                </a>
+
+                {/* Desktop nav */}
+                <nav className="hidden items-center gap-7 md:flex">
+                    {navLinks.map((link) => (
+                        <a
+                            key={link.id}
+                            href={`#${link.id}`}
+                            className="group font-mono text-sm text-slate-400 transition-colors hover:text-white"
+                        >
+                            <span className="mr-1 text-[10px] text-accent/70 align-super">
+                                {link.index}
+                            </span>
+                            <span className="text-accent/80">{"//"}</span> {link.name}
+                            <span className="block h-px max-w-0 bg-accent transition-all duration-300 group-hover:max-w-full" />
+                        </a>
+                    ))}
+                </nav>
+
+                {/* Mobile hamburger (single, animated) */}
+                <button
+                    onClick={() => setOpen(!open)}
+                    aria-label={open ? "Close menu" : "Open menu"}
+                    aria-expanded={open}
+                    className="relative z-[70] flex h-10 w-10 items-center justify-center md:hidden"
                 >
                     <div className="space-y-1.5">
-                        <span className={`block w-8 h-0.5 bg-current transition-transform duration-300 ${nav ? 'rotate-45 translate-y-2' : ''} ${isScrolled || nav ? 'bg-white' : 'bg-gray-800'}`}></span>
-                        <span className={`block w-8 h-0.5 bg-current transition-opacity duration-300 ${nav ? 'opacity-0' : ''} ${isScrolled || nav ? 'bg-white' : 'bg-gray-800'}`}></span>
-                        <span className={`block w-8 h-0.5 bg-current transition-transform duration-300 ${nav ? '-rotate-45 -translate-y-2' : ''} ${isScrolled || nav ? 'bg-white' : 'bg-gray-800'}`}></span>
+                        <span
+                            className={`block h-0.5 w-7 bg-slate-200 transition-transform duration-300 ${open ? "translate-y-2 rotate-45" : ""}`}
+                        />
+                        <span
+                            className={`block h-0.5 w-7 bg-slate-200 transition-opacity duration-300 ${open ? "opacity-0" : ""}`}
+                        />
+                        <span
+                            className={`block h-0.5 w-7 bg-slate-200 transition-transform duration-300 ${open ? "-translate-y-2 -rotate-45" : ""}`}
+                        />
                     </div>
-                </div>
-
-                {/* Desktop Menu */}
-                <div className="hidden min-[850px]:flex justify-center items-center flex-wrap gap-4 min-[850px]:gap-8">
-                    {navLinks.map((link) => (
-                        <a
-                            key={link.id}
-                            href={`#${link.id}`}
-                            className={`group flex items-center gap-1 text-sm min-[850px]:text-base font-medium transition-colors duration-200 ${isScrolled
-                                ? "text-gray-200 hover:text-cyan-400"
-                                : "text-gray-800 hover:text-black"
-                                }`}
-                        >
-                            <span className="w-[10px] overflow-hidden inline-flex justify-start text-current opacity-70 group-hover:opacity-100 transition-opacity">
-                                <link.icon size={20} />
-                            </span>
-                            <span>{link.name}</span>
-                        </a>
-                    ))}
-                </div>
+                </button>
             </div>
 
-            {/* Mobile Menu Overlay */}
-            {nav ? (
-                <div className="fixed top-0 left-0 w-full h-screen bg-black/90 backdrop-blur-xl flex flex-col justify-center items-center z-40 transition-opacity duration-300">
-                    {navLinks.map((link) => (
-                        <a
-                            key={link.id}
-                            href={`#${link.id}`}
-                            onClick={() => setNav(false)}
-                            className="w-[75%] flex justify-center items-center rounded-full shadow-lg bg-white/10 m-2 p-4 cursor-pointer hover:scale-105 transition-transform duration-200 text-gray-200 hover:text-cyan-400"
-                        >
-                            <link.icon size={20} />
-                            <span className="pl-4 text-xl">{link.name}</span>
-                        </a>
-                    ))}
-                </div>
-            ) : null}
-
-            {!nav && (
-                <div className="absolute top-4 right-4 min-[850px]:hidden z-50 p-2" onClick={handleNav}>
-                    <div className="space-y-1.5">
-                        <span className={`block w-6 h-0.5 ${isScrolled ? 'bg-white' : 'bg-gray-800'}`}></span>
-                        <span className={`block w-6 h-0.5 ${isScrolled ? 'bg-white' : 'bg-gray-800'}`}></span>
-                        <span className={`block w-6 h-0.5 ${isScrolled ? 'bg-white' : 'bg-gray-800'}`}></span>
-                    </div>
-                </div>
-            )}
-        </nav>
+            {/* Mobile drawer */}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="fixed inset-0 z-[60] flex h-[100dvh] flex-col items-start justify-center gap-2 bg-ink-950/95 px-10 backdrop-blur-xl md:hidden"
+                    >
+                        {navLinks.map((link, i) => (
+                            <motion.a
+                                key={link.id}
+                                href={`#${link.id}`}
+                                onClick={() => setOpen(false)}
+                                initial={{ opacity: 0, x: -24 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.05 * i, duration: 0.35 }}
+                                className="py-2 font-mono text-2xl text-slate-300 transition-colors hover:text-accent"
+                            >
+                                <span className="mr-3 text-sm text-accent/70">{link.index}</span>
+                                <span className="text-accent/80">{"//"}</span> {link.name}
+                            </motion.a>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </header>
     );
 };
 
