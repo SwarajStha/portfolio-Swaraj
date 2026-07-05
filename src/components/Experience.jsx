@@ -3,6 +3,8 @@
 import { useState } from "react";
 import ExperienceCard from "./ExperienceCard";
 import ExperienceModal from "./ExperienceModal";
+import SectionHeading from "./ui/SectionHeading";
+import Reveal from "./ui/Reveal";
 
 const experienceData = [
   {
@@ -162,47 +164,37 @@ const Experience = () => {
 
   return (
     <>
-      {/* Semi-transparent white layer wrapper (consistent with other sections) */}
-      <div id="experience" className="bg-white/40 pt-5 pb-0">
-        {/* Full-width Gradient Container */}
-        <div
-          className="w-full py-12 text-white"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at bottom right, #f9731699, #7c2d1299, #112240CC)",
-          }}
-        >
-          {/* Centered Content Container */}
-          <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-20">
-              <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
-                EXPERIENCE
-              </h1>
-              <p className="text-gray-400 font-mono mt-4 text-sm">
-                * git log --graph --all
-              </p>
-            </div>
+      <section id="experience" className="w-full py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeading
+            index="03"
+            title="Experience"
+            subtitle="$ git log --graph --all"
+          />
 
+          <div>
             <div className="relative">
               {/* GIT GRAPH TRACKS (Desktop) */}
               {/* Track 1: Main (White) - Right Side */}
-              <div className="hidden md:block absolute top-0 left-[51%] w-0.5 h-full bg-white/30"></div>
+              <div className="hidden md:block absolute top-0 left-[51%] w-px h-full bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
               {/* Track 2: Feature/Academic (Cyan) - Left Side */}
-              <div className="hidden md:block absolute top-0 left-[49%] w-0.5 h-full bg-cyan-400/30"></div>
+              <div className="hidden md:block absolute top-0 left-[49%] w-px h-full bg-gradient-to-b from-transparent via-accent/25 to-transparent"></div>
 
               {/* MOBILE VIEW (Stacked) */}
               <div className="md:hidden space-y-8">
                 {experienceData.map((item, index) => (
-                  <div key={index} className="relative pl-8">
+                  <div key={index} className="relative pl-7">
                     {/* Mobile Timeline Line */}
-                    <div className="absolute top-0 left-0 w-0.5 h-full bg-white/75"></div>
+                    <div className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-accent/40 via-white/15 to-transparent"></div>
                     {/* Mobile Dot */}
-                    <div className="absolute top-8 -left-[7px] w-4 h-4 bg-cyan-400 rounded-full border-4 border-slate-700"></div>
+                    <div className="absolute top-8 -left-[7px] w-[15px] h-[15px] bg-accent rounded-full border-4 border-ink-900"></div>
 
-                    <ExperienceCard
-                      experience={item}
-                      onSelect={() => handleOpenModal(item)}
-                    />
+                    <Reveal y={24}>
+                      <ExperienceCard
+                        experience={item}
+                        onSelect={() => handleOpenModal(item)}
+                      />
+                    </Reveal>
                   </div>
                 ))}
               </div>
@@ -217,22 +209,24 @@ const Experience = () => {
                     const isMain = item.branch === 'main';
                     return (
                       <div key={index} className="relative w-full">
-                        <ExperienceCard
-                          experience={item}
-                          onSelect={() => handleOpenModal(item)}
-                        />
+                        <Reveal y={40}>
+                          <ExperienceCard
+                            experience={item}
+                            onSelect={() => handleOpenModal(item)}
+                          />
+                        </Reveal>
                         {/* Connector Logic for Left Column */}
                         {isMain ? (
                           // Connects to RIGHT Track (Main/White) - Crosses over
                           <div className="absolute top-8 -right-[4.5rem] w-[4.5rem] flex items-center justify-end z-20">
-                            <div className="w-full h-px bg-white/50"></div>
-                            <div className="w-3 h-3 bg-white rounded-full border-2 border-slate-900 absolute -right-[1.5px]"></div>
+                            <div className="w-full h-px bg-white/40"></div>
+                            <div className="w-3 h-3 bg-white rounded-full border-2 border-ink-900 absolute -right-[1.5px]"></div>
                           </div>
                         ) : (
                           // Connects to LEFT Track (Feature/Cyan) - Standard
                           <div className="absolute top-8 -right-16 w-16 flex items-center justify-end z-20">
-                            <div className="w-full h-px bg-cyan-400/50"></div>
-                            <div className="w-3 h-3 bg-cyan-400 rounded-full border-2 border-slate-900 absolute -right-[1.5px]"></div>
+                            <div className="w-full h-px bg-accent/40"></div>
+                            <div className="w-3 h-3 bg-accent rounded-full border-2 border-ink-900 absolute -right-[1.5px]"></div>
                           </div>
                         )}
                       </div>
@@ -247,22 +241,24 @@ const Experience = () => {
                     const isMain = item.branch === 'main';
                     return (
                       <div key={index} className="relative w-full">
-                        <ExperienceCard
-                          experience={item}
-                          onSelect={() => handleOpenModal(item)}
-                        />
+                        <Reveal y={40}>
+                          <ExperienceCard
+                            experience={item}
+                            onSelect={() => handleOpenModal(item)}
+                          />
+                        </Reveal>
                         {/* Connector Logic for Right Column */}
                         {isMain ? (
                           // Connects to RIGHT Track (Main/White) - Standard
                           <div className="absolute top-8 -left-16 w-16 flex items-center z-20">
-                            <div className="w-3 h-3 bg-white rounded-full border-2 border-slate-900 absolute -left-[1.5px]"></div>
-                            <div className="w-full h-px bg-white/50"></div>
+                            <div className="w-3 h-3 bg-white rounded-full border-2 border-ink-900 absolute -left-[1.5px]"></div>
+                            <div className="w-full h-px bg-white/40"></div>
                           </div>
                         ) : (
                           // Connects to LEFT Track (Feature/Cyan) - Crosses over
                           <div className="absolute top-8 -left-[4.5rem] w-[4.5rem] flex items-center z-20">
-                            <div className="w-3 h-3 bg-cyan-400 rounded-full border-2 border-slate-900 absolute -left-[1.5px]"></div>
-                            <div className="w-full h-px bg-cyan-400/50"></div>
+                            <div className="w-3 h-3 bg-accent rounded-full border-2 border-ink-900 absolute -left-[1.5px]"></div>
+                            <div className="w-full h-px bg-accent/40"></div>
                           </div>
                         )}
                       </div>
@@ -274,7 +270,7 @@ const Experience = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <ExperienceModal
         isOpen={modalIsOpen}

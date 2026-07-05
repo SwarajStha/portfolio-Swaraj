@@ -1,57 +1,47 @@
-// You need to update this file to remove the pointer and alignment margins
-// as they are now handled by the parent timeline structure.
-
-// Helper to generate slug from text
 const ExperienceCard = ({ experience, onSelect }) => {
-  const toSlug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-
-  // Extract info for "ls -l" style string
-  const companySlug = toSlug(experience.company.split(' ')[0]); // First word of company
-  const titleSlug = toSlug(experience.title);
-  // Attempt to get end date from year string (e.g. "Jan 2024 - Dec 2024" -> "Dec 2024")
-  const dateStr = experience.year.split('-').pop().trim().substring(0, 8); // Shorten for aesthetics
-
-  const isActive = experience.duration.toLowerCase().includes("present") || experience.year.toLowerCase().includes("present");
+  const isActive =
+    experience.duration.toLowerCase().includes("present") ||
+    experience.year.toLowerCase().includes("present");
 
   return (
     <div
       onClick={onSelect}
-      className="relative w-full p-6 bg-gray-900/40 backdrop-blur-md border border-slate-700 rounded-lg shadow-xl cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:border-cyan-500/50 group"
+      className="group relative w-full cursor-pointer rounded-xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.05] hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.2)]"
     >
       {/* Status Tag (Absolute Top Right) */}
-      <div className={`absolute top-0 right-0 px-3 py-1 text-xs font-mono font-bold rounded-bl-lg border-b border-l border-slate-700 ${isActive ? 'text-green-400 bg-green-900/20' : 'text-blue-400 bg-blue-900/20'}`}>
-        [{isActive ? 'ACTIVE' : 'STABLE'}]
+      <div
+        className={`absolute top-0 right-0 rounded-bl-lg rounded-tr-xl border-b border-l border-white/10 px-3 py-1 font-mono text-xs font-bold ${isActive ? "bg-green-400/10 text-green-400" : "bg-accent/10 text-accent"}`}
+      >
+        [{isActive ? "ACTIVE" : "STABLE"}]
       </div>
 
       {/* Terminal Permissions Header */}
-      <div className="font-mono text-[10px] sm:text-xs text-gray-500 mb-3 border-b border-gray-800 pb-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
+      <div className="scrollbar-hide mb-3 overflow-x-auto whitespace-nowrap border-b border-white/5 pb-2 font-mono text-[10px] text-slate-500 sm:text-xs">
         <span className="mr-3">drwxr-xr-x</span>
-        <span className="mr-3 text-cyan-600">swaraj</span>
-        <span className="mr-3 text-gray-400">{experience.terminalGroup}</span>
-        <span className="mr-3 text-gray-500">{experience.terminalDate}</span>
+        <span className="mr-3 text-accent/70">swaraj</span>
+        <span className="mr-3 text-slate-400">{experience.terminalGroup}</span>
+        <span className="mr-3">{experience.terminalDate}</span>
       </div>
 
       {/* Git Header */}
-      <div className="flex justify-between items-start mb-2 font-mono text-xs">
-        <span className="text-yellow-500">commit {experience.commitHash}</span>
-        {/* Year removed from here as it's in permissions now, or keep it? User didn't say to remove. Keeping it for now but maybe redundant. 
-            Actually, let's keep it as the 'commit date' metaphor. 
-        */}
+      <div className="mb-2 font-mono text-xs">
+        <span className="text-accent-amber/90">commit {experience.commitHash}</span>
       </div>
 
       {/* Branch Info */}
-      <div className="flex items-center gap-2 mb-3 font-mono text-xs">
-        <span className="text-blue-400">({experience.branch})</span>
-        <span className="h-px bg-gray-700 flex-grow"></span>
+      <div className="mb-3 flex items-center gap-2 font-mono text-xs">
+        <span className="text-accent-violet">({experience.branch})</span>
+        <span className="h-px flex-grow bg-white/10"></span>
       </div>
 
-      <h3 className="text-xl font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors font-mono">
+      <h3 className="font-display mb-1 text-lg font-bold text-white transition-colors group-hover:text-accent-soft md:text-xl">
         {experience.title}
       </h3>
-      <p className="text-md text-gray-300 mb-1">{experience.company}</p>
-      <p className="text-sm text-gray-400 mb-2 italic">{experience.country}</p>
-      <p className="text-xs text-gray-400 font-mono border-t border-gray-700 pt-2 mt-2">
-        Author: <span className="text-blue-400">Swaraj Shrestha</span> &lt;{experience.duration}&gt;
+      <p className="mb-1 text-sm text-slate-300">{experience.company}</p>
+      <p className="mb-2 text-xs italic text-slate-500">{experience.country}</p>
+      <p className="mt-2 border-t border-white/5 pt-2 font-mono text-xs text-slate-500">
+        Author: <span className="text-accent-violet">Swaraj Shrestha</span>{" "}
+        &lt;{experience.duration}&gt;
       </p>
     </div>
   );

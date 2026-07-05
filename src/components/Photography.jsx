@@ -1,6 +1,6 @@
 // src/components/Photography.jsx
-// MODIFICATION: Refactored to match Experience Section "Commit" Tile Aesthetic
-import { FaExternalLinkAlt } from "react-icons/fa";
+import SectionHeading from "./ui/SectionHeading";
+import Reveal from "./ui/Reveal";
 
 const photographyData = [
   {
@@ -41,12 +41,11 @@ const PhotoTerminal = ({ data }) => {
   return (
     <div className="w-full max-w-lg mx-auto transform transition-all hover:scale-[1.01] duration-300">
 
-      {/* Container: Matches ExperienceCard style but slightly darker for text readability */}
-      {/* bg-gray-900/70 gives a dark frosted look. border-slate-700 matches Experience. */}
-      <div className="relative w-full p-6 bg-gray-900/70 backdrop-blur-md border border-slate-700 rounded-lg shadow-xl shadow-gray-900 flex flex-col h-full font-mono text-sm group overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+      {/* Container: matches the new Experience card aesthetic */}
+      <div className="relative w-full p-6 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-xl flex flex-col h-full font-mono text-sm group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.2)]">
 
-        {/* Status Badge (Absolute Top Right) - Matches Experience [STABLE] tag */}
-        <div className="absolute top-0 right-0 px-3 py-1 text-xs font-mono font-bold rounded-bl-lg border-b border-l border-slate-700 text-green-400 bg-green-900/20">
+        {/* Status Badge (Absolute Top Right) */}
+        <div className="absolute top-0 right-0 px-3 py-1 text-xs font-mono font-bold rounded-bl-lg rounded-tr-xl border-b border-l border-white/10 text-green-400 bg-green-400/10">
           [{data.status}]
         </div>
 
@@ -128,41 +127,24 @@ const PhotoTerminal = ({ data }) => {
 
 const Photography = () => {
   return (
-    <div id="photography" className="bg-white/40 pt-5 pb-0">
-      <div
-        className="w-full py-12 text-white"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at top right, rgb(113, 72, 61), #11224080 60%, rgba(201, 201, 201, 0.6))",
-        }}
-      >
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="photography" className="w-full py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <SectionHeading
+          index="06"
+          title="Photography"
+          subtitle="swaraj@portfolio:~/photography$ ls -l --external-links"
+        />
 
-          {/* Section Header */}
-          <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2 mb-6">
-              PHOTOGRAPHY
-            </h1>
-
-            {/* Main Command Line Subheader */}
-            <div className="font-mono text-sm md:text-base text-left max-w-4xl mx-auto bg-black/30 p-2 rounded border border-gray-700 shadow-lg backdrop-blur-sm">
-              <span className="text-green-400">swaraj@portfolio</span>
-              <span className="text-gray-300">:</span>
-              <span className="text-blue-400">~/photography</span>
-              <span className="text-gray-300">$ </span>
-              <span className="text-white">ls -l --external-links</span>
-            </div>
-          </div>
-
-          {/* Dual Terminals Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-6xl mx-auto">
-            {photographyData.map((data) => (
-              <PhotoTerminal key={data.id} data={data} />
-            ))}
-          </div>
+        {/* Dual Terminals Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+          {photographyData.map((data, i) => (
+            <Reveal key={data.id} delay={i * 0.12} className="h-full">
+              <PhotoTerminal data={data} />
+            </Reveal>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

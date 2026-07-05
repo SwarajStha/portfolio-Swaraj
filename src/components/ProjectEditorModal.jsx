@@ -2,31 +2,6 @@ import Modal from "react-modal";
 import { FaTimes, FaGithub, FaExternalLinkAlt, FaFileCode, FaFolderOpen, FaSearch, FaCodeBranch } from "react-icons/fa";
 import { VscSplitHorizontal, VscLayoutSidebarLeft } from "react-icons/vsc";
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        background: '#1e1e1e', // VS Code Dark Bg
-        border: '1px solid #333',
-        borderRadius: '0.5rem',
-        padding: '0',
-        maxWidth: '95vw',
-        maxHeight: '95vh',
-        width: '85vw', // Wider for better code view
-        height: '85vh', // Taller as requested
-        overflow: 'hidden', // Internal scrolling managed by editor area
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-    },
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-        zIndex: 100,
-    },
-};
-
 Modal.setAppElement('#root');
 
 const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
@@ -44,8 +19,10 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
-            style={customStyles}
+            className="modal-panel modal-panel--editor"
+            overlayClassName="modal-overlay"
             contentLabel="Project Editor"
+            closeTimeoutMS={200}
         >
             {/* VS Code Window Container */}
             <div className="flex flex-col h-full font-sans text-sm text-gray-300 bg-[#1e1e1e]">
@@ -72,8 +49,8 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                 {/* Main Layout: Sidebar + Editor */}
                 <div className="flex flex-1 overflow-hidden">
 
-                    {/* Activity Bar (Far Left) */}
-                    <div className="w-12 bg-[#333333] flex flex-col items-center py-2 gap-4 text-gray-500 border-r border-[#252526]">
+                    {/* Activity Bar (Far Left) — hidden on phones to maximise reading space */}
+                    <div className="w-12 bg-[#333333] hidden sm:flex flex-col items-center py-2 gap-4 text-gray-500 border-r border-[#252526]">
                         <FaFileCode className="text-white text-xl cursor-pointer" title="Explorer" />
                         <FaSearch className="hover:text-white text-xl cursor-pointer" />
                         <FaCodeBranch className="hover:text-white text-xl cursor-pointer" />
@@ -83,7 +60,7 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                     </div>
 
                     {/* Explorer Sidebar */}
-                    <div className="w-48 bg-[#252526] flex flex-col border-r border-[#1e1e1e] hidden md:flex">
+                    <div className="hidden w-48 bg-[#252526] border-r border-[#1e1e1e] md:flex md:flex-col">
                         <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase tracking-wide">Explorer</div>
                         <div className="px-2">
                             <div className="flex items-center gap-1 text-xs font-bold text-blue-400 mb-1 cursor-pointer">
@@ -112,7 +89,7 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                         </div>
 
                         {/* Editor Content (Markdown Preview Style) */}
-                        <div className="flex-1 overflow-y-auto p-8 font-mono">
+                        <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 font-mono">
                             <div className="max-w-3xl mx-auto space-y-6">
                                 {/* H1 Title */}
                                 <div>

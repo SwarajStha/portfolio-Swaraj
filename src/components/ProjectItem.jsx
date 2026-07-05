@@ -1,64 +1,51 @@
+import { FaArrowRight } from "react-icons/fa";
+
 const ProjectItem = ({ title, img, tech, category, onSelect }) => {
   return (
     <div
       onClick={onSelect}
-      className="group relative w-full bg-[#0f111a]/90 backdrop-blur-md rounded-lg shadow-xl shadow-gray-900 border border-gray-800 overflow-hidden cursor-pointer transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] flex flex-col"
+      className="group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_25px_50px_-20px_rgba(34,211,238,0.2)]"
     >
-      {/* Terminal Header */}
-      <div className="bg-[#1a1b26] px-4 py-2 flex items-center justify-between border-b border-gray-800 group-hover:bg-[#1f2937] transition-colors">
-        <div className="flex gap-2 items-center text-xs font-mono">
-          <span className="text-purple-400">drwxr-xr-x</span>
-          <span className="text-gray-500">swaraj</span>
-          <span className="text-blue-400">4096</span>
-          <span className="text-gray-500">{category || 'misc'}</span>
-        </div>
-        <div className="flex gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500"></div>
-        </div>
-      </div>
-
-      {/* Main Content (Image & Overlay) */}
-      <div className="relative h-48 md:h-56 w-full overflow-hidden">
+      {/* Image */}
+      <div className="relative h-52 w-full overflow-hidden bg-ink-950 md:h-60">
         <img
           src={img}
           alt={title}
-          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+          loading="lazy"
+          className="h-full w-full object-cover object-top opacity-90 transition-all duration-700 ease-out group-hover:scale-105 group-hover:opacity-100"
         />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f111a] via-[#0f111a]/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-transparent to-transparent"></div>
 
-        {/* Center Prompt on Hover */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="bg-black/70 backdrop-blur-sm text-cyan-400 font-mono px-4 py-2 rounded border border-cyan-500/30 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform">
-            code {title.replace(/\s+/g, '-').toLowerCase()} .
+        {/* Hover prompt */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="translate-y-3 rounded border border-accent/40 bg-ink-950/80 px-4 py-2 font-mono text-sm text-accent shadow-lg backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0">
+            open project <FaArrowRight className="ml-1 inline" size={10} />
           </span>
         </div>
       </div>
 
-      {/* Info Footer */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg md:text-xl font-bold text-gray-200 group-hover:text-cyan-400 transition-colors font-mono mb-2 truncate">
-            {title}
-          </h3>
-          <div className="flex flex-wrap gap-2 mb-3">
-            {tech?.slice(0, 3).map((t, i) => (
-              <span key={i} className="text-xs text-gray-500 border border-gray-700 px-2 py-0.5 rounded group-hover:border-gray-600">
-                {t}
-              </span>
-            ))}
-            {tech?.length > 3 && <span className="text-xs text-gray-600">+{tech.length - 3}</span>}
-          </div>
-        </div>
-
-        <div className="pt-3 border-t border-gray-800 flex justify-between items-center text-xs font-mono">
-          <span className="text-gray-500">Last commit: <span className="text-gray-300">2 days ago</span></span>
-          <span className="text-green-500 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-            Passing
-          </span>
+      {/* Info */}
+      <div className="flex flex-1 flex-col gap-2 p-5">
+        <span className="font-mono text-xs tracking-wide text-slate-500">
+          {category}
+        </span>
+        <h3 className="font-display text-xl font-bold text-white transition-colors group-hover:text-accent-soft">
+          {title}
+        </h3>
+        <div className="mt-1 flex flex-wrap gap-2">
+          {tech?.slice(0, 3).map((t, i) => (
+            <span
+              key={i}
+              className="rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[11px] text-slate-500 transition-colors group-hover:border-white/20"
+            >
+              {t}
+            </span>
+          ))}
+          {tech?.length > 3 && (
+            <span className="py-0.5 font-mono text-[11px] text-slate-600">
+              +{tech.length - 3}
+            </span>
+          )}
         </div>
       </div>
     </div>

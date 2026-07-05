@@ -3,6 +3,8 @@
 import { useState } from "react";
 import EducationCard from "./EducationCard";
 import EducationModal from "./EducationModal";
+import SectionHeading from "./ui/SectionHeading";
+import Reveal from "./ui/Reveal";
 
 // MODIFICATION 1: Converted your single object into an array of objects.
 // I've used your exact university data and added the new high school data.
@@ -85,7 +87,6 @@ const educationData = [
 ];
 
 const Education = () => {
-  // MODIFICATION 2: Added state to track WHICH education item is selected for the modal
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedEducation, setSelectedEducation] = useState(null);
 
@@ -101,37 +102,26 @@ const Education = () => {
 
   return (
     <>
-      <div id="education" className="bg-white/40 pt-5 pb-0">
-        {/* I've updated this line to use the more subtle gradient we decided on */}
-        <div
-          className="w-full py-12 text-white"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at bottom right, rgb(113, 72, 61), #11224080 75%, rgba(201, 201, 201, 0.6))",
-          }}
-        >
-          <div className="max-w-[1240px] mx-auto">
-            <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold inline-block border-b-4 border-cyan-400 pb-2">
-                EDUCATION
-              </h1>
-            </div>
+      <section id="education" className="w-full py-24 md:py-32">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHeading
+            index="02"
+            title="Education"
+            subtitle="Munich → Halifax → Lalitpur"
+          />
 
-            {/* MODIFICATION 3: Looping over the data array to render multiple cards */}
-            <div className="px-4 grid grid-cols-1 lg:grid-cols-3 gap-0">
-              {educationData.map((eduItem, index) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {educationData.map((eduItem, index) => (
+              <Reveal key={eduItem.id} delay={index * 0.12} className="h-full">
                 <EducationCard
-                  key={eduItem.id}
                   data={eduItem}
                   onOpenModal={() => handleOpenModal(eduItem)}
-                  isFirst={index === 0}
-                  isLast={index === educationData.length - 1}
                 />
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
       <EducationModal
         isOpen={modalIsOpen}
