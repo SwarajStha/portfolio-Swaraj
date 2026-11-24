@@ -39,7 +39,8 @@ const ExperienceModal = ({ isOpen, onRequestClose, experience }) => {
     const keywords = [
       "SQL", "VBA", "Java", "Data", "Database", "Program", "Algorithm", "Queries",
       "Reports", "Debugged", "Analysis", "Visualization", "Python", "React", "JavaScript",
-      "HTML", "CSS", "WIX", "Research", "Analyzed", "Organized", "Evaluated"
+      "HTML", "CSS", "WIX", "Research", "Analyzed", "Organized", "Evaluated",
+      "TypeScript", "Vue", "Nuxt", "Nitro", "tRPC", "Zod", "Prisma", "PostgreSQL", "ERP", "AI"
     ];
 
     // Split text by keywords (capturing group to keep delimiters)
