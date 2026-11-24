@@ -98,7 +98,6 @@ const experienceData = [
     terminalGroup: "SMU",
     terminalDate: "April23",
     details: [
-      "Social Sciences and Humanities Research Council COVID Partnership Engagement Grant NSIE Project",
       "Evaluated, corrected, and gave feedback to 59 students regarding their quizzes and submissions.",
       "Adapted communication strategies to ensure comprehensive understanding of complex concepts.",
       "Polished analytics skills by observing diverse student approaches to problem-solving.",
@@ -115,6 +114,7 @@ const experienceData = [
     terminalGroup: "SMU",
     terminalDate: "April22",
     details: [
+      "Social Sciences and Humanities Research Council COVID Partnership Engagement Grant NSIE Project",
       "Creating a website to show the professor’s works, current projects, and the teams working on the projects utilizing skills in layout design and understanding of web design practices using the WIX platform.",
       "Collected and analyzed raw data of interviews to organize the qualitative data gathered which allowed visualization of the amount of usable data and recognize the category in need of data.",
     ],
