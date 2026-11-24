@@ -18,8 +18,13 @@ const experienceData = [
     details: [
       "Stack: TypeScript, Vue 3, Nuxt with its Nitro (Node.js) server, tRPC + Zod, Prisma, and PostgreSQL",
       "Deliver weekly client-scoped features, fixes, and refactors on a production ERP for one of SideStream’s longest-running clients: 3–5 issues a week during regular semesters, and complete new workflows working full-time over the break.",
-      "Built transport cost control for external carriers: server-side detection of prices above a configurable tolerance, automatic follow-up tasks for management, and a weekly scheduled email of loss-making deliveries.",
-      "Extended the AI-driven invoice-extraction pipeline with automatic duplicate detection and recurring-payment flagging, so confirmed recurring invoices now skip two manual review steps.",
+      {
+        text: "Examples of features I built:",
+        items: [
+          "Built transport cost control for external carriers: server-side detection of prices above a configurable tolerance, automatic follow-up tasks for management, and a weekly scheduled email of loss-making deliveries.",
+          "Extended the AI-driven invoice-extraction pipeline with automatic duplicate detection and recurring-payment flagging, so confirmed recurring invoices now skip two manual review steps.",
+        ],
+      },
     ],
   },
   {

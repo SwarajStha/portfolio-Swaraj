@@ -103,6 +103,25 @@ const ExperienceModal = ({ isOpen, onRequestClose, experience }) => {
                 </li>
               );
             }
+            // Object with nested items: lead-in line followed by indented sub-points
+            if (typeof point === 'object' && point.items) {
+              return (
+                <li key={index}>
+                  <div className="flex items-start">
+                    <span className="text-cyan-500 font-mono mr-3 shrink-0">|--&gt;</span>
+                    <span className="leading-relaxed">{highlightDetails(point.text)}</span>
+                  </div>
+                  <ul className="mt-3 ml-6 pl-4 border-l border-gray-700 space-y-3">
+                    {point.items.map((item, subIndex) => (
+                      <li key={subIndex} className="flex items-start">
+                        <span className="text-cyan-500 font-mono mr-3 shrink-0">|--&gt;</span>
+                        <span className="leading-relaxed">{highlightDetails(item)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            }
             // Otherwise, render it as text with highlighting
             return (
               <li key={index} className="flex items-start">
