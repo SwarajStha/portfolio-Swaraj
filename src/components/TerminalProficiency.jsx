@@ -42,11 +42,8 @@ import vbaIcon from "../assets/VBA.png";
 import htmlIcon from "../assets/html.png";
 import cssIcon from "../assets/css-3.png";
 import vbIcon from "../assets/VB.png";
-import lispIcon from "../assets/common-lisp.png";
 import tsIcon from "../assets/TypeScript.png";
 import tailwindIcon from "../assets/TailwindV2.png";
-import bootstrapIcon from "../assets/bootstrap.png";
-import springIcon from "../assets/SpringBoot.png";
 import officeIcon from "../assets/office.png";
 import googleIcon from "../assets/google.png";
 import windowsIcon from "../assets/windows.png";
@@ -56,7 +53,6 @@ import digitalOceanIcon from "../assets/DigitalOcean.png";
 import dockerIcon from "../assets/Docker.png";
 import k8sIcon from "../assets/Kubernetes.png";
 import githubIcon from "../assets/github.png";
-import figmaIcon from "../assets/Figma.png";
 import adobeIcon from "../assets/Adobe.png";
 
 
@@ -71,11 +67,8 @@ const iconMap = {
     "HTML": htmlIcon,
     "CSS": cssIcon,
     "VB.NET": vbIcon,
-    "LISP": lispIcon,
     "TypeScript": tsIcon,
     "Tailwind CSS": tailwindIcon,
-    "Bootstrap": bootstrapIcon,
-    "SpringBoot": springIcon,
     "MS Office": officeIcon,
     "Google Suite": googleIcon,
     "Windows": windowsIcon,
@@ -85,17 +78,15 @@ const iconMap = {
     "Docker": dockerIcon,
     "Kubernetes": k8sIcon,
     "GitHub": githubIcon,
-    "Figma": figmaIcon,
     "Adobe Suite": adobeIcon
 };
 
-const TerminalProficiency = ({ title, data, bgColors = {} }) => {
+const TerminalProficiency = ({ title, data, bgColors = {}, isCollapsed = false, onToggleCollapse }) => {
     // We don't flatten anymore, we iterate over sections.
 
     if (!data || data.length === 0) return null;
 
     const [expandedItems, setExpandedItems] = useState({});
-    const [isCollapsed, setIsCollapsed] = useState(false);
 
     // Draggable Snap-Back Logic
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -148,7 +139,7 @@ const TerminalProficiency = ({ title, data, bgColors = {} }) => {
                     <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
                     <div
                         className="w-3 h-3 rounded-full bg-[#ffbd2e] cursor-pointer hover:bg-yellow-400 transition-colors"
-                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        onClick={onToggleCollapse}
                         title={isCollapsed ? "Expand" : "Collapse"}
                     ></div>
                     <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
@@ -164,7 +155,10 @@ const TerminalProficiency = ({ title, data, bgColors = {} }) => {
                 </div>
 
                 {/* Terminal Content */}
-                <div className="p-4 md:p-6 text-gray-300 space-y-2 cursor-default">
+                <div
+                    className={`p-4 md:p-6 text-gray-300 space-y-2 ${isCollapsed ? "cursor-pointer" : "cursor-default"}`}
+                    onClick={isCollapsed ? onToggleCollapse : undefined}
+                >
                     {/* Iterate over each data section to create a new "command block" */}
                     {data?.map((section, sectionIndex) => (
                         <div key={sectionIndex} className={isCollapsed ? "mb-2" : "mb-8"}>
@@ -209,7 +203,7 @@ const TerminalProficiency = ({ title, data, bgColors = {} }) => {
                                             const proficiency = tech.proficiency || 80;
 
                                             // Resolve Icon
-                                            const iconSrc = iconMap[tech.name];
+                                            const iconSrc = iconMap[tech.name] || tech.icon;
 
                                             return (
                                                 <div key={uniqueId} className="flex flex-col">
@@ -246,12 +240,14 @@ const TerminalProficiency = ({ title, data, bgColors = {} }) => {
 
                                                         {/* Name with Icon */}
                                                         <div className="text-blue-400 font-bold flex-1 truncate group-hover:text-blue-300 group-hover:drop-shadow-[0_0_10px_rgba(96,165,250,0.8)] transition-all duration-200 flex items-center">
-                                                            {iconSrc && (
+                                                            {iconSrc ? (
                                                                 <img
                                                                     src={iconSrc}
                                                                     alt={tech.name}
                                                                     className="w-4 h-4 mr-2 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                                                                 />
+                                                            ) : (
+                                                                <span className="w-4 h-4 mr-2 shrink-0" aria-hidden="true" />
                                                             )}
                                                             <span>{tech.name}/</span>
                                                         </div>
@@ -298,6 +294,11 @@ const TerminalProficiency = ({ title, data, bgColors = {} }) => {
                     {/* Bottom Prompt */}
                     <div className="mt-6 flex items-center gap-2">
                         <span className="text-green-400">swaraj@portfolio:~$</span>
+                        {isCollapsed && (
+                            <span className="text-yellow-300 drop-shadow-[0_0_6px_rgba(250,204,21,0.6)]">
+                                click to expand
+                            </span>
+                        )}
                         <span className="animate-pulse bg-gray-400 w-2 h-4 block"></span>
                     </div>
                 </div>

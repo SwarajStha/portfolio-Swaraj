@@ -39,7 +39,8 @@ const ExperienceModal = ({ isOpen, onRequestClose, experience }) => {
     const keywords = [
       "SQL", "VBA", "Java", "Data", "Database", "Program", "Algorithm", "Queries",
       "Reports", "Debugged", "Analysis", "Visualization", "Python", "React", "JavaScript",
-      "HTML", "CSS", "WIX", "Research", "Analyzed", "Organized", "Evaluated"
+      "HTML", "CSS", "WIX", "Research", "Analyzed", "Organized", "Evaluated",
+      "TypeScript", "Vue", "Nuxt", "Nitro", "tRPC", "Zod", "Prisma", "PostgreSQL", "ERP", "AI"
     ];
 
     // Split text by keywords (capturing group to keep delimiters)
@@ -99,6 +100,25 @@ const ExperienceModal = ({ isOpen, onRequestClose, experience }) => {
                     {point.text}
                     <FaExternalLinkAlt size={12} />
                   </a>
+                </li>
+              );
+            }
+            // Object with nested items: lead-in line followed by indented sub-points
+            if (typeof point === 'object' && point.items) {
+              return (
+                <li key={index}>
+                  <div className="flex items-start">
+                    <span className="text-cyan-500 font-mono mr-3 shrink-0">|--&gt;</span>
+                    <span className="leading-relaxed">{highlightDetails(point.text)}</span>
+                  </div>
+                  <ul className="mt-3 ml-6 pl-4 border-l border-gray-700 space-y-3">
+                    {point.items.map((item, subIndex) => (
+                      <li key={subIndex} className="flex items-start">
+                        <span className="text-cyan-500 font-mono mr-3 shrink-0">|--&gt;</span>
+                        <span className="leading-relaxed">{highlightDetails(item)}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               );
             }

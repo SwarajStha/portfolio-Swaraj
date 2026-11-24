@@ -125,7 +125,7 @@ const Contact = () => {
                         &nbsp;&nbsp;<span className="text-cyan-300">education</span>: [<span className="text-orange-300">"Management & Digital Technologies"</span>],
                         <br />
                         <br />
-                        &nbsp;&nbsp;<span className="text-cyan-300">experience</span>: <span className="text-orange-300">"CBSA (Database Dev), SMU (TA)"</span>,
+                        &nbsp;&nbsp;<span className="text-cyan-300">experience</span>: <span className="text-orange-300">"SideStream (Fullstack Dev), CBSA (Database Dev), SMU (TA)"</span>,
                         <br />
                         &nbsp;&nbsp;<span className="text-cyan-300">passion</span>: <span className="text-orange-300">"Streamlining efficiency & debugging"</span>
                         <br />

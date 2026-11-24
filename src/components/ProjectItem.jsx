@@ -10,7 +10,7 @@ const ProjectItem = ({ title, img, tech, category, onSelect }) => {
           <span className="text-purple-400">drwxr-xr-x</span>
           <span className="text-gray-500">swaraj</span>
           <span className="text-blue-400">4096</span>
-          <span className="text-gray-500">{category || 'misc'}</span>
+          <span className="text-gray-500">{(Array.isArray(category) ? category.join('/') : category) || 'misc'}</span>
         </div>
         <div className="flex gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
           <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>

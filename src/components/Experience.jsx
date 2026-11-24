@@ -6,6 +6,28 @@ import ExperienceModal from "./ExperienceModal";
 
 const experienceData = [
   {
+    year: "May 2026 - Present",
+    title: "Junior Fullstack Developer",
+    duration: "Working Student",
+    company: "SideStream GmbH",
+    country: "Köln, Germany",
+    commitHash: "c0d3e5f",
+    branch: "main",
+    terminalGroup: "SideStream",
+    terminalDate: "Present",
+    details: [
+      "Stack: TypeScript, Vue 3, Nuxt with its Nitro (Node.js) server, tRPC + Zod, Prisma, and PostgreSQL",
+      "Deliver weekly client-scoped features, fixes, and refactors on a production ERP for one of SideStream’s longest-running clients: 3–5 issues a week during regular semesters, and complete new workflows working full-time over the break.",
+      {
+        text: "Examples of features I built:",
+        items: [
+          "Built transport cost control for external carriers: server-side detection of prices above a configurable tolerance, automatic follow-up tasks for management, and a weekly scheduled email of loss-making deliveries.",
+          "Extended the AI-driven invoice-extraction pipeline with automatic duplicate detection and recurring-payment flagging, so confirmed recurring invoices now skip two manual review steps.",
+        ],
+      },
+    ],
+  },
+  {
     year: "January 2024 - December 2024",
     title: "Database Developer",
     duration: "4 month Co-op + transitioned to termed position post-graduation",
@@ -18,12 +40,12 @@ const experienceData = [
     details: [
       "Languages used: VBA and SQL",
       "Developed robust database that has demonstrated remarkable success in streamlining data input processes, enhancing user interfaces, fortifying data integrity, whilst decreasing the number of separate files required from 14 to 2.",
-      "Created input screens, user manuals, queries, and reports and implementing data visualization tools to facilitate data analysis and reporting.",
+      "Acted as the primary technical liaison across teams; created input screens, user manuals, queries, reports, and data visualizations so non-technical staff could use and trust the system.",
     ],
   },
   {
     year: "September 2022 - April 2024",
-    title: "Teacher's Assistant - Programming & Problem Solving",
+    title: "Teaching Assistant - Programming & Problem Solving",
     duration: "3 Academic Semesters",
     company: "Saint Mary's University",
     country: "Halifax, NS, Canada",
@@ -32,9 +54,9 @@ const experienceData = [
     terminalGroup: "SMU",
     terminalDate: "April24",
     details: [
-      "Advanced Computer Programming and Problem-Solving (January 2024 – April 2024); Introduction to Computers and Programming	(September 2023 – December 2023, September 2022 – December 2022)",
-      "Evaluated and debugged student-generated code in Java, enhancing my expertise in algorithms.",
-      "Checking submissions by 27 students (2024), 36 students (2023), and 56 students (2022) and marking them.",
+      "Advanced Computer Programming and Problem-Solving (January 2024 – April 2024); Introduction to Computers and Programming (September 2023 – December 2023, September 2022 – December 2022)",
+      "Helped students debug their Java code and evaluated their submissions, building the habit of quickly reading and fixing unfamiliar code.",
+      "Marked submissions from 119 students across three terms (56 in 2022, 36 in 2023, 27 in 2024).",
       "Refined problem-solving skills while deciphering a student’s approach to the problem presented.",
     ],
   },
@@ -72,7 +94,7 @@ const experienceData = [
   },
   {
     year: "January 2023 - April 2023",
-    title: "Teacher's Assistant - Discrete Mathematics",
+    title: "Teaching Assistant - Discrete Mathematics",
     duration: "1 Academic Semester",
     company: "Saint Mary's University",
     country: "Halifax, NS, Canada",
@@ -81,7 +103,6 @@ const experienceData = [
     terminalGroup: "SMU",
     terminalDate: "April23",
     details: [
-      "Social Sciences and Humanities Research Council COVID Partnership Engagement Grant NSIE Project",
       "Evaluated, corrected, and gave feedback to 59 students regarding their quizzes and submissions.",
       "Adapted communication strategies to ensure comprehensive understanding of complex concepts.",
       "Polished analytics skills by observing diverse student approaches to problem-solving.",
@@ -98,6 +119,7 @@ const experienceData = [
     terminalGroup: "SMU",
     terminalDate: "April22",
     details: [
+      "Social Sciences and Humanities Research Council COVID Partnership Engagement Grant NSIE Project",
       "Creating a website to show the professor’s works, current projects, and the teams working on the projects utilizing skills in layout design and understanding of web design practices using the WIX platform.",
       "Collected and analyzed raw data of interviews to organize the qualitative data gathered which allowed visualization of the amount of usable data and recognize the category in need of data.",
     ],

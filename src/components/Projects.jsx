@@ -52,6 +52,56 @@ The core of the application is built around the Android Jetpack architecture com
     liveLink: "",
   },
   {
+    id: "proj_gtmagent",
+    title: "GTMAgent: AI Lead-Generation Pipeline",
+    category: ["ai", "web"],
+    img: "/images/GTMAgent(1).png",
+    images: [
+      "/images/GTMAgent(1).png",
+      "/images/GTMAgent(2).png",
+      "/images/GTMAgent(3).png",
+    ],
+    description: `GTMAgent is a B2B lead-generation pipeline for the EU construction-tech sector, built as a 7-person team project for the TUM course Foundations and Application of Generative AI (May – July 2026). I led the team as project lead. The system matches live EU public tenders to the companies most likely to win them and drafts evidence-grounded outreach emails for both sides of the deal.
+
+## Project Overview
+Public procurement notices are published daily on TED (Tenders Electronic Daily), but finding the right supplier for a tender, or the right tender for a supplier, is still manual work. GTMAgent monitors TED, learns who has won similar contracts from **21,000+ historical contract awards (15,000+ companies)**, ranks likely bidders for every new tender, and drafts outreach a human can review and send. A Claude tool-use agent can orchestrate the whole flow on demand.
+
+## What the Program Does
+- **Tender Ingestion**: Polls the TED API for new contract notices with idempotent upserts, back-fills historical award notices with entity resolution, and downloads tender dossiers (PDFs) for full-text extraction.
+- **Tender Understanding**: Claude extracts a structured tender profile (requirements, certifications, scope), which is then validated before it is stored.
+- **Company Matching**: Ranks the most suitable suppliers for each tender and shows the top factors behind every score, so each recommendation is explainable.
+- **Two-Sided Email Drafting**: Writes supplier outreach emails and buyer recommendation digests grounded in real tender and award evidence, with a deterministic template fallback when no API key is configured.
+- **Feedback Loop**: Good fit / poor fit feedback is stored and used to retrain the ranker's weights.
+- **Agent Mode**: A streaming, resumable agent plans and executes multi-step goals (find a tender → match → draft) and pauses to ask the user when a request is ambiguous (human-in-the-loop).
+
+## Main Algorithm & Logic
+The LLM only extracts and drafts; embeddings, rules and a trained ranker keep every score explainable.
+
+- **Stage 1 – Hard Filter**: Narrows ~15k companies to ≤200 candidates using CPV codes, buyer country and contract value, relaxing the criteria progressively when too few candidates remain.
+- **Stage 2 – Logistic Regression Ranker**: Scores each candidate on 10 features, including MiniLM semantic similarity between tender text and company award history, CPV and NUTS region matches, and contract-value fit.
+- **Evaluation**: Replays 500 held-out past tenders (chronological, leakage-safe split) and checks whether the company that actually won, per official EU award records, appears in the matcher's top results.
+
+## Results
+- **Hit@1: 44.2%**, **Hit@3: 54.0%**, **Hit@5: 57.6%** on 500 held-out tenders
+- When the true winner survives the Stage 1 filter, **Hit@3 rises to ~74%**
+
+## My Role
+- Bootstrapped the repository, CI and stub interfaces so seven people could build in parallel.
+- Built the data-ingestion layer: TED API polling with idempotent upserts, award back-fill with entity resolution, and PDF dossier extraction.
+- Designed the hybrid matcher and the tool-using agent, and defined how matching quality was measured.
+
+## Technical Components & Technologies
+- **Backend**: Python 3.11, FastAPI, SQLAlchemy, Alembic, APScheduler
+- **Database**: PostgreSQL 16 + pgvector
+- **ML**: sentence-transformers (paraphrase-multilingual-MiniLM-L12-v2), scikit-learn
+- **LLM**: Claude API (Anthropic SDK) for extraction, drafting, the agent and its reflection loop
+- **Frontend**: Vue 3, TypeScript, Pinia, Tailwind CSS
+- **DevOps**: Docker Compose, GitHub Actions CI (pytest, lint and build, migration smoke tests)`,
+    tech: ["Python", "Claude API", "FastAPI", "PostgreSQL + pgvector", "Vue 3 + TypeScript", "MiniLM", "scikit-learn", "Docker"],
+    githubLink: "https://github.com/SwarajStha/GTMAgent",
+    liveLink: "",
+  },
+  {
     id: "proj_kplanar",
     title: "K-Planar Graph Minimizer",
     category: "data",
@@ -96,7 +146,7 @@ The project aims to integrate Reinforcement Learning (RL) models to optimize nod
   {
     id: "proj_invest_ai",
     title: "Investing with AI (using Qwen3)",
-    category: "data",
+    category: ["data", "ai"],
     img: "/images/CampusChallenge_LLM(0).png",
     images: [
       "/images/CampusChallenge_LLM(0).png",
@@ -266,7 +316,7 @@ The framework establishes foundation for advanced quantitative finance research:
   {
     id: "proj5",
     title: "PROMPTIST Reproduction",
-    category: "desktop",
+    category: ["desktop", "ai"],
     img: "/images/PROMPTIST(1).png",
     images: [
       "/images/PROMPTIST(1).png",
@@ -349,30 +399,31 @@ The framework establishes foundation for advanced quantitative finance research:
       "/images/face(2).png",
       "/images/face(3).png",
     ],
-    description: `The FaceTrack project is a Python-based productivity and analytics tool designed to monitor and visualize a user's engagement during online classes or meetings. By leveraging computer vision, it provides objectiv insights into focus levels and screen-time habits.
+    description: `FaceTrack is a Python computer-vision tool that estimates how attentive a student is during an online class or video call. It runs alongside any video-call software, tracks the user's face through the webcam, and reports an attentiveness score when the session ends.
 
 ## Project Overview
-Developed as an "Online Class Face-Tracker," this program serves as a personal attention auditor. It uses a webcam feed to monitor the user's presence and eye movements in real-time, helping users understand their distraction patterns during long digital sessions.
+Built when online learning became the norm, this "Online Class Face-Tracker" acts as a personal attention auditor. It records, frame by frame, whether the user is in front of the screen and how close they are to it, then summarises the session as a graph and a single attentiveness percentage.
 
 ## What the Program Does
-- **Real-Time Tracking**: Continuously monitors the user's face and eyes while they are active in an online course or video conference.
-- **Attention Analysis**: Determines whether the user is looking at the screen or looking away (distracted).
-- **Visual Analytics**: Generates comprehensive graphs at the end of a session to show the percentage of time spent focused versus distracted.
+- **Live Tracking Window**: Opens a webcam window that draws a green box around the detected face and red boxes around the detected eyes. Press "q" to end the session.
+- **Per-Frame Attention Score**: Gives every frame a score from 0 to 100 based on how close the face is to the webcam and whether the eyes are visible. Frames without a face score 0.
+- **Session Graph**: Plots each frame's score as a scatter chart, showing when the user was engaged or away.
+- **Attentiveness Result**: A small desktop window reports the session's attentiveness: the percentage of frames in which a face was detected.
 
 ## Main Algorithm & Logic
-The core functionality follows a real-time computer vision pipeline:
-- **Frame Capture**: Accesses the webcam stream to capture live video frames.
-- **Face & Eye Detection**: Utilizes detection models to locate the user's facial features and pinpoint the position of the eyes.
-- **Gaze Estimation Logic**: Implements a heuristic or geometric algorithm to determine if the user's gaze is directed toward the monitor or elsewhere.
-- **Temporal Data Logging**: Records "focused" and "distracted" states over time.
-- **Analytics Generation**: Processes the logged data to produce engagement metrics and visual charts.
+- **Frame Capture**: Reads frames from the default webcam with OpenCV and converts them to grayscale.
+- **Face Detection**: Uses OpenCV's pre-trained Haar cascade classifier (frontal face) to locate the face in each frame.
+- **Eye Detection**: Runs a second Haar cascade (eyes) only inside the detected face region, which is faster and cuts false positives.
+- **Distance Heuristic**: Uses the face bounding-box width as a proxy for distance to the screen (≥ 250 px scores 100, very small faces score 5–15, and widths in between scale linearly), with a bonus when the eyes are detected.
+- **Efficiency Metric**: Divides the frames with a detected face by the total frames recorded.
 
 ## Technical Components & Technologies
-- **Core Language**: Python — Chosen for its robust ecosystem in data science and computer vision.
-- **Computer Vision**: Likely utilizes OpenCV for real-time image processing and Haar Cascades (or similar models) for feature detection.
-- **Data Visualization**: Uses libraries such as Matplotlib or Seaborn to transform raw attention data into readable, portfolio-ready graphs.
-- **Environment**: Built to run as a standalone script on local machines during active sessions.`,
-    tech: ["Python", "OpenCV", "Matplotlib"],
+- **Core Language**: Python
+- **Computer Vision**: OpenCV (Haar cascade face and eye detection)
+- **Data Visualization**: Matplotlib scatter plot of the per-frame scores
+- **User Interface**: Tkinter window for the final attentiveness result
+- **Environment**: Runs as a standalone script on a local machine with a webcam`,
+    tech: ["Python", "OpenCV", "Matplotlib", "Tkinter"],
     githubLink: "https://github.com/SwarajStha/faceTrack",
     liveLink: "",
   },
@@ -403,36 +454,7 @@ More than just a static resume, this application demonstrates my frontend engine
 - **Performance Optimized:** Uses Vite for lightning-fast HMR and optimized production builds, ensuring the animation-heavy interface remains performant on all devices.`,
     tech: ["React", "Tailwind CSS", "Vite", "React Icons", "React Modal"],
     githubLink: "https://github.com/SwarajStha/portfolio-Swaraj",
-    liveLink: "https://swarajstha.com",
-  },
-  {
-    id: "proj4",
-    title: "St. Margaret's Bay Conservation Site",
-    category: "web",
-    img: "/images/conservation-site.png",
-    description: `The St. Margaret’s Bay Area Woodland Conservation Site project is a web-based platform developed as a service-learning initiative for a Software Engineering course. It serves as a digital management and engagement tool for a real-world community partner dedicated to woodland conservation.
-
-## Project Overview
-This project was built to provide a professional digital presence for the St. Margaret’s Bay Area Woodland Conservation Site. It emphasizes modern software engineering principles, including rigorous requirement specification, detailed design, and comprehensive testing.
-
-## What the Program Does
-- **Digital Management**: Facilitates the organization and documentation of conservation efforts and site requirements.
-- **Community Engagement**: Offers a user-friendly interface to showcase the site’s projects and skills to the public.
-- **Search Optimization**: Enhances the visibility of the conservation site through integrated SEO strategies, ensuring that the project ranks effectively on search engines.
-- **Responsive Design**: Provides a visually appealing experience that scales across mobile and desktop devices.
-
-## Main Process & Methodology: Agile Lifecycle
-Rather than a single mathematical algorithm, the project follows the Agile development methodology. This involved iterative cycles of scheduling, requirement analysis, software design, and testing to ensure the final product met the specific needs of the community partner.
-
-## Technical Components & Technologies
-- **Frontend Framework**: React.js — Used to build a dynamic and responsive single-page application.
-- **Styling**: Tailwind CSS — Utilized for rapid, modern UI development and responsive layouts.
-- **SEO Engine**: React Helmet — Implemented to manage the document head and improve search engine optimization.
-- **Deployment & Infrastructure**: DigitalOcean App Platform — Hosted using a CI/CD (Continuous Integration/Continuous Delivery) pipeline to ensure seamless updates and high availability.
-- **Development Tools**: Built using a modern stack that includes Git for version control and Figma for initial design mockups.`,
-    tech: ["React", "Tailwind CSS", "React Helmet"],
-    githubLink: "https://github.com/SwarajStha/conservation-site",
-    liveLink: "",
+    liveLink: "https://swarajshrestha.tech",
   },
 ];
 
@@ -457,10 +479,11 @@ const Projects = () => {
   // Filter other projects based on active category
   const otherProjects = projectData.slice(1).filter(project => {
     if (activeCategory === 'all') return true;
-    return project.category === activeCategory;
+    const cats = Array.isArray(project.category) ? project.category : [project.category];
+    return cats.includes(activeCategory);
   });
 
-  const categories = ['all', 'web', 'data', 'desktop'];
+  const categories = ['all', 'ai', 'web', 'data', 'desktop'];
 
   return (
     <>
