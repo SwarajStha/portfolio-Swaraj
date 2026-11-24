@@ -1,101 +1,118 @@
-# Swaraj's Interactive Developer Portfolio
+# Swaraj Shrestha – Developer Portfolio
 
-> A terminal-themed, interactive portfolio website built with React, Vite, and Tailwind CSS.
+A single-page portfolio built with React, Vite and Tailwind CSS. Each section borrows the look of a developer tool: a `git log` timeline, `ls` terminals and a VS Code window.
 
-![Hero Terminal](file:///C:/Users/swara/.gemini/antigravity/brain/9dd3b983-a45d-4909-ac13-e74446331aed/terminal_verification_1767270774783.png)
+**Live site:** [swarajshrestha.tech](https://swarajshrestha.tech)
 
-## 🚀 Overview
-
-This project is a complete reimaginig of the standard developer portfolio. Instead of a static resume, it offers an immersive **"Operating System"** experience where users navigate through a simulated terminal environment. It balances a distinct **hacker aesthetic** with modern, responsive web design principles.
-
-The application features a fully functional command-line interface simulation, window management, and complex interactive components that showcase frontend engineering capabilities.
+![Home section](docs/screenshots/home.jpg)
 
 ---
 
-## ✨ Key Features
+## Sections
 
-### 1. Interactive Terminal Workspace
-The landing screen features a fully typed-out terminal simulation that visualizes skill proficiency.
-- **Dynamic Typing:** Real-time typewriter effect for commands.
-- **Interactive Breadcrumbs:** Navigable directory paths.
-- **Draggable Windows:** "Technologies" and "About" windows can be dragged around the workspace.
+### Home
+Name, an animated "I'm a …" tagline, LinkedIn and GitHub links, and a **Resume** button that downloads [`public/Resume.pdf`](public/Resume.pdf).
 
-### 2. "Git Log" Experience Timeline
-A unique timeline visualization inspired by `git log --graph`.
-- **Commit History:** Professional experience rendered as commit nodes with hashes and varying branch tracks.
-- **Frosted Glass Cards:** "Commit" cards feature a semi-transparent glassmorphism effect.
-- **Status Badges:** Dynamic `[ACTIVE]` and `[STABLE]` tags for role status.
+### Education
+One card per school (TUM, Saint Mary's University, Rato Bangala School). **View Details** opens a window with coursework, awards and scholarships.
 
-![Experience Section](file:///C:/Users/swara/.gemini/antigravity/brain/9dd3b983-a45d-4909-ac13-e74446331aed/experience_git_log_final_pre_scroll_1767290439205.png)
+![Education section](docs/screenshots/education.jpg)
 
-### 3. Developer Workstation (Projects)
-Projects are showcased in a grid that mimics a modern developer's environment.
-- **CLI Navigation:** Filter projects using simulated flags like `ls --web`.
-- **VS Code Style Modals:** Detailed project views open in an editor-like modal with syntax highlighting and file tabs.
-- **Bento Grid Layout:** Dynamic image grids that adapt to different aspect ratios.
+### Experience
+A timeline styled like `git log --graph`. Each role is a "commit" card with a hash, a branch (`main` or a `feature/…` branch) and an `[ACTIVE]` or `[STABLE]` tag. Clicking a card opens the full role description.
 
-![Projects Grid](file:///C:/Users/swara/.gemini/antigravity/brain/9dd3b983-a45d-4909-ac13-e74446331aed/project_tiles_grid_all_1767302126685.png)
+![Experience section](docs/screenshots/experience.jpg)
 
-### 4. Dual-Terminal Photography Section
-A creative display for photography work using split terminal windows.
-- **Authentic Headers:** Git-style references and permissions lines.
-- **3D Interaction:** Cards lift and glow with a cyan aura on hover.
-- **Frosted Aesthetics:** Deep, dark glass effects for better readability.
+### Projects
+- **Featured project:** CourseNotes, shown in a phone mock-up next to a terminal window.
+- **Project grid:** filter it with `ls --all`, `--ai`, `--web`, `--data` or `--desktop`. A project can belong to more than one filter.
+- **Project details:** clicking a project opens a VS Code-style window with a README-style write-up, screenshots and links.
 
-![Photography Section](file:///C:/Users/swara/.gemini/antigravity/brain/9dd3b983-a45d-4909-ac13-e74446331aed/photography_final_hover_1767395856620.png)
+![Projects section](docs/screenshots/projects.jpg)
 
-### 5. Draggable IDE "About Me"
-The "Contact" and "About" sections are unified into a draggable IDE window.
-- **Syntax Highlighting:** Bio text formatted as code (JSON/JavaScript).
-- **Integrated Form:** Contact form styled as a terminal input session.
-- **Responsive:** Adapts seamlessly to mobile layouts while retaining the IDE look.
+### Technologies
+A terminal that lists skills in groups with `ls -l`. It starts **collapsed**; click it (or the yellow window button) to expand it, then click any entry to see a proficiency bar and description. The window can be dragged by its title bar and snaps back when released.
 
-![About Section](file:///C:/Users/swara/.gemini/antigravity/brain/9dd3b983-a45d-4909-ac13-e74446331aed/final_about_section_1767371480345.png)
+![Technologies section](docs/screenshots/technologies.jpg)
+
+### Photography
+Two terminal-style cards linking to external photography portfolios on Scop.io and Wix.
+
+![Photography section](docs/screenshots/photography.jpg)
+
+### About
+A VS Code-style window with a short bio written as code (`Bio.js`), a draggable profile photo and a contact form (`contact.json`). Form submissions are sent through [Getform](https://getform.io).
+
+![About section](docs/screenshots/about.jpg)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Framework:** [React](https://react.dev/) (v18)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Icons:** [React Icons](https://react-icons.github.io/react-icons/)
-- **Animation:** `react-type-animation`
-- **Interactivity:** `react-draggable`, `react-modal`
+| Purpose | Library |
+|---|---|
+| UI framework | [React 18](https://react.dev/) |
+| Build tool / dev server | [Vite](https://vite.dev/) |
+| Styling | [Tailwind CSS 3](https://tailwindcss.com/) |
+| Icons | [React Icons](https://react-icons.github.io/react-icons/) |
+| Typing animation (Home) | [react-type-animation](https://www.npmjs.com/package/react-type-animation) |
+| Draggable windows | [react-draggable](https://www.npmjs.com/package/react-draggable) |
+| Detail windows | [react-modal](https://www.npmjs.com/package/react-modal) |
 
----
-
-## 📦 Installation & Setup
-
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/SwarajStha/portfolio-Swaraj.git
-    cd portfolio-Swaraj
-    ```
-
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
-
-3.  **Run the development server**
-    ```bash
-    npm run dev
-    ```
-
-4.  **Build for production**
-    ```bash
-    npm run build
-    ```
+**Hosting:** DigitalOcean App Platform, which deploys automatically from the `main` branch.
 
 ---
 
-## 📬 Contact
+## Running Locally
 
-**Swaraj Shrestha**  
-- **Portfolio:** [swarajshrestha.tech](https://swarajshrestha.tech)
-- **GitHub:** [@SwarajStha](https://github.com/SwarajStha)
+Requires [Node.js](https://nodejs.org/) 18 or newer.
+
+```bash
+git clone https://github.com/SwarajStha/portfolio-Swaraj.git
+cd portfolio-Swaraj
+npm install
+npm run dev
+```
+
+Then open http://localhost:5173.
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Start the dev server with hot reload |
+| `npm run build` | Build the production site into `dist/` |
+| `npm run preview` | Serve the production build locally |
+
+> **Windows PowerShell 5.1:** run each command on its own line. This version of PowerShell doesn't support chaining commands with `&&`.
 
 ---
 
-*Verified locally on Windows/Chrome. Last updated: Jan 2026.*
+## Updating Content
+
+All site content lives in data arrays at the top of each component, so most updates don't need any layout changes.
+
+| To change… | Edit |
+|---|---|
+| Education and coursework | `educationData` in [`src/components/Education.jsx`](src/components/Education.jsx) |
+| Work experience | `experienceData` in [`src/components/Experience.jsx`](src/components/Experience.jsx) |
+| Projects and project filters | `projectData` and `categories` in [`src/components/Projects.jsx`](src/components/Projects.jsx) |
+| Technologies | `techSections` in [`src/components/Technologies.jsx`](src/components/Technologies.jsx) |
+| Photography links | `photographyData` in [`src/components/Photography.jsx`](src/components/Photography.jsx) |
+| Bio and contact form | [`src/components/Contact.jsx`](src/components/Contact.jsx) |
+| Downloadable resume | Replace [`public/Resume.pdf`](public/Resume.pdf) (keep the file name) |
+
+Images used by projects and cards go in [`public/images/`](public/images); technology icons are in [`src/assets/`](src/assets).
+
+---
+
+## Credits
+
+Technology icons for Vue, Nuxt, tRPC, FastAPI, NumPy, Pandas, scikit-learn, PostgreSQL, GitHub Actions and Claude come from [Devicon](https://devicon.dev/) (MIT licence). Icons for Zod, Prisma, Claude Code and MCP come from [Simple Icons](https://simpleicons.org/) (CC0).
+
+---
+
+## Contact
+
+**Swaraj Shrestha**
+- Portfolio: [swarajshrestha.tech](https://swarajshrestha.tech)
+- GitHub: [@SwarajStha](https://github.com/SwarajStha)
+- LinkedIn: [swaraj-shrestha](https://www.linkedin.com/in/swaraj-shrestha/)
