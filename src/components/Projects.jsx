@@ -93,15 +93,13 @@ The core of the application is built around the Android Jetpack architecture com
   },
   {
     id: "proj_virtually_done",
-    // Hidden until the gameplay media are added (see `screens` below)
-    draft: true,
     title: "The Tipping Point: VR Climate Dilemma",
     category: ["xr"],
-    img: "/images/VirtuallyDone/poster.jpg",
+    img: "/images/VirtuallyDone/still-3.jpg",
     images: [
-      "/images/VirtuallyDone/poster.jpg",
-      "/images/VirtuallyDone/still-2.jpg",
       "/images/VirtuallyDone/still-3.jpg",
+      "/images/VirtuallyDone/still-2.jpg",
+      "/images/VirtuallyDone/poster.jpg",
     ],
     description: `*A 15-minute VR dilemma: your own target versus the one everyone shares.*
 
@@ -155,10 +153,10 @@ I led the Unity development as the lead developer, owning the main scene and the
       label: "virtually-done.xr",
       order: 3,
       screens: [
-        // Filled in from the playthrough videos: a muted highlight clip, then stills
+        // Highlight clip (escape-ending playthrough, muted loop), then stills
         { src: "/images/VirtuallyDone/poster.jpg", video: "/videos/virtually-done-highlights.mp4", label: "Playthrough" },
         { src: "/images/VirtuallyDone/still-2.jpg", label: "Decide" },
-        { src: "/images/VirtuallyDone/still-3.jpg", label: "Ending" },
+        { src: "/images/VirtuallyDone/still-3.jpg", label: "Escape ending" },
       ],
       path: "~/projects/virtually-done",
       status: "ACTIVE",
@@ -645,7 +643,7 @@ const Projects = () => {
     return cats.includes(activeCategory);
   });
 
-  const categories = ['all', 'ai', 'web', 'mobile', 'data', 'desktop'];
+  const categories = ['all', 'ai', 'web', 'mobile', 'xr', 'data', 'desktop'];
 
   return (
     <>

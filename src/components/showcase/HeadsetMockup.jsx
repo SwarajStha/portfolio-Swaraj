@@ -49,7 +49,7 @@ const HeadsetMockup = ({ screens, index, onPrev, onNext }) => (
         Casting from Meta Quest 3
       </div>
       <div className="relative aspect-[16/10] bg-black">
-        <ScreenStack screens={screens} index={index} onPrev={onPrev} onNext={onNext} />
+        <ScreenStack screens={screens} index={index} onPrev={onPrev} onNext={onNext} position="center" />
         {/* Lens vignette */}
         <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.55)_100%)]" aria-hidden="true" />
       </div>
