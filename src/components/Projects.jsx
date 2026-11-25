@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ProjectItem from "./ProjectItem";
 import ProjectEditorModal from "./ProjectEditorModal";
-import ProjectWorkstation from "./ProjectWorkstation";
+import FeaturedShowcase from "./showcase/FeaturedShowcase";
 
-// Organize all project data in one place
+// Organize all project data in one place.
+//
+// A project with a `showcase` block also appears in the featured showcase at
+// the top of the section, on the device that matches it:
+//   device:     "phone" | "laptop" | "headset"
+//   label:      switcher tab text
+//   order:      position in the switcher
+//   screens:    image paths, or { src, label, path } objects
+//               (laptop: `path` is shown in the browser's address bar)
+//   host/tabTitle (laptop only): address-bar host and browser tab title
+//   path, status ("ACTIVE" | "COMPLETE"), statusNote, logs: terminal panel
 const projectData = [
   {
     id: "proj1",
@@ -50,6 +60,36 @@ The core of the application is built around the Android Jetpack architecture com
     tech: ["Kotlin", "Android Studio", "XML", "Android Jetpack", "Material 3", "Coil", "PhotoView"],
     githubLink: "", // Add link when available
     liveLink: "",
+    showcase: {
+      device: "phone",
+      label: "coursenotes.apk",
+      order: 1,
+      screens: [
+        "/images/Class_Scheduler(0).png",
+        "/images/Class_Scheduler(1).png",
+        "/images/Class_Scheduler(2).png",
+        "/images/Class_Scheduler(3).png",
+        "/images/Class_Scheduler(4).png",
+        "/images/Class_Scheduler(5).png",
+        "/images/Class_Scheduler(6).png",
+        "/images/Class_Scheduler(7).png",
+        "/images/Class_Scheduler(8).png",
+        "/images/Class_Scheduler.png",
+      ],
+      path: "~/projects/coursenotes",
+      status: "ACTIVE",
+      statusNote: "Working prototype",
+      logs: [
+        { type: "INFO", msg: "Starting emulator..." },
+        { type: "DEBUG", msg: "Loading class data..." },
+        { type: "DEBUG", msg: "Initializing Room Database..." },
+        { type: "DEBUG", msg: "Pre-populating CourseDAO..." },
+        { type: "SUCCESS", msg: "Local SQLite Connected" },
+        { type: "INFO", msg: "Binding ViewModel Providers..." },
+        { type: "SUCCESS", msg: "MainActivity Rendered" },
+        { type: "WATCH", msg: "Observing LiveData changes..." },
+      ],
+    },
   },
   {
     id: "proj_gtmagent",
@@ -100,6 +140,32 @@ The LLM only extracts and drafts; embeddings, rules and a trained ranker keep ev
     tech: ["Python", "Claude API", "FastAPI", "PostgreSQL + pgvector", "Vue 3 + TypeScript", "MiniLM", "scikit-learn", "Docker"],
     githubLink: "https://github.com/SwarajStha/GTMAgent",
     liveLink: "",
+    showcase: {
+      device: "laptop",
+      label: "gtmagent.web",
+      order: 2,
+      host: "localhost:5173",
+      tabTitle: "GTM Agent",
+      screens: [
+        { src: "/images/GTMAgent(1).png", label: "Command", path: "/" },
+        { src: "/images/GTMAgent(4).png", label: "Tenders", path: "/tenders" },
+        { src: "/images/GTMAgent(2).png", label: "Matches", path: "/matches" },
+        { src: "/images/GTMAgent(5).png", label: "Emails", path: "/emails" },
+        { src: "/images/GTMAgent(3).png", label: "Agent", path: "/agent" },
+      ],
+      path: "~/projects/gtmagent",
+      status: "COMPLETE",
+      statusNote: "Course project, Jul 2026",
+      logs: [
+        { type: "INFO", msg: "Starting FastAPI + Postgres (pgvector)..." },
+        { type: "DEBUG", msg: "Polling TED API for contract notices..." },
+        { type: "SUCCESS", msg: "100 tenders loaded" },
+        { type: "DEBUG", msg: "Embedding tender text (MiniLM)..." },
+        { type: "INFO", msg: "Ranking candidates (LR, 10 features)..." },
+        { type: "SUCCESS", msg: "Top matches ready (Hit@3: 54%)" },
+        { type: "WATCH", msg: "Agent waiting for user input..." },
+      ],
+    },
   },
   {
     id: "proj_kplanar",
@@ -462,6 +528,20 @@ const Projects = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeCategory, setActiveCategory] = useState("all");
+  const showcaseRef = useRef(null);
+
+  // Projects with a `showcase` block, in switcher order
+  const featuredProjects = projectData
+    .filter((p) => p.showcase)
+    .sort((a, b) => a.showcase.order - b.showcase.order);
+  const [featuredId, setFeaturedId] = useState(featuredProjects[0]?.id);
+
+  // "★ featured" badge on a grid card: show that project in the showcase
+  const showInShowcase = (id) => {
+    setFeaturedId(id);
+    const el = showcaseRef.current;
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" });
+  };
 
   const handleOpenModal = (project) => {
     setSelectedProject(project);
@@ -473,17 +553,14 @@ const Projects = () => {
     setSelectedProject(null);
   };
 
-  // Separate the featured project (Class Photo Scheduler) from the rest
-  const featuredProject = projectData[0];
-
-  // Filter other projects based on active category
-  const otherProjects = projectData.slice(1).filter(project => {
+  // Grid: every project (featured ones too, marked with a badge)
+  const otherProjects = projectData.filter(project => {
     if (activeCategory === 'all') return true;
     const cats = Array.isArray(project.category) ? project.category : [project.category];
     return cats.includes(activeCategory);
   });
 
-  const categories = ['all', 'ai', 'web', 'data', 'desktop'];
+  const categories = ['all', 'ai', 'web', 'mobile', 'data', 'desktop'];
 
   return (
     <>
@@ -501,11 +578,13 @@ const Projects = () => {
               </div>
             </div>
 
-            {/* Featured Project: Mobile Workstation Theme */}
-            <div className="mb-24">
-              <ProjectWorkstation
-                project={featuredProject}
-                onExpand={() => handleOpenModal(featuredProject)}
+            {/* Featured projects, each on its own device */}
+            <div ref={showcaseRef} className="mb-24">
+              <FeaturedShowcase
+                projects={featuredProjects}
+                activeId={featuredId}
+                onSelect={setFeaturedId}
+                onOpen={handleOpenModal}
               />
             </div>
 
@@ -539,6 +618,7 @@ const Projects = () => {
                     tech={project.tech} // Pass tech for metadata
                     category={project.category}
                     onSelect={() => handleOpenModal(project)}
+                    onShowFeatured={project.showcase ? () => showInShowcase(project.id) : undefined}
                   />
                 ))}
 
