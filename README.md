@@ -24,14 +24,23 @@ A timeline styled like `git log --graph`. Each role is a "commit" card with a ha
 ![Experience section](docs/screenshots/experience.jpg)
 
 ### Projects
-- **Featured project:** CourseNotes, shown in a phone mock-up next to a terminal window.
-- **Project grid:** filter it with `ls --all`, `--ai`, `--web`, `--data` or `--desktop`. A project can belong to more than one filter.
+- **Featured showcase:** switch between featured projects with `~/featured$ ls`. Each one appears on the device it was built for, next to a terminal with its status and log lines:
+  - **CourseNotes** on a phone
+  - **GTMAgent** on a laptop, with the browser's address bar following each page
+  - **The Tipping Point** (Virtually Done) in a "Casting from Meta Quest 3" window that plays a gameplay clip
+
+  Screens advance on their own (pausing on hover); use the dots, the arrows or the edges of the screen to move through them.
+- **Project grid:** filter it with `ls --all`, `--ai`, `--web`, `--mobile`, `--xr`, `--data` or `--desktop`. A project can belong to more than one filter. Featured projects carry a **★ featured** badge that jumps to them in the showcase.
 - **Project details:** clicking a project opens a VS Code-style window with a README-style write-up, screenshots and links.
 
 ![Projects section](docs/screenshots/projects.jpg)
 
+| Phone | Laptop | Meta Quest 3 |
+|---|---|---|
+| ![CourseNotes on the phone](docs/screenshots/showcase-phone.jpg) | ![GTMAgent on the laptop](docs/screenshots/showcase-laptop.jpg) | ![The Tipping Point in the Quest 3 cast window](docs/screenshots/showcase-xr.jpg) |
+
 ### Technologies
-A terminal that lists skills in groups with `ls -l`. It starts **collapsed**; click it (or the yellow window button) to expand it, then click any entry to see a proficiency bar and description. The window can be dragged by its title bar and snaps back when released.
+A terminal that lists skills in groups with `ls -l`. It starts **collapsed**: use the **click to expand** button at the bottom (or the yellow window button, or anywhere in the terminal), then click any entry to see a proficiency bar and description. On desktop the window can be dragged by its title bar and snaps back when released.
 
 ![Technologies section](docs/screenshots/technologies.jpg)
 
@@ -95,12 +104,13 @@ All site content lives in data arrays at the top of each component, so most upda
 | Education and coursework | `educationData` in [`src/components/Education.jsx`](src/components/Education.jsx) |
 | Work experience | `experienceData` in [`src/components/Experience.jsx`](src/components/Experience.jsx) |
 | Projects and project filters | `projectData` and `categories` in [`src/components/Projects.jsx`](src/components/Projects.jsx) |
+| Featured showcase | Add a `showcase` block to a project in `projectData` (format documented at the top of the file); device frames are in [`src/components/showcase/`](src/components/showcase) |
 | Technologies | `techSections` in [`src/components/Technologies.jsx`](src/components/Technologies.jsx) |
 | Photography links | `photographyData` in [`src/components/Photography.jsx`](src/components/Photography.jsx) |
 | Bio and contact form | [`src/components/Contact.jsx`](src/components/Contact.jsx) |
 | Downloadable resume | Replace [`public/Resume.pdf`](public/Resume.pdf) (keep the file name) |
 
-Images used by projects and cards go in [`public/images/`](public/images); technology icons are in [`src/assets/`](src/assets).
+Images used by projects and cards go in [`public/images/`](public/images), videos in [`public/videos/`](public/videos); technology icons are in [`src/assets/`](src/assets).
 
 ---
 
