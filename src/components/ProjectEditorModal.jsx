@@ -215,6 +215,11 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                                                 [<FaExternalLinkAlt size={12} /> Live Demo]
                                             </a>
                                         )}
+                                        {project.extraLinks?.map((link) => (
+                                            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:underline">
+                                                [<FaExternalLinkAlt size={12} /> {link.label}]
+                                            </a>
+                                        ))}
                                         {Array.isArray(project.githubLink) ? (
                                             // Multiple GitHub links
                                             project.githubLink.map((link, idx) => (
@@ -225,7 +230,7 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                                         ) : project.githubLink ? (
                                             // Single GitHub link
                                             <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:underline">
-                                                [<FaGithub size={12} /> Source Code]
+                                                [<FaGithub size={12} /> {project.githubPrivate ? "Source Code (private)" : "Source Code"}]
                                             </a>
                                         ) : (
                                             // No GitHub link
@@ -239,12 +244,15 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                                 {/* Description Block with Simple Markdown Parser */}
                                 <div className="space-y-4 text-gray-300 leading-relaxed">
                                     {project.description.split('\n').map((line, index) => {
-                                        // Helper to parse inline bolding (**text**)
+                                        // Helper to parse inline bold (**text**) and italics (*text*)
                                         const parseContent = (text) => {
-                                            const parts = text.split(/(\*\*.*?\*\*)/g);
+                                            const parts = text.split(/(\*\*.*?\*\*|\*[^*\s][^*]*?\*)/g);
                                             return parts.map((part, i) => {
                                                 if (part.startsWith('**') && part.endsWith('**')) {
                                                     return <span key={i} className="text-cyan-400 font-bold">{part.slice(2, -2)}</span>;
+                                                }
+                                                if (part.length > 2 && part.startsWith('*') && part.endsWith('*')) {
+                                                    return <em key={i} className="text-gray-200">{part.slice(1, -1)}</em>;
                                                 }
                                                 return part;
                                             });

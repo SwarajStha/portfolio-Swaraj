@@ -1,4 +1,4 @@
-const ProjectItem = ({ title, img, tech, category, onSelect }) => {
+const ProjectItem = ({ title, img, tech, category, onSelect, onShowFeatured }) => {
   return (
     <div
       onClick={onSelect}
@@ -12,6 +12,19 @@ const ProjectItem = ({ title, img, tech, category, onSelect }) => {
           <span className="text-blue-400">4096</span>
           <span className="text-gray-500">{(Array.isArray(category) ? category.join('/') : category) || 'misc'}</span>
         </div>
+        {onShowFeatured && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onShowFeatured();
+            }}
+            title="Show in the featured showcase"
+            className="ml-auto mr-3 rounded border border-yellow-400/40 bg-yellow-400/10 px-2 py-0.5 font-mono text-[11px] text-yellow-300 transition-colors hover:bg-yellow-400/20"
+          >
+            ★ featured ↑
+          </button>
+        )}
         <div className="flex gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
           <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
           <div className="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>

@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ProjectItem from "./ProjectItem";
 import ProjectEditorModal from "./ProjectEditorModal";
-import ProjectWorkstation from "./ProjectWorkstation";
+import FeaturedShowcase from "./showcase/FeaturedShowcase";
 
-// Organize all project data in one place
+// Organize all project data in one place.
+//
+// A project with a `showcase` block also appears in the featured showcase at
+// the top of the section, on the device that matches it:
+//   device:     "phone" | "laptop" | "headset"
+//   label:      switcher tab text
+//   order:      position in the switcher
+//   screens:    image paths, or { src, label, path } objects
+//               (laptop: `path` is shown in the browser's address bar)
+//   host/tabTitle (laptop only): address-bar host and browser tab title
+//   path, status ("ACTIVE" | "COMPLETE"), statusNote, logs: terminal panel
 const projectData = [
   {
     id: "proj1",
@@ -50,6 +60,116 @@ The core of the application is built around the Android Jetpack architecture com
     tech: ["Kotlin", "Android Studio", "XML", "Android Jetpack", "Material 3", "Coil", "PhotoView"],
     githubLink: "", // Add link when available
     liveLink: "",
+    showcase: {
+      device: "phone",
+      label: "coursenotes.apk",
+      order: 1,
+      screens: [
+        "/images/Class_Scheduler(0).png",
+        "/images/Class_Scheduler(1).png",
+        "/images/Class_Scheduler(2).png",
+        "/images/Class_Scheduler(3).png",
+        "/images/Class_Scheduler(4).png",
+        "/images/Class_Scheduler(5).png",
+        "/images/Class_Scheduler(6).png",
+        "/images/Class_Scheduler(7).png",
+        "/images/Class_Scheduler(8).png",
+        "/images/Class_Scheduler.png",
+      ],
+      path: "~/projects/coursenotes",
+      status: "ACTIVE",
+      statusNote: "Working prototype",
+      logs: [
+        { type: "INFO", msg: "Starting emulator..." },
+        { type: "DEBUG", msg: "Loading class data..." },
+        { type: "DEBUG", msg: "Initializing Room Database..." },
+        { type: "DEBUG", msg: "Pre-populating CourseDAO..." },
+        { type: "SUCCESS", msg: "Local SQLite Connected" },
+        { type: "INFO", msg: "Binding ViewModel Providers..." },
+        { type: "SUCCESS", msg: "MainActivity Rendered" },
+        { type: "WATCH", msg: "Observing LiveData changes..." },
+      ],
+    },
+  },
+  {
+    id: "proj_virtually_done",
+    title: "The Tipping Point: VR Climate Dilemma",
+    category: ["xr"],
+    img: "/images/VirtuallyDone/still-3.jpg",
+    images: [
+      "/images/VirtuallyDone/still-3.jpg",
+      "/images/VirtuallyDone/still-2.jpg",
+      "/images/VirtuallyDone/poster.jpg",
+    ],
+    description: `*A 15-minute VR dilemma: your own target versus the one everyone shares.*
+
+The Tipping Point is a seated, single-player VR experience for Meta Quest 3, built by Team Virtually Done for the TUM course Extended Reality for Value Creation in Businesses (TUM School of Management and ETH Zürich). Most of the current build was created during the course's hackathon in November 2026, and the game is being developed further. It is designed as a 15-minute module for corporate workshops (8–12 minutes in the headset).
+
+## Project Overview
+Climate change is no longer a knowledge problem: the consequences are shared, but every decision is made by someone looking at their own goal, here and now. Research shows people see climate change as psychologically distant, happening later, somewhere else, to someone else. VR can let you switch perspective in seconds and stand on the other side of your own decision. So the game asks: what if the "someone else" who pays for your decision is you?
+
+## What the Player Experiences
+You sit in a round control room surrounded by a rising sea and live through three decades, each as a different person:
+- **2030 – Industry**: Anna, shift lead at the plant.
+- **2040 – Agriculture**: Jonas, the third generation farming the same land.
+- **2050 – City**: Mira, planner for 40,000 people in the harbour quarter.
+
+In each decade you get five tokens. Dock them into the shared goal, which protects everyone from the sea, or keep them for your own unit's target. The rising water is the clock: press **COMMIT** before it reaches the mark. Then you become the next role, and your earlier self stays in the room as a translucent figure showing exactly what you gave. In 2060 comes the verdict: *"The wall held. You can leave."* or *"The water is inside."*
+
+Seen from one role alone, keeping tokens always looks like the smarter move. But all three roles are you, so the cost you push onto "the next team" lands on you ten years later.
+
+## How It's Built
+- **Rules Engine in Plain C#**: no VR code, so the rules are tested without a headset; every tunable number and text lives in ScriptableObject assets.
+- **Role Switch & Past Self**: a fade, a year card and a new seat; earlier roles replay exactly what you gave, as a translucent "past self".
+- **Comfortable for First-Timers**: seated play, no artificial movement; you grab tokens and press physical buttons.
+- **Two Fully Built Endings**: the wall holds and the sea drains, or the window cracks and the room floods.
+- **Balance Checked**: all 216 possible decision paths are simulated and covered by tests.
+- **Research-Ready**: each session logs every gift, time per stage, hesitation and the outcome to a CSV for workshop debriefs and studies.
+- **Vendor-Neutral XR**: OpenXR and the XR Interaction Toolkit, so the build is not tied to one headset vendor.
+
+## My Role
+I led the Unity development as the lead developer, owning the main scene and the core game logic: the rules engine, the decision timer, the rising sea, and role switching with the replayed past self and the 2060 verdict. I also handled all integration and the team builds to the Quest 3, working mostly through Claude Code.
+
+## Team & Credits
+- **Team Virtually Done**: Swaraj Shrestha, Nils Becker, Melek Elif Soput and Gloria Nio
+- Built on the course starter *PRISM, the XR Choice Lab*; CC0 textures from ambientCG and CC0 sounds from Freesound.
+
+## Technical Components & Technologies
+- **Engine**: Unity 6 (6000.3 LTS), Universal Render Pipeline, C#
+- **XR**: OpenXR (Meta Quest feature group), XR Interaction Toolkit 3.6, XR Hands
+- **Target**: Meta Quest 3 standalone at 72 Hz; budget of 13.9 ms per frame and under 150 draw calls, baked lighting
+- **Testing**: EditMode tests (Unity Test Framework) covering the rules, all balance paths, log rows and the endings
+- **Tools**: Git & GitHub, Visual Studio, Claude Code, Meshy (3D models)`,
+    tech: ["Unity 6", "C#", "Meta Quest 3", "OpenXR", "XR Interaction Toolkit", "Claude Code", "Unity Test Framework"],
+    githubLink: "https://github.com/SwarajStha/-Virtually-Done-",
+    githubPrivate: true,
+    extraLinks: [
+      { label: "Devpost", href: "https://devpost.com/software/virtually-done" },
+      { label: "Trailer (YouTube)", href: "https://www.youtube.com/watch?v=VdMddOL5OiU" },
+    ],
+    liveLink: "",
+    showcase: {
+      device: "headset",
+      label: "virtually-done.xr",
+      order: 3,
+      screens: [
+        // Highlight clip (escape-ending playthrough, muted loop), then stills
+        { src: "/images/VirtuallyDone/poster.jpg", video: "/videos/virtually-done-highlights.mp4", label: "Playthrough" },
+        { src: "/images/VirtuallyDone/still-2.jpg", label: "Decide" },
+        { src: "/images/VirtuallyDone/still-3.jpg", label: "Escape ending" },
+      ],
+      path: "~/projects/virtually-done",
+      status: "ACTIVE",
+      statusNote: "Course project, in development",
+      logs: [
+        { type: "INFO", msg: "Booting Quest 3 build (OpenXR)..." },
+        { type: "DEBUG", msg: "Loading ClimateRules + RoleProfiles..." },
+        { type: "SUCCESS", msg: "216/216 balance paths checked" },
+        { type: "INFO", msg: "Stage 2030: Industry, 75 s to decide" },
+        { type: "DEBUG", msg: "Sea level rising..." },
+        { type: "WATCH", msg: "Waiting for COMMIT..." },
+      ],
+    },
   },
   {
     id: "proj_gtmagent",
@@ -100,6 +220,32 @@ The LLM only extracts and drafts; embeddings, rules and a trained ranker keep ev
     tech: ["Python", "Claude API", "FastAPI", "PostgreSQL + pgvector", "Vue 3 + TypeScript", "MiniLM", "scikit-learn", "Docker"],
     githubLink: "https://github.com/SwarajStha/GTMAgent",
     liveLink: "",
+    showcase: {
+      device: "laptop",
+      label: "gtmagent.web",
+      order: 2,
+      host: "localhost:5173",
+      tabTitle: "GTM Agent",
+      screens: [
+        { src: "/images/GTMAgent(1).png", label: "Command", path: "/" },
+        { src: "/images/GTMAgent(4).png", label: "Tenders", path: "/tenders" },
+        { src: "/images/GTMAgent(2).png", label: "Matches", path: "/matches" },
+        { src: "/images/GTMAgent(5).png", label: "Emails", path: "/emails" },
+        { src: "/images/GTMAgent(3).png", label: "Agent", path: "/agent" },
+      ],
+      path: "~/projects/gtmagent",
+      status: "COMPLETE",
+      statusNote: "Course project, Jul 2026",
+      logs: [
+        { type: "INFO", msg: "Starting FastAPI + Postgres (pgvector)..." },
+        { type: "DEBUG", msg: "Polling TED API for contract notices..." },
+        { type: "SUCCESS", msg: "100 tenders loaded" },
+        { type: "DEBUG", msg: "Embedding tender text (MiniLM)..." },
+        { type: "INFO", msg: "Ranking candidates (LR, 10 features)..." },
+        { type: "SUCCESS", msg: "Top matches ready (Hit@3: 54%)" },
+        { type: "WATCH", msg: "Agent waiting for user input..." },
+      ],
+    },
   },
   {
     id: "proj_kplanar",
@@ -458,10 +604,27 @@ More than just a static resume, this application demonstrates my frontend engine
   },
 ];
 
+const publishedProjects = projectData.filter((p) => !p.draft);
+
 const Projects = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeCategory, setActiveCategory] = useState("all");
+  const showcaseRef = useRef(null);
+
+  // Projects with a `showcase` block, in switcher order
+  // Projects marked `draft: true` are hidden everywhere until they are ready
+  const featuredProjects = publishedProjects
+    .filter((p) => p.showcase)
+    .sort((a, b) => a.showcase.order - b.showcase.order);
+  const [featuredId, setFeaturedId] = useState(featuredProjects[0]?.id);
+
+  // "★ featured" badge on a grid card: show that project in the showcase
+  const showInShowcase = (id) => {
+    setFeaturedId(id);
+    const el = showcaseRef.current;
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" });
+  };
 
   const handleOpenModal = (project) => {
     setSelectedProject(project);
@@ -473,17 +636,14 @@ const Projects = () => {
     setSelectedProject(null);
   };
 
-  // Separate the featured project (Class Photo Scheduler) from the rest
-  const featuredProject = projectData[0];
-
-  // Filter other projects based on active category
-  const otherProjects = projectData.slice(1).filter(project => {
+  // Grid: every project (featured ones too, marked with a badge)
+  const otherProjects = publishedProjects.filter(project => {
     if (activeCategory === 'all') return true;
     const cats = Array.isArray(project.category) ? project.category : [project.category];
     return cats.includes(activeCategory);
   });
 
-  const categories = ['all', 'ai', 'web', 'data', 'desktop'];
+  const categories = ['all', 'ai', 'web', 'mobile', 'xr', 'data', 'desktop'];
 
   return (
     <>
@@ -501,11 +661,13 @@ const Projects = () => {
               </div>
             </div>
 
-            {/* Featured Project: Mobile Workstation Theme */}
-            <div className="mb-24">
-              <ProjectWorkstation
-                project={featuredProject}
-                onExpand={() => handleOpenModal(featuredProject)}
+            {/* Featured projects, each on its own device */}
+            <div ref={showcaseRef} className="mb-24">
+              <FeaturedShowcase
+                projects={featuredProjects}
+                activeId={featuredId}
+                onSelect={setFeaturedId}
+                onOpen={handleOpenModal}
               />
             </div>
 
@@ -539,6 +701,7 @@ const Projects = () => {
                     tech={project.tech} // Pass tech for metadata
                     category={project.category}
                     onSelect={() => handleOpenModal(project)}
+                    onShowFeatured={project.showcase ? () => showInShowcase(project.id) : undefined}
                   />
                 ))}
 
