@@ -95,7 +95,7 @@ The core of the application is built around the Android Jetpack architecture com
     id: "proj_virtually_done",
     // Hidden until the gameplay media are added (see `screens` below)
     draft: true,
-    title: "The Tipping Point: VR Climate Game",
+    title: "The Tipping Point: VR Climate Dilemma",
     category: ["xr"],
     img: "/images/VirtuallyDone/poster.jpg",
     images: [
@@ -103,48 +103,52 @@ The core of the application is built around the Android Jetpack architecture com
       "/images/VirtuallyDone/still-2.jpg",
       "/images/VirtuallyDone/still-3.jpg",
     ],
-    description: `The Tipping Point is a seated, single-player VR climate escape game for Meta Quest 3, built in four days by Team Virtually Done at the hackathon of the course Extended Reality for Value Creation in Businesses (TUM School of Management and ETH Zürich, Bad Tölz, 19–22 November 2026).
+    description: `*A 15-minute VR dilemma: your own target versus the one everyone shares.*
+
+The Tipping Point is a seated, single-player VR experience for Meta Quest 3, built by Team Virtually Done for the TUM course Extended Reality for Value Creation in Businesses (TUM School of Management and ETH Zürich). Most of the current build was created during the course's hackathon in November 2026, and the game is being developed further. It is designed as a 15-minute module for corporate workshops (8–12 minutes in the headset).
 
 ## Project Overview
-A trainee in a climate control room pulls budget tokens out of their own role's object, docks them in the reactor and presses Commit before the rising sea reaches the mark. Over four decades the player keeps or gives tokens and switches roles after every decade (Industry, Agriculture, City), while the desk they just left keeps playing as their **past self**. The game measures whether people still cooperate once their own past self is the one paying for a selfish choice.
+Climate change is no longer a knowledge problem: the consequences are shared, but every decision is made by someone looking at their own goal, here and now. Research shows people see climate change as psychologically distant, happening later, somewhere else, to someone else. VR can let you switch perspective in seconds and stand on the other side of your own decision. So the game asks: what if the "someone else" who pays for your decision is you?
 
 ## What the Player Experiences
-- **Brief & Decide**: a role card shows who they are and what their side needs; they have up to 75 seconds to give tokens while the sea rises behind the glass. Commit stops the clock and the sea.
-- **Reveal**: the other desks show their gifts one by one, including the ghost of the player's past self ("You in 2030 gave 2").
-- **Role Switch**: fade to black, a year card ("2040. You are now Agriculture."), a new seat.
-- **2060 Verdict**: watching from a chair at the door, the player's three past selves give again and the wall holds or breaks.
-- **Endings**: *Flood* (the window cracks, water jets in, the room fills) or *Escape* (the sea drains, the walls sink and the ceiling lifts away into a sunset with gulls, dolphins and a whale).
-- No numbers during play: a meter with a red tipping line, the sea, a mangrove seedling and the player's own object carry all the feedback.
+You sit in a round control room surrounded by a rising sea and live through three decades, each as a different person:
+- **2030 – Industry**: Anna, shift lead at the plant.
+- **2040 – Agriculture**: Jonas, the third generation farming the same land.
+- **2050 – City**: Mira, planner for 40,000 people in the harbour quarter.
 
-## Business Case
-A research and training instrument: every session writes one CSV with each gift, time per stage, hesitation (tokens taken back out), wrong attempts and the outcome, so a study can compare cooperation before and after each role switch.
+In each decade you get five tokens. Dock them into the shared goal, which protects everyone from the sea, or keep them for your own unit's target. The rising water is the clock: press **COMMIT** before it reaches the mark. Then you become the next role, and your earlier self stays in the room as a translucent figure showing exactly what you gave. In 2060 comes the verdict: *"The wall held. You can leave."* or *"The water is inside."*
 
-## Main Algorithm & Logic
-- **Rules Engine in Plain C#**: no VR code, so the rules are tested without a headset. CO2 starts at 63, each decade adds 20, each token given removes 1, and at 100 the room floods.
-- **Computer Players**: a role the player played earlier replays exactly what they gave (the past self); other roles copy the average of what the others gave the decade before.
-- **Balance Checked by Tests**: all 216 gift paths are verified (for example, giving nothing in 2030 can never escape, and the highest personal score always floods).
-- **Events, Not Calls**: the stage director raises game events; views (meter, sea, seedling, ghosts, endings) only listen, so new effects plug in without touching the flow.
-- **Data-Driven**: every tunable number and player-facing text lives in ScriptableObject assets, and the room itself is generated from a written spec by Editor tools.
+Seen from one role alone, keeping tokens always looks like the smarter move. But all three roles are you, so the cost you push onto "the next team" lands on you ten years later.
+
+## How It's Built
+- **Rules Engine in Plain C#**: no VR code, so the rules are tested without a headset; every tunable number and text lives in ScriptableObject assets.
+- **Role Switch & Past Self**: a fade, a year card and a new seat; earlier roles replay exactly what you gave, as a translucent "past self".
+- **Comfortable for First-Timers**: seated play, no artificial movement; you grab tokens and press physical buttons.
+- **Two Fully Built Endings**: the wall holds and the sea drains, or the window cracks and the room floods.
+- **Balance Checked**: all 216 possible decision paths are simulated and covered by tests.
+- **Research-Ready**: each session logs every gift, time per stage, hesitation and the outcome to a CSV for workshop debriefs and studies.
+- **Vendor-Neutral XR**: OpenXR and the XR Interaction Toolkit, so the build is not tied to one headset vendor.
 
 ## My Role
-Game logic, integration and builds: the rules engine, the stage flow (timer, reveal, role switch, verdict), token interaction, session logging, merging the team's work into the main scene, and the headset builds.
+I led the Unity development as the lead developer, owning the main scene and the core game logic: the rules engine, the decision timer, the rising sea, and role switching with the replayed past self and the 2060 verdict. I also handled all integration and the team builds to the Quest 3, working mostly through Claude Code.
 
 ## Team & Credits
-- **Swaraj Shrestha**: game logic, integration, builds
-- **Nils**: environment art and models, horizon, sky and lake, flood and escape endings
-- **Gloria**: room specification (with Nils and Swaraj)
-- **Melek**: player-facing texts (role cards, steps, captions, debrief lines)
+- **Team Virtually Done**: Swaraj Shrestha, Nils Becker, Melek Elif Soput and Gloria Nio
 - Built on the course starter *PRISM, the XR Choice Lab*; CC0 textures from ambientCG and CC0 sounds from Freesound.
 
 ## Technical Components & Technologies
 - **Engine**: Unity 6 (6000.3 LTS), Universal Render Pipeline, C#
 - **XR**: OpenXR (Meta Quest feature group), XR Interaction Toolkit 3.6, XR Hands
 - **Target**: Meta Quest 3 standalone at 72 Hz; budget of 13.9 ms per frame and under 150 draw calls, baked lighting
-- **Testing**: 121 EditMode tests (Unity Test Framework) covering rules, balance paths, log rows and endings`,
-    tech: ["Unity 6", "C#", "Meta Quest 3", "OpenXR", "XR Interaction Toolkit", "URP", "Unity Test Framework"],
+- **Testing**: EditMode tests (Unity Test Framework) covering the rules, all balance paths, log rows and the endings
+- **Tools**: Git & GitHub, Visual Studio, Claude Code, Meshy (3D models)`,
+    tech: ["Unity 6", "C#", "Meta Quest 3", "OpenXR", "XR Interaction Toolkit", "Claude Code", "Unity Test Framework"],
     githubLink: "https://github.com/SwarajStha/-Virtually-Done-",
     githubPrivate: true,
-    extraLinks: [{ label: "Devpost", href: "https://devpost.com/software/virtually-done" }],
+    extraLinks: [
+      { label: "Devpost", href: "https://devpost.com/software/virtually-done" },
+      { label: "Trailer (YouTube)", href: "https://www.youtube.com/watch?v=VdMddOL5OiU" },
+    ],
     liveLink: "",
     showcase: {
       device: "headset",
@@ -157,12 +161,12 @@ Game logic, integration and builds: the rules engine, the stage flow (timer, rev
         { src: "/images/VirtuallyDone/still-3.jpg", label: "Ending" },
       ],
       path: "~/projects/virtually-done",
-      status: "COMPLETE",
-      statusNote: "Hackathon build, Nov 2026",
+      status: "ACTIVE",
+      statusNote: "Course project, in development",
       logs: [
         { type: "INFO", msg: "Booting Quest 3 build (OpenXR)..." },
         { type: "DEBUG", msg: "Loading ClimateRules + RoleProfiles..." },
-        { type: "SUCCESS", msg: "121/121 EditMode tests passed" },
+        { type: "SUCCESS", msg: "216/216 balance paths checked" },
         { type: "INFO", msg: "Stage 2030: Industry, 75 s to decide" },
         { type: "DEBUG", msg: "Sea level rising..." },
         { type: "WATCH", msg: "Waiting for COMMIT..." },
