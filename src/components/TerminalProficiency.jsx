@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaChevronRight, FaChevronDown } from "react-icons/fa";
 
 // Helper for typewriter effect
@@ -82,11 +82,14 @@ const iconMap = {
 };
 
 const TerminalProficiency = ({ title, data, bgColors = {}, isCollapsed = false, onToggleCollapse }) => {
-    // We don't flatten anymore, we iterate over sections.
-
-    if (!data || data.length === 0) return null;
-
     const [expandedItems, setExpandedItems] = useState({});
+    const nodeRef = useRef(null);
+
+    // Touch screens (phones/tablets): dragging is disabled so taps on the
+    // title bar behave like normal clicks instead of starting a drag.
+    const [isTouch] = useState(
+        () => typeof window !== "undefined" && !!window.matchMedia && window.matchMedia("(pointer: coarse)").matches
+    );
 
     // Draggable Snap-Back Logic
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -106,6 +109,23 @@ const TerminalProficiency = ({ title, data, bgColors = {}, isCollapsed = false, 
         setPosition({ x: 0, y: 0 });
     };
 
+    // Expand/collapse from an explicit control. Stops the click from also
+    // reaching the (collapsed) terminal body, which toggles on click too.
+    const handleToggle = (e) => {
+        e.stopPropagation();
+        const wasExpanded = !isCollapsed;
+        onToggleCollapse();
+        // After collapsing a long list, bring the terminal back into view
+        if (wasExpanded) {
+            requestAnimationFrame(() => {
+                const el = nodeRef.current;
+                if (!el) return;
+                const top = el.getBoundingClientRect().top;
+                if (top < 0) window.scrollTo({ top: window.scrollY + top - 100, behavior: "smooth" });
+            });
+        }
+    };
+
     const toggleItem = (uniqueId) => {
         setExpandedItems((prev) => ({
             ...prev,
@@ -120,28 +140,36 @@ const TerminalProficiency = ({ title, data, bgColors = {}, isCollapsed = false, 
         return `[${bar.padEnd(totalChars + 1, " ")}] ${percent}%`;
     };
 
+    if (!data || data.length === 0) return null;
 
 
     return (
         <Draggable
+            nodeRef={nodeRef}
             handle=".terminal-header"
+            cancel=".no-drag"
+            disabled={isTouch}
             position={position}
             onStart={handleStart}
             onDrag={handleDrag}
             onStop={handleStop}
         >
             <div
+                ref={nodeRef}
                 className={`w-full max-w-[900px] mx-auto my-10 rounded-lg overflow-hidden shadow-2xl bg-[#0f111a]/90 backdrop-blur-md font-mono text-sm md:text-base border border-gray-800 relative z-10 
                 ${!isDragging ? "transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]" : ""}`}
             >
                 {/* Window Title Bar */}
-                <div className="terminal-header bg-[#1a1b26] px-4 py-2 flex items-center gap-2 border-b border-gray-800 cursor-move">
+                <div className={`terminal-header bg-[#1a1b26] px-4 py-2 flex items-center gap-2 border-b border-gray-800 ${isTouch ? "" : "cursor-move"}`}>
                     <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                    <div
-                        className="w-3 h-3 rounded-full bg-[#ffbd2e] cursor-pointer hover:bg-yellow-400 transition-colors"
-                        onClick={onToggleCollapse}
+                    <button
+                        type="button"
+                        className="no-drag relative w-3 h-3 rounded-full bg-[#ffbd2e] cursor-pointer hover:bg-yellow-400 transition-colors after:content-[''] after:absolute after:-inset-2"
+                        onClick={handleToggle}
                         title={isCollapsed ? "Expand" : "Collapse"}
-                    ></div>
+                        aria-label={isCollapsed ? "Expand technologies list" : "Collapse technologies list"}
+                        aria-expanded={!isCollapsed}
+                    ></button>
                     <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
                     <div className="flex-1 flex justify-center text-xs font-sans select-none">
                         <a
@@ -292,13 +320,18 @@ const TerminalProficiency = ({ title, data, bgColors = {}, isCollapsed = false, 
                     ))}
 
                     {/* Bottom Prompt */}
-                    <div className="mt-6 flex items-center gap-2">
+                    <div className="mt-6 flex flex-wrap items-center gap-2">
                         <span className="text-green-400">swaraj@portfolio:~$</span>
-                        {isCollapsed && (
-                            <span className="text-yellow-300 drop-shadow-[0_0_6px_rgba(250,204,21,0.6)]">
-                                click to expand
-                            </span>
-                        )}
+                        <button
+                            type="button"
+                            onClick={handleToggle}
+                            aria-expanded={!isCollapsed}
+                            className="no-drag px-3 py-1.5 rounded border border-yellow-400/50 bg-yellow-400/10 text-yellow-300 hover:bg-yellow-400/20 active:bg-yellow-400/30 drop-shadow-[0_0_6px_rgba(250,204,21,0.6)] transition-colors"
+                        >
+                            {isCollapsed
+                                ? `▸ ${isTouch ? "tap" : "click"} to expand`
+                                : "▴ collapse"}
+                        </button>
                         <span className="animate-pulse bg-gray-400 w-2 h-4 block"></span>
                     </div>
                 </div>
