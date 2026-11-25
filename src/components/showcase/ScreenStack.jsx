@@ -1,9 +1,47 @@
+import { useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { usePrefersReducedMotion } from "./hooks";
+
+/**
+ * A muted, looping clip that only plays while it is the visible screen.
+ * With reduced motion it does not autoplay; the visitor gets the controls.
+ */
+const ScreenVideo = ({ screen, active, fit, position }) => {
+  const ref = useRef(null);
+  const reducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    if (active && !reducedMotion) {
+      video.play().catch(() => {}); // autoplay can be refused; the poster stays visible
+    } else {
+      video.pause();
+    }
+  }, [active, reducedMotion]);
+
+  return (
+    <video
+      ref={ref}
+      src={screen.video}
+      poster={screen.src}
+      muted
+      loop
+      playsInline
+      preload={active ? "auto" : "none"}
+      controls={reducedMotion}
+      aria-label={screen.alt}
+      className="absolute inset-0 h-full w-full"
+      style={{ objectFit: fit, objectPosition: position }}
+    />
+  );
+};
 
 /**
  * All screens stacked on top of each other; only the active one is visible,
  * so switching crossfades instead of flashing. The left/right thirds of the
  * screen act as previous/next tap zones (the device "is" the slideshow).
+ * A screen with `video` plays that clip (its `src` is the poster frame).
  */
 const ScreenStack = ({ screens, index, onPrev, onNext, fit = "cover", position = "top" }) => {
   const multiple = screens.length > 1;
@@ -11,16 +49,24 @@ const ScreenStack = ({ screens, index, onPrev, onNext, fit = "cover", position =
   return (
     <div className="absolute inset-0">
       {screens.map((screen, i) => (
-        <img
-          key={screen.src}
-          src={screen.src}
-          alt={screen.alt}
-          loading={i === 0 ? "eager" : "lazy"}
-          draggable="false"
-          className={`absolute inset-0 h-full w-full select-none transition-opacity duration-700 ease-out ${i === index ? "opacity-100" : "opacity-0"}`}
-          style={{ objectFit: fit, objectPosition: position }}
+        <div
+          key={screen.video || screen.src}
+          className={`absolute inset-0 transition-opacity duration-700 ease-out ${i === index ? "opacity-100" : "opacity-0"}`}
           aria-hidden={i !== index}
-        />
+        >
+          {screen.video ? (
+            <ScreenVideo screen={screen} active={i === index} fit={fit} position={position} />
+          ) : (
+            <img
+              src={screen.src}
+              alt={screen.alt}
+              loading={i === 0 ? "eager" : "lazy"}
+              draggable="false"
+              className="absolute inset-0 h-full w-full select-none"
+              style={{ objectFit: fit, objectPosition: position }}
+            />
+          )}
+        </div>
       ))}
 
       {multiple && (

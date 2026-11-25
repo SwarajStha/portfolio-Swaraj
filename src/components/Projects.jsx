@@ -92,6 +92,84 @@ The core of the application is built around the Android Jetpack architecture com
     },
   },
   {
+    id: "proj_virtually_done",
+    // Hidden until the gameplay media are added (see `screens` below)
+    draft: true,
+    title: "The Tipping Point: VR Climate Game",
+    category: ["xr"],
+    img: "/images/VirtuallyDone/poster.jpg",
+    images: [
+      "/images/VirtuallyDone/poster.jpg",
+      "/images/VirtuallyDone/still-2.jpg",
+      "/images/VirtuallyDone/still-3.jpg",
+    ],
+    description: `The Tipping Point is a seated, single-player VR climate escape game for Meta Quest 3, built in four days by Team Virtually Done at the hackathon of the course Extended Reality for Value Creation in Businesses (TUM School of Management and ETH Zürich, Bad Tölz, 19–22 November 2026).
+
+## Project Overview
+A trainee in a climate control room pulls budget tokens out of their own role's object, docks them in the reactor and presses Commit before the rising sea reaches the mark. Over four decades the player keeps or gives tokens and switches roles after every decade (Industry, Agriculture, City), while the desk they just left keeps playing as their **past self**. The game measures whether people still cooperate once their own past self is the one paying for a selfish choice.
+
+## What the Player Experiences
+- **Brief & Decide**: a role card shows who they are and what their side needs; they have up to 75 seconds to give tokens while the sea rises behind the glass. Commit stops the clock and the sea.
+- **Reveal**: the other desks show their gifts one by one, including the ghost of the player's past self ("You in 2030 gave 2").
+- **Role Switch**: fade to black, a year card ("2040. You are now Agriculture."), a new seat.
+- **2060 Verdict**: watching from a chair at the door, the player's three past selves give again and the wall holds or breaks.
+- **Endings**: *Flood* (the window cracks, water jets in, the room fills) or *Escape* (the sea drains, the walls sink and the ceiling lifts away into a sunset with gulls, dolphins and a whale).
+- No numbers during play: a meter with a red tipping line, the sea, a mangrove seedling and the player's own object carry all the feedback.
+
+## Business Case
+A research and training instrument: every session writes one CSV with each gift, time per stage, hesitation (tokens taken back out), wrong attempts and the outcome, so a study can compare cooperation before and after each role switch.
+
+## Main Algorithm & Logic
+- **Rules Engine in Plain C#**: no VR code, so the rules are tested without a headset. CO2 starts at 63, each decade adds 20, each token given removes 1, and at 100 the room floods.
+- **Computer Players**: a role the player played earlier replays exactly what they gave (the past self); other roles copy the average of what the others gave the decade before.
+- **Balance Checked by Tests**: all 216 gift paths are verified (for example, giving nothing in 2030 can never escape, and the highest personal score always floods).
+- **Events, Not Calls**: the stage director raises game events; views (meter, sea, seedling, ghosts, endings) only listen, so new effects plug in without touching the flow.
+- **Data-Driven**: every tunable number and player-facing text lives in ScriptableObject assets, and the room itself is generated from a written spec by Editor tools.
+
+## My Role
+Game logic, integration and builds: the rules engine, the stage flow (timer, reveal, role switch, verdict), token interaction, session logging, merging the team's work into the main scene, and the headset builds.
+
+## Team & Credits
+- **Swaraj Shrestha**: game logic, integration, builds
+- **Nils**: environment art and models, horizon, sky and lake, flood and escape endings
+- **Gloria**: room specification (with Nils and Swaraj)
+- **Melek**: player-facing texts (role cards, steps, captions, debrief lines)
+- Built on the course starter *PRISM, the XR Choice Lab*; CC0 textures from ambientCG and CC0 sounds from Freesound.
+
+## Technical Components & Technologies
+- **Engine**: Unity 6 (6000.3 LTS), Universal Render Pipeline, C#
+- **XR**: OpenXR (Meta Quest feature group), XR Interaction Toolkit 3.6, XR Hands
+- **Target**: Meta Quest 3 standalone at 72 Hz; budget of 13.9 ms per frame and under 150 draw calls, baked lighting
+- **Testing**: 121 EditMode tests (Unity Test Framework) covering rules, balance paths, log rows and endings`,
+    tech: ["Unity 6", "C#", "Meta Quest 3", "OpenXR", "XR Interaction Toolkit", "URP", "Unity Test Framework"],
+    githubLink: "https://github.com/SwarajStha/-Virtually-Done-",
+    githubPrivate: true,
+    extraLinks: [{ label: "Devpost", href: "https://devpost.com/software/virtually-done" }],
+    liveLink: "",
+    showcase: {
+      device: "headset",
+      label: "virtually-done.xr",
+      order: 3,
+      screens: [
+        // Filled in from the playthrough videos: a muted highlight clip, then stills
+        { src: "/images/VirtuallyDone/poster.jpg", video: "/videos/virtually-done-highlights.mp4", label: "Playthrough" },
+        { src: "/images/VirtuallyDone/still-2.jpg", label: "Decide" },
+        { src: "/images/VirtuallyDone/still-3.jpg", label: "Ending" },
+      ],
+      path: "~/projects/virtually-done",
+      status: "COMPLETE",
+      statusNote: "Hackathon build, Nov 2026",
+      logs: [
+        { type: "INFO", msg: "Booting Quest 3 build (OpenXR)..." },
+        { type: "DEBUG", msg: "Loading ClimateRules + RoleProfiles..." },
+        { type: "SUCCESS", msg: "121/121 EditMode tests passed" },
+        { type: "INFO", msg: "Stage 2030: Industry, 75 s to decide" },
+        { type: "DEBUG", msg: "Sea level rising..." },
+        { type: "WATCH", msg: "Waiting for COMMIT..." },
+      ],
+    },
+  },
+  {
     id: "proj_gtmagent",
     title: "GTMAgent: AI Lead-Generation Pipeline",
     category: ["ai", "web"],
@@ -524,6 +602,8 @@ More than just a static resume, this application demonstrates my frontend engine
   },
 ];
 
+const publishedProjects = projectData.filter((p) => !p.draft);
+
 const Projects = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -531,7 +611,8 @@ const Projects = () => {
   const showcaseRef = useRef(null);
 
   // Projects with a `showcase` block, in switcher order
-  const featuredProjects = projectData
+  // Projects marked `draft: true` are hidden everywhere until they are ready
+  const featuredProjects = publishedProjects
     .filter((p) => p.showcase)
     .sort((a, b) => a.showcase.order - b.showcase.order);
   const [featuredId, setFeaturedId] = useState(featuredProjects[0]?.id);
@@ -554,7 +635,7 @@ const Projects = () => {
   };
 
   // Grid: every project (featured ones too, marked with a badge)
-  const otherProjects = projectData.filter(project => {
+  const otherProjects = publishedProjects.filter(project => {
     if (activeCategory === 'all') return true;
     const cats = Array.isArray(project.category) ? project.category : [project.category];
     return cats.includes(activeCategory);

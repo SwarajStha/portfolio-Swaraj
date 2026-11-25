@@ -48,7 +48,11 @@ const FeaturedShowcase = ({ projects, activeId, onSelect, onOpen }) => {
   const project = projects[activeIndex];
   const { showcase } = project;
   const screens = normaliseScreens(showcase.screens, project.title);
-  const { index, setIndex, next, prev } = useCarousel(screens.length, { paused: hovering });
+  // Hold on a video screen so the clip can play; the visitor moves on with the arrows
+  const [videoShowing, setVideoShowing] = useState(false);
+  const { index, setIndex, next, prev } = useCarousel(screens.length, { paused: hovering || videoShowing });
+  const onVideoScreen = Boolean(screens[index]?.video);
+  if (onVideoScreen !== videoShowing) setVideoShowing(onVideoScreen);
 
   const selectTab = (i) => {
     const target = projects[(i + projects.length) % projects.length];
@@ -135,7 +139,7 @@ const FeaturedShowcase = ({ projects, activeId, onSelect, onOpen }) => {
               <div className="flex items-center gap-1.5">
                 {screens.map((s, i) => (
                   <button
-                    key={s.src}
+                    key={s.video || s.src}
                     type="button"
                     onClick={() => setIndex(i)}
                     aria-label={`Show ${s.label || `screen ${i + 1}`}`}

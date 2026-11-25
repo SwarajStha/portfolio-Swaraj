@@ -215,6 +215,11 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                                                 [<FaExternalLinkAlt size={12} /> Live Demo]
                                             </a>
                                         )}
+                                        {project.extraLinks?.map((link) => (
+                                            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:underline">
+                                                [<FaExternalLinkAlt size={12} /> {link.label}]
+                                            </a>
+                                        ))}
                                         {Array.isArray(project.githubLink) ? (
                                             // Multiple GitHub links
                                             project.githubLink.map((link, idx) => (
@@ -225,7 +230,7 @@ const ProjectEditorModal = ({ project, isOpen, onRequestClose }) => {
                                         ) : project.githubLink ? (
                                             // Single GitHub link
                                             <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:underline">
-                                                [<FaGithub size={12} /> Source Code]
+                                                [<FaGithub size={12} /> {project.githubPrivate ? "Source Code (private)" : "Source Code"}]
                                             </a>
                                         ) : (
                                             // No GitHub link
