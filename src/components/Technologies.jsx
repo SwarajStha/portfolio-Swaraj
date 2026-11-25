@@ -386,17 +386,17 @@ const sectionCategories = [
 // Hand-drawn style annotation used for the Drag / Expand / Collapse hints
 const Annotation = ({ label, className = "", style, textClass, textStyle, svgSize, path, markerId, onClick }) => (
   <div
-    className={`absolute z-40 hidden md:block ${onClick ? "cursor-pointer" : ""} ${className}`}
+    className={`absolute z-40 hidden md:block pointer-events-none ${className}`}
     style={style}
-    onClick={onClick}
   >
     <span
-      className={`text-yellow-400 block -rotate-12 text-center ${textClass}`}
+      className={`text-yellow-400 block -rotate-12 text-center ${onClick ? "pointer-events-auto cursor-pointer" : ""} ${textClass}`}
       style={{ fontFamily: '"Patrick Hand", cursive', ...textStyle }}
+      onClick={onClick}
     >
       {label}
     </span>
-    <svg width={svgSize[0]} height={svgSize[1]} viewBox={`0 0 ${svgSize[0]} ${svgSize[1]}`} className="opacity-80">
+    <svg width={svgSize[0]} height={svgSize[1]} viewBox={`0 0 ${svgSize[0]} ${svgSize[1]}`} className="opacity-80 pointer-events-none">
       <path
         d={path}
         stroke="#FACC15"
