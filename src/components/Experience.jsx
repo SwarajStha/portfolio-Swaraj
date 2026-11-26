@@ -1,8 +1,21 @@
 // src/components/Experience.jsx
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import ExperienceCard from "./ExperienceCard";
 import ExperienceModal from "./ExperienceModal";
+import { buildGraph } from "./gitgraph/buildGraph";
+import OptionLanes from "./gitgraph/OptionLanes";
+import OptionCenter from "./gitgraph/OptionCenter";
+import OptionTerminal from "./gitgraph/OptionTerminal";
+
+// REVIEW ONLY: ?graph=a|b|c previews the new git-graph layouts
+const GRAPH_OPTIONS = {
+  a: { name: "A · VS Code lanes", Component: OptionLanes },
+  b: { name: "B · Center graph", Component: OptionCenter },
+  c: { name: "C · git log terminal", Component: OptionTerminal },
+};
+const graphParam = () =>
+  typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("graph");
 
 const experienceData = [
   {
@@ -169,6 +182,9 @@ const experienceData = [
 ];
 
 const Experience = () => {
+  const [graphOption, setGraphOption] = useState(graphParam);
+  const graph = useMemo(() => buildGraph(experienceData), []);
+  const Preview = GRAPH_OPTIONS[graphOption]?.Component;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState(null);
 
@@ -205,6 +221,28 @@ const Experience = () => {
               </p>
             </div>
 
+            {graphOption && (
+              <div className="mb-10 flex flex-wrap justify-center gap-2 font-mono text-xs">
+                <span className="self-center text-gray-400">preview:</span>
+                {Object.entries(GRAPH_OPTIONS).map(([key, opt]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => {
+                      setGraphOption(key);
+                      window.history.replaceState(null, "", `?graph=${key}#experience`);
+                    }}
+                    className={`rounded border px-3 py-1 ${graphOption === key ? "border-cyan-400 bg-cyan-400/15 text-cyan-300" : "border-gray-600 text-gray-300 hover:bg-white/5"}`}
+                  >
+                    {opt.name}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {Preview ? (
+              <Preview graph={graph} onSelect={handleOpenModal} />
+            ) : (
             <div className="relative">
               {/* GIT GRAPH TRACKS (Desktop) */}
               {/* Track 1: Main (White) - Right Side */}
@@ -294,6 +332,7 @@ const Experience = () => {
 
               </div>
             </div>
+            )}
           </div>
         </div>
       </div>

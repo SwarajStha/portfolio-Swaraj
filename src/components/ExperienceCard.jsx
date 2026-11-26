@@ -2,7 +2,7 @@
 // as they are now handled by the parent timeline structure.
 
 // Helper to generate slug from text
-const ExperienceCard = ({ experience, onSelect }) => {
+const ExperienceCard = ({ experience, onSelect, isHead = false, branchColor }) => {
   const toSlug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
   // Extract info for "ls -l" style string
@@ -41,7 +41,9 @@ const ExperienceCard = ({ experience, onSelect }) => {
 
       {/* Branch Info */}
       <div className="flex items-center gap-2 mb-3 font-mono text-xs">
-        <span className="text-blue-400">({experience.branch})</span>
+        <span className="text-blue-400" style={branchColor ? { color: branchColor } : undefined}>
+          ({isHead && <span className="font-bold text-cyan-300">HEAD -&gt; </span>}{experience.branch})
+        </span>
         <span className="h-px bg-gray-700 flex-grow"></span>
       </div>
 
