@@ -1,6 +1,5 @@
 // Turns the experience list into a git-style commit graph:
-//   - every role is a commit on its `branch`, dated by its end month
-//     (a role that is still "Present" is the newest commit)
+//   - every role is a commit on its `branch`, dated by its start month
 //   - a feature branch forks off the main commit just before its first role
 //   - a feature branch merges back into main when its last role ends
 //     (no merge while a role on it is still "Present")
@@ -10,8 +9,6 @@ const MONTHS = {
   january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
   july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
 };
-
-const PRESENT = Number.MAX_SAFE_INTEGER;
 
 // "September 2022" -> months since year 0 (sortable); "Present" -> null
 const parseMonth = (text) => {
@@ -51,7 +48,7 @@ export const buildGraph = (experiences, mainBranch = "main") => {
       hash: exp.commitHash,
       start: parseMonth(startText),
       end: parseMonth(endText), // null = Present
-      date: parseMonth(endText) ?? PRESENT,
+      date: parseMonth(startText),
     };
   });
 
