@@ -102,7 +102,7 @@ All site content lives in data arrays at the top of each component, so most upda
 | To change… | Edit |
 |---|---|
 | Education and coursework | `educationData` in [`src/components/Education.jsx`](src/components/Education.jsx) |
-| Work experience | `experienceData` in [`src/components/Experience.jsx`](src/components/Experience.jsx) |
+| Work experience | `experienceData` in [`src/components/Experience.jsx`](src/components/Experience.jsx). Give each role a `branch` (`main` or a `feature/…` name); its lane, fork and merge in the graph are worked out automatically by [`src/components/gitgraph/buildGraph.js`](src/components/gitgraph/buildGraph.js) |
 | Projects and project filters | `projectData` and `categories` in [`src/components/Projects.jsx`](src/components/Projects.jsx) |
 | Featured showcase | Add a `showcase` block to a project in `projectData` (format documented at the top of the file); device frames are in [`src/components/showcase/`](src/components/showcase) |
 | Technologies | `techSections` in [`src/components/Technologies.jsx`](src/components/Technologies.jsx) |
