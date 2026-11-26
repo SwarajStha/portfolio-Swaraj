@@ -19,7 +19,7 @@ One card per school (TUM, Saint Mary's University, Rato Bangala School). **View 
 ![Education section](docs/screenshots/education.jpg)
 
 ### Experience
-A timeline styled like `git log --graph`. Each role is a "commit" card with a hash, a branch (`main` or a `feature/…` branch) and an `[ACTIVE]` or `[STABLE]` tag. Clicking a card opens the full role description.
+A timeline drawn as a real `git log --graph`. Each role is a "commit" card with a hash, a branch and an `[ACTIVE]` or `[STABLE]` tag. Jobs sit on `main` (on the right, with the current role as `HEAD`); university roles live on `feature/…` branches (on the left) that fork off `main` and merge back when the last role on them ends, with parallel branches in their own coloured lanes. Clicking a card opens the full role description.
 
 ![Experience section](docs/screenshots/experience.jpg)
 
