@@ -1,21 +1,13 @@
 // src/components/Experience.jsx
 
 import { useMemo, useState } from "react";
-import ExperienceCard from "./ExperienceCard";
 import ExperienceModal from "./ExperienceModal";
 import { buildGraph } from "./gitgraph/buildGraph";
-import OptionLanes from "./gitgraph/OptionLanes";
-import OptionCenter from "./gitgraph/OptionCenter";
-import OptionTerminal from "./gitgraph/OptionTerminal";
+import GitGraphTimeline from "./gitgraph/GitGraphTimeline";
 
-// REVIEW ONLY: ?graph=a|b|c previews the new git-graph layouts
-const GRAPH_OPTIONS = {
-  a: { name: "A · VS Code lanes", Component: OptionLanes },
-  b: { name: "B · Center graph", Component: OptionCenter },
-  c: { name: "C · git log terminal", Component: OptionTerminal },
-};
-const graphParam = () =>
-  typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("graph");
+// Each role is a commit on its `branch`. Feature branches fork off main
+// before their first role and merge back when their last role ends; the
+// graph (lanes, forks, merges) is derived in gitgraph/buildGraph.js.
 
 const experienceData = [
   {
@@ -182,9 +174,7 @@ const experienceData = [
 ];
 
 const Experience = () => {
-  const [graphOption, setGraphOption] = useState(graphParam);
   const graph = useMemo(() => buildGraph(experienceData), []);
-  const Preview = GRAPH_OPTIONS[graphOption]?.Component;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState(null);
 
@@ -221,118 +211,7 @@ const Experience = () => {
               </p>
             </div>
 
-            {graphOption && (
-              <div className="mb-10 flex flex-wrap justify-center gap-2 font-mono text-xs">
-                <span className="self-center text-gray-400">preview:</span>
-                {Object.entries(GRAPH_OPTIONS).map(([key, opt]) => (
-                  <button
-                    key={key}
-                    type="button"
-                    onClick={() => {
-                      setGraphOption(key);
-                      window.history.replaceState(null, "", `?graph=${key}#experience`);
-                    }}
-                    className={`rounded border px-3 py-1 ${graphOption === key ? "border-cyan-400 bg-cyan-400/15 text-cyan-300" : "border-gray-600 text-gray-300 hover:bg-white/5"}`}
-                  >
-                    {opt.name}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {Preview ? (
-              <Preview graph={graph} onSelect={handleOpenModal} />
-            ) : (
-            <div className="relative">
-              {/* GIT GRAPH TRACKS (Desktop) */}
-              {/* Track 1: Main (White) - Right Side */}
-              <div className="hidden md:block absolute top-0 left-[51%] w-0.5 h-full bg-white/30"></div>
-              {/* Track 2: Feature/Academic (Cyan) - Left Side */}
-              <div className="hidden md:block absolute top-0 left-[49%] w-0.5 h-full bg-cyan-400/30"></div>
-
-              {/* MOBILE VIEW (Stacked) */}
-              <div className="md:hidden space-y-8">
-                {experienceData.map((item, index) => (
-                  <div key={index} className="relative pl-8">
-                    {/* Mobile Timeline Line */}
-                    <div className="absolute top-0 left-0 w-0.5 h-full bg-white/75"></div>
-                    {/* Mobile Dot */}
-                    <div className="absolute top-8 -left-[7px] w-4 h-4 bg-cyan-400 rounded-full border-4 border-slate-700"></div>
-
-                    <ExperienceCard
-                      experience={item}
-                      onSelect={() => handleOpenModal(item)}
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* DESKTOP VIEW (2-Column Dense) */}
-              <div className="hidden md:flex flex-row justify-center items-start w-full">
-
-                {/* LEFT COLUMN (Odd indices: 1, 3, 5...) */}
-                <div className="w-1/2 pr-16 flex flex-col gap-8 pt-32">
-                  {experienceData.map((item, index) => {
-                    if (index % 2 === 0) return null; // Skip even items
-                    const isMain = item.branch === 'main';
-                    return (
-                      <div key={index} className="relative w-full">
-                        <ExperienceCard
-                          experience={item}
-                          onSelect={() => handleOpenModal(item)}
-                        />
-                        {/* Connector Logic for Left Column */}
-                        {isMain ? (
-                          // Connects to RIGHT Track (Main/White) - Crosses over
-                          <div className="absolute top-8 -right-[4.5rem] w-[4.5rem] flex items-center justify-end z-20">
-                            <div className="w-full h-px bg-white/50"></div>
-                            <div className="w-3 h-3 bg-white rounded-full border-2 border-slate-900 absolute -right-[1.5px]"></div>
-                          </div>
-                        ) : (
-                          // Connects to LEFT Track (Feature/Cyan) - Standard
-                          <div className="absolute top-8 -right-16 w-16 flex items-center justify-end z-20">
-                            <div className="w-full h-px bg-cyan-400/50"></div>
-                            <div className="w-3 h-3 bg-cyan-400 rounded-full border-2 border-slate-900 absolute -right-[1.5px]"></div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* RIGHT COLUMN (Even indices: 0, 2, 4...) */}
-                <div className="w-1/2 pl-16 flex flex-col gap-8">
-                  {experienceData.map((item, index) => {
-                    if (index % 2 !== 0) return null; // Skip odd items
-                    const isMain = item.branch === 'main';
-                    return (
-                      <div key={index} className="relative w-full">
-                        <ExperienceCard
-                          experience={item}
-                          onSelect={() => handleOpenModal(item)}
-                        />
-                        {/* Connector Logic for Right Column */}
-                        {isMain ? (
-                          // Connects to RIGHT Track (Main/White) - Standard
-                          <div className="absolute top-8 -left-16 w-16 flex items-center z-20">
-                            <div className="w-3 h-3 bg-white rounded-full border-2 border-slate-900 absolute -left-[1.5px]"></div>
-                            <div className="w-full h-px bg-white/50"></div>
-                          </div>
-                        ) : (
-                          // Connects to LEFT Track (Feature/Cyan) - Crosses over
-                          <div className="absolute top-8 -left-[4.5rem] w-[4.5rem] flex items-center z-20">
-                            <div className="w-3 h-3 bg-cyan-400 rounded-full border-2 border-slate-900 absolute -left-[1.5px]"></div>
-                            <div className="w-full h-px bg-cyan-400/50"></div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-
-              </div>
-            </div>
-            )}
+            <GitGraphTimeline graph={graph} onSelect={handleOpenModal} />
           </div>
         </div>
       </div>

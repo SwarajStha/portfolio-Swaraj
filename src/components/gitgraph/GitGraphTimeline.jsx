@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import ExperienceCard from "../ExperienceCard";
 import GraphSvg from "./GraphSvg";
-import { MergeRow } from "./shared";
+import MergeRow from "./MergeRow";
 
 const LANE_GAP = 24;
 const CARD_ANCHOR = 34;
@@ -11,12 +11,12 @@ const SIDE_GAP = 28; // space between cards on the same side
 const WIDE = 768;
 
 /**
- * Option B, "center graph": the graph runs down the middle; main-line
+ * Experience timeline as a git graph: the graph runs down the middle; main-line
  * commits sit on the right, feature-branch commits on the left. Cards on
  * opposite sides may overlap vertically (dense, like the current timeline)
  * but dots stay in strict time order. Phones fall back to one column.
  */
-const OptionCenter = ({ graph, onSelect }) => {
+const GitGraphTimeline = ({ graph, onSelect }) => {
   const ref = useRef(null);
   const rowRefs = useRef([]);
   const [width, setWidth] = useState(0);
@@ -102,4 +102,4 @@ const OptionCenter = ({ graph, onSelect }) => {
   );
 };
 
-export default OptionCenter;
+export default GitGraphTimeline;
